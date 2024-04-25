@@ -1,7 +1,6 @@
 package com.nniett.kikaishin.web.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nniett.kikaishin.web.persistence.Constants;
 import com.nniett.kikaishin.web.persistence.entity.construction.TextMutableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

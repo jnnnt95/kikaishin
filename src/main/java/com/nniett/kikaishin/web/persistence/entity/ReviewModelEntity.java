@@ -40,5 +40,6 @@ public class ReviewModelEntity {
             referencedColumnName = "id",
             updatable = false,
             insertable = false)
+    @JsonIgnore
     private QuestionEntity question;
 }
