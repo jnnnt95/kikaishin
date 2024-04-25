@@ -1,16 +1,11 @@
 package com.nniett.kikaishin.web.controller.web;
 
-import com.nniett.kikaishin.web.service.ShelfService;
-import com.nniett.kikaishin.web.service.pojo.Shelf;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/shelves")
-public class ShelfController {
+@RequestMapping("/api/books")
+public class BookController {
 
     //TODO: service impl
 

@@ -1,5 +1,6 @@
-package com.nniett.kikaishin.web.persistence.entity.sup.auditing;
+package com.nniett.kikaishin.web.persistence.entity.construction;
 
+import com.nniett.kikaishin.web.persistence.Constants;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 @Setter
 public abstract class ImmutableEntity {
 
-    @Column(name = "create_date", nullable = false)
+    @Column(name = Constants.CREATION_DATE_COLUMN_NAME, nullable = false)
     @CreatedDate
-    LocalDateTime creationDate;
+    private LocalDateTime creationDate;
 
 }

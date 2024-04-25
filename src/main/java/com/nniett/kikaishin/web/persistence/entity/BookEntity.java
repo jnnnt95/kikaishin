@@ -10,30 +10,30 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "shelf")
+@Table(name = "book")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShelfEntity  extends DescribableActivateableMutableEntity {
+public class BookEntity extends DescribableActivateableMutableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
 
-    @Column(nullable = false, name = "user_fk", columnDefinition = "VARCHAR(16)")
-    private String username;
+    @Column(nullable = false, name = "shelf_fk")
+    private Integer shelfId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            foreignKey = @ForeignKey(name = "shelf_user_fk"),
-            name = "user_fk",
+            foreignKey = @ForeignKey(name = "book_shelf_fk"),
+            name = "shelf_fk",
             insertable = false,
             updatable = false)
     @JsonIgnore
-    private UserEntity user;
+    private ShelfEntity shelf;
 
-    @OneToMany(mappedBy = "shelfId", fetch = FetchType.LAZY)
-    private List<BookEntity> books;
+    @OneToMany(mappedBy = "bookId", fetch = FetchType.LAZY)
+    private List<TopicEntity> topics;
 
 }

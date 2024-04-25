@@ -1,6 +1,6 @@
 package com.nniett.kikaishin.web.persistence.entity;
 
-import com.nniett.kikaishin.web.persistence.entity.sup.auditing.MutableEntity;
+import com.nniett.kikaishin.web.persistence.entity.construction.MutableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class UserEntity extends MutableEntity {
     @Column(name = "display_name", nullable = false, columnDefinition = "VARCHAR(25)")
     private String displayName;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(25)")
+    @Column(unique = true, nullable = false, columnDefinition = "VARCHAR(25)")
     private String email;
 
     @OneToMany(mappedBy = "username", fetch = FetchType.LAZY)

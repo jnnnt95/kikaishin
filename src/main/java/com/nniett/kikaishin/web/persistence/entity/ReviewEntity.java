@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.web.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nniett.kikaishin.web.persistence.entity.construction.DescribableActivateableMutableEntity;
+import com.nniett.kikaishin.web.persistence.entity.construction.ImmutableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +10,11 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "shelf")
+@Table(name = "review")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShelfEntity  extends DescribableActivateableMutableEntity {
+public class ReviewEntity extends ImmutableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,14 @@ public class ShelfEntity  extends DescribableActivateableMutableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            foreignKey = @ForeignKey(name = "shelf_user_fk"),
+            foreignKey = @ForeignKey(name = "review_user_fk"),
             name = "user_fk",
             insertable = false,
             updatable = false)
     @JsonIgnore
     private UserEntity user;
 
-    @OneToMany(mappedBy = "shelfId", fetch = FetchType.LAZY)
-    private List<BookEntity> books;
+    @OneToMany(mappedBy = "reviewId", fetch = FetchType.LAZY)
+    private List<QuestionReviewGradeEntity> questionReviewGrades;
 
 }
