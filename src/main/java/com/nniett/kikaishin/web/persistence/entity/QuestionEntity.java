@@ -33,13 +33,18 @@ public class QuestionEntity extends ActivateableTextMutableEntity {
     @JsonIgnore
     private TopicEntity topic;
 
-    @OneToMany(mappedBy = "questionId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answers;
 
-    @OneToMany(mappedBy = "questionId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ClueEntity> clues;
 
-    @OneToMany(mappedBy = "questionId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<QuestionReviewGradeEntity> questionReviewGrades;
+
+    @OneToOne(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private ReviewModelEntity reviewModel;
 
 }

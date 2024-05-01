@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
 
 @Entity
 @Table(name = "book")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,7 +35,7 @@ public class BookEntity extends DescribableActivateableMutableEntity {
     @JsonIgnore
     private ShelfEntity shelf;
 
-    @OneToMany(mappedBy = "bookId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bookId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<TopicEntity> topics;
 
 }

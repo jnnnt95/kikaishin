@@ -36,7 +36,7 @@ public class TopicEntity extends DescribableActivateableMutableEntity {
     @JsonIgnore
     private BookEntity book;
 
-    @OneToMany(mappedBy = "topicId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "topicId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<QuestionEntity> questions;
 
 }

@@ -1,6 +1,6 @@
 package com.nniett.kikaishin.web.persistence.entity.construction;
 
-import com.nniett.kikaishin.web.persistence.Constants;
+import com.nniett.kikaishin.common.Constants;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
