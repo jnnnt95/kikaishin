@@ -1,8 +1,6 @@
 package com.nniett.kikaishin.app.persistence.repository;
 
 import com.nniett.kikaishin.app.persistence.entity.AnswerEntity;
-import com.nniett.kikaishin.app.persistence.entity.BookEntity;
-import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;

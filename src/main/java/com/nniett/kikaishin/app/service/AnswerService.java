@@ -1,9 +1,7 @@
 package com.nniett.kikaishin.app.service;
 
 import com.nniett.kikaishin.app.persistence.entity.AnswerEntity;
-import com.nniett.kikaishin.app.persistence.entity.ReviewEntity;
 import com.nniett.kikaishin.app.persistence.repository.AnswerRepository;
-import com.nniett.kikaishin.app.persistence.repository.QuestionRepository;
 import com.nniett.kikaishin.app.service.construction.Service;
 import com.nniett.kikaishin.app.service.crud.answer.AnswerCreateService;
 import com.nniett.kikaishin.app.service.crud.answer.AnswerDeleteService;
@@ -47,7 +45,7 @@ public class AnswerService
 
     @Override
     public AnswerEntity readEntity(Integer id) {
-        return getRepository().findById(id).get();
+        return getRepository().findById(id).orElseThrow();
     }
 
     @Override

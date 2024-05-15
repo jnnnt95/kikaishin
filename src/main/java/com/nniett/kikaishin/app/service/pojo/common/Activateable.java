@@ -1,7 +1,5 @@
 package com.nniett.kikaishin.app.service.pojo.common;
 
-import com.nniett.kikaishin.app.service.pojo.dto.CreationDto;
-
 import java.util.List;
 
 public interface Activateable {

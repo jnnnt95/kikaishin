@@ -1,6 +1,5 @@
 package com.nniett.kikaishin.app.persistence.repository.virtual;
 
-import com.nniett.kikaishin.app.persistence.entity.virtual.BookInfoVirtualEntity;
 import com.nniett.kikaishin.app.persistence.entity.virtual.ShelfInfoVirtualEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

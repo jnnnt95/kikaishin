@@ -5,9 +5,7 @@ import com.nniett.kikaishin.app.service.pojo.dto.CreationDtoWithChildren;
 import com.nniett.kikaishin.app.service.pojo.dto.CreationDtoWithParent;
 import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -18,8 +16,6 @@ public class BookCreationDto implements CreationDtoWithChildren<Integer, TopicCr
 
     private Integer bookId;
 
-    //@Min(value = 1, message = "Provided Shelf id not valid.")
-    //@NotNull(message = "Shelf id must be provided.")
     private Integer shelfId;
 
     @NotBlank(message = "Name cannot be empty.")

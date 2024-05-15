@@ -1,16 +1,11 @@
 package com.nniett.kikaishin.app.persistence.repository.virtual;
 
-import com.nniett.kikaishin.app.persistence.entity.virtual.ShelfInfoVirtualEntity;
 import com.nniett.kikaishin.app.persistence.entity.virtual.UserInfoVirtualEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-import static com.nniett.kikaishin.app.persistence.entity.virtual.GenericUtils.buildQueryWithPreparationList;
-import static com.nniett.kikaishin.common.SqlConstants.GET___SHELVES_INFO___QUERY;
 import static com.nniett.kikaishin.common.SqlConstants.GET___USER_INFO___QUERY;
 
 @Component

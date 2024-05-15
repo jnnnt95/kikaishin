@@ -1,10 +1,8 @@
 package com.nniett.kikaishin.app.service.pojo.dto.topic;
 
-import com.nniett.kikaishin.common.Constants;
 import com.nniett.kikaishin.app.service.pojo.dto.ActivateableUpdateDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data

@@ -40,7 +40,7 @@ public abstract class UpdateService
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public POJO update(POJO pojo) {
-        ENTITY entity = getRepository().findById(pojo.getPK()).get();
+        ENTITY entity = getRepository().findById(pojo.getPK()).orElseThrow();
         populateEntityForUpdate(entity, pojo);
         return entityPojoMapper.toPojo(repository.save(entity));
     }

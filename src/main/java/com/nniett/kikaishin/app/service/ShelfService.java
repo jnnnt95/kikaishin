@@ -1,7 +1,6 @@
 package com.nniett.kikaishin.app.service;
 
 import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
-import com.nniett.kikaishin.app.persistence.repository.BookRepository;
 import com.nniett.kikaishin.app.persistence.repository.ShelfRepository;
 import com.nniett.kikaishin.app.persistence.repository.virtual.ShelfInfoVirtualRepository;
 import com.nniett.kikaishin.app.service.construction.*;
@@ -10,7 +9,6 @@ import com.nniett.kikaishin.app.service.crud.shelf.ShelfDeleteService;
 import com.nniett.kikaishin.app.service.crud.shelf.ShelfReadService;
 import com.nniett.kikaishin.app.service.crud.shelf.ShelfUpdateService;
 import com.nniett.kikaishin.app.service.mapper.ShelfInfoMapper;
-import com.nniett.kikaishin.app.service.pojo.BookInfo;
 import com.nniett.kikaishin.app.service.pojo.Shelf;
 import com.nniett.kikaishin.app.service.pojo.ShelfInfo;
 import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfCreationDto;
@@ -64,7 +62,7 @@ public class ShelfService
 
     @Override
     public ShelfEntity findEntityByDto(ShelfUpdateDto shelfUpdateDto) {
-        return getRepository().findById(shelfUpdateDto.getShelfId()).get();
+        return getRepository().findById(shelfUpdateDto.getShelfId()).orElseThrow();
     }
 
     public Shelf getShelfById(int id) {

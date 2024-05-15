@@ -18,11 +18,14 @@ public interface ShelfUpdateMapper extends DtoPojoMapper<ShelfUpdateDto, Shelf> 
             @Mapping(source = "description", target = "description", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE),
             @Mapping(source = "active", target = "active"),
             @Mapping(source = "shelfId", target = "shelfId"),
+
             @Mapping(target = "books", ignore = true),
             @Mapping(target = "username", ignore = true),
             @Mapping(target = "creationDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
-            @Mapping(target = "user", ignore = true)
+            @Mapping(target = "user", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public Shelf toPojo(ShelfUpdateDto dto);
+    Shelf toPojo(ShelfUpdateDto dto);
 }

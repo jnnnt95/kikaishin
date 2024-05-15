@@ -4,7 +4,6 @@ import com.nniett.kikaishin.app.controller.construction.*;
 import com.nniett.kikaishin.app.persistence.entity.ReviewEntity;
 import com.nniett.kikaishin.app.service.ReviewService;
 import com.nniett.kikaishin.app.service.pojo.Review;
-import com.nniett.kikaishin.app.service.pojo.ReviewableQuestion;
 import com.nniett.kikaishin.app.service.pojo.dto.review.ReviewCreationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;

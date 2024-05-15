@@ -2,9 +2,7 @@ package com.nniett.kikaishin.app.service.mapper.dto.clue;
 
 
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
-import com.nniett.kikaishin.app.service.pojo.Answer;
 import com.nniett.kikaishin.app.service.pojo.Clue;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerUpdateDto;
 import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueUpdateDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -24,11 +22,12 @@ public interface ClueUpdateMapper extends DtoPojoMapper<ClueUpdateDto, Clue> {
             @Mapping(target = "questionId", ignore = true),
             @Mapping(target = "createDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
-            @Mapping(target = "question", ignore = true)
+            @Mapping(target = "question", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public Clue toPojo(ClueUpdateDto dto);
+    Clue toPojo(ClueUpdateDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public ClueUpdateDto toDto(Clue pojo);
+    ClueUpdateDto toDto(Clue pojo);
 }

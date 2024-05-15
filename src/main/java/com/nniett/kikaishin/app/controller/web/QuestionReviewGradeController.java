@@ -3,7 +3,6 @@ package com.nniett.kikaishin.app.controller.web;
 import com.nniett.kikaishin.app.controller.construction.ImmutableController;
 import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
 import com.nniett.kikaishin.app.service.QuestionReviewGradeService;
-import com.nniett.kikaishin.app.service.ReviewService;
 import com.nniett.kikaishin.app.service.pojo.QuestionReviewGrade;
 import com.nniett.kikaishin.app.service.pojo.dto.questionreviewgrade.QuestionReviewGradeCreationDto;
 import org.springframework.http.ResponseEntity;

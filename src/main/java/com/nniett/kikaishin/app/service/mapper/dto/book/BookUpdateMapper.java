@@ -25,7 +25,9 @@ public interface BookUpdateMapper extends DtoPojoMapper<BookUpdateDto, Book> {
             @Mapping(target = "creationDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
             @Mapping(target = "topics", ignore = true),
-            @Mapping(target = "parentShelf", ignore = true)
+            @Mapping(target = "parentShelf", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public Book toPojo(BookUpdateDto dto);
+    Book toPojo(BookUpdateDto dto);
 }

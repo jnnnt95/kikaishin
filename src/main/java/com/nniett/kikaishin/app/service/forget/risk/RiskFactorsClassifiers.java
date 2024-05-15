@@ -4,7 +4,6 @@ import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
 import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
 import com.nniett.kikaishin.app.persistence.entity.ReviewModelEntity;
 import com.nniett.kikaishin.app.service.pojo.RecommendedQuestion;
-import jakarta.transaction.NotSupportedException;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -13,7 +12,7 @@ import java.util.function.Function;
 
 public final class RiskFactorsClassifiers {
 
-    private RiskFactorsClassifiers(){};
+    private RiskFactorsClassifiers(){}
 
     public enum Classifier {
         high,

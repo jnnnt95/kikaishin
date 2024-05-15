@@ -1,8 +1,6 @@
 package com.nniett.kikaishin.app.service.mapper;
 
-import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
 import com.nniett.kikaishin.app.persistence.entity.UserEntity;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
 import com.nniett.kikaishin.app.service.pojo.User;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -17,7 +15,9 @@ public interface UserMapper  extends EntityPojoMapper<UserEntity, User> {
             @Mapping(source = "username", target = "username"),
             @Mapping(source = "displayName", target = "displayName"),
             @Mapping(source = "email", target = "email"),
-            @Mapping(source = "shelves", target = "shelves")
+            @Mapping(source = "shelves", target = "shelves"),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "children", ignore = true)
     })
     User toPojo(UserEntity entity);
     @Override

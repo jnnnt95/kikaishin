@@ -1,10 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
-import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
 import com.nniett.kikaishin.app.persistence.entity.virtual.ReviewableQuestionVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.Question;
 import com.nniett.kikaishin.app.service.pojo.ReviewableQuestion;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

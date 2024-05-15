@@ -3,7 +3,6 @@ package com.nniett.kikaishin.app.controller.web;
 import com.nniett.kikaishin.app.controller.construction.Controller;
 import com.nniett.kikaishin.app.persistence.entity.UserEntity;
 import com.nniett.kikaishin.app.service.UserService;
-import com.nniett.kikaishin.app.service.pojo.ShelfInfo;
 import com.nniett.kikaishin.app.service.pojo.User;
 import com.nniett.kikaishin.app.service.pojo.UserInfo;
 import com.nniett.kikaishin.app.service.pojo.dto.user.UserCreationDto;
@@ -36,13 +35,13 @@ public class UserController extends Controller
 
     @PostMapping("/password/update")
     public ResponseEntity<Void> changePassword() {
-        //TODO
+        //TODO implementation of changing password for authenticated user.
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/display_name/update")
     public ResponseEntity<Void> changeDisplayName() {
-        //TODO
+        //TODO implementation of changing display name for authenticated user.
         return ResponseEntity.ok().build();
     }
 

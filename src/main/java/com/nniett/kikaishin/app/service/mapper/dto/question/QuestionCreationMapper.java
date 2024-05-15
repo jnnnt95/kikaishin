@@ -6,8 +6,6 @@ import com.nniett.kikaishin.app.service.mapper.dto.answer.AnswerCreationMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.clue.ClueCreationMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.reviewmodel.ReviewModelCreationMapper;
 import com.nniett.kikaishin.app.service.pojo.Question;
-import com.nniett.kikaishin.app.service.pojo.ReviewModel;
-import com.nniett.kikaishin.app.service.pojo.Topic;
 import com.nniett.kikaishin.app.service.pojo.dto.question.QuestionCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -33,18 +31,17 @@ public interface QuestionCreationMapper extends DtoPojoMapper<QuestionCreationDt
             @Mapping(source = "clues", target = "clues"),
 
 
-
-
             @Mapping(target = "questionId", ignore = true),
             @Mapping(target = "active", ignore = true),
             @Mapping(target = "createDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
             @Mapping(target = "reviewGrades", ignore = true),
-            @Mapping(target = "topic", ignore = true)
+            @Mapping(target = "topic", ignore = true),
+            @Mapping(target = "children", ignore = true)
     })
-    public Question toPojo(QuestionCreationDto dto);
+    Question toPojo(QuestionCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public QuestionCreationDto toDto(Question pojo);
+    QuestionCreationDto toDto(Question pojo);
 }

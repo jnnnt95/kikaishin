@@ -2,9 +2,7 @@ package com.nniett.kikaishin.app.service.mapper.dto.answer;
 
 
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
-import com.nniett.kikaishin.app.service.mapper.dto.question.QuestionCreationMapper;
 import com.nniett.kikaishin.app.service.pojo.Answer;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerUpdateDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -24,11 +22,12 @@ public interface AnswerUpdateMapper extends DtoPojoMapper<AnswerUpdateDto, Answe
             @Mapping(target = "questionId", ignore = true),
             @Mapping(target = "createDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
-            @Mapping(target = "question", ignore = true)
+            @Mapping(target = "question", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public Answer toPojo(AnswerUpdateDto dto);
+    Answer toPojo(AnswerUpdateDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public AnswerUpdateDto toDto(Answer pojo);
+    AnswerUpdateDto toDto(Answer pojo);
 }

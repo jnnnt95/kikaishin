@@ -33,7 +33,6 @@ public class TopicService
 {
 
     private final TopicInfoVirtualRepository topicInfoRepository;
-    private final TopicInfoVirtualRepository t;
     private final TopicInfoMapper topicInfoMapper;
 
     @Autowired
@@ -44,13 +43,11 @@ public class TopicService
             TopicUpdateService updateService,
             TopicDeleteService deleteService,
             TopicInfoVirtualRepository topicInfoRepository,
-            TopicInfoMapper topicInfoMapper,
-            TopicInfoVirtualRepository t
+            TopicInfoMapper topicInfoMapper
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.topicInfoRepository = topicInfoRepository;
         this.topicInfoMapper = topicInfoMapper;
-        this.t = t;
     }
 
 
@@ -67,7 +64,7 @@ public class TopicService
     @Override
     public TopicEntity findEntityByDto(TopicUpdateDto updateDto) {
         int id = updateDto.getTopicId();
-        return getRepository().findById(id).get();
+        return getRepository().findById(id).orElseThrow();
     }
 
     @Override

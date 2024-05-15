@@ -1,7 +1,6 @@
 package com.nniett.kikaishin.app.service.construction;
 
 import com.nniett.kikaishin.app.service.mapper.EntityPojoMapper;
-import com.nniett.kikaishin.app.service.pojo.dto.UpdateDto;
 import lombok.Getter;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -40,14 +39,12 @@ public abstract class ReadService
     @Override
     public POJO readPojo(PK id) {
         ENTITY entity  = repository.findById(id).orElse(null);
-        POJO pojo = entityPojoMapper.toPojo(entity);
-        return pojo;
+        return entityPojoMapper.toPojo(entity);
     }
 
     @Override
     public ENTITY readEntity(PK id) {
-        ENTITY entity  = repository.findById(id).orElse(null);
-        return entity;
+        return repository.findById(id).orElse(null);
     }
 
     @Override

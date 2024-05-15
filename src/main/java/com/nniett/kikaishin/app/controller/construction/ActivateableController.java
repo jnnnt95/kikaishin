@@ -2,7 +2,6 @@ package com.nniett.kikaishin.app.controller.construction;
 
 
 import com.nniett.kikaishin.app.persistence.entity.construction.ActivateableMutableEntity;
-import com.nniett.kikaishin.app.service.construction.ActivateActionableService;
 import com.nniett.kikaishin.app.service.construction.ActivateableService;
 import com.nniett.kikaishin.app.service.pojo.Pojo;
 import com.nniett.kikaishin.app.service.pojo.dto.ActivateableUpdateDto;

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class UserInfoVirtualEntity {
                         mapToDouble(q -> {
                             if(q.getGradeAverage() == null) return 0;
                             else return q.getGradeAverage();
-                        }).average().getAsDouble();
+                        }).average().orElse(0);
     }
 
     private void updateTotalQuestions() {

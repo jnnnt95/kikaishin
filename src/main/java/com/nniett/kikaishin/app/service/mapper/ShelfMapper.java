@@ -19,7 +19,11 @@ public interface ShelfMapper extends EntityPojoMapper<ShelfEntity, Shelf> {
             @Mapping(source = "active", target = "active"),
             @Mapping(source = "updateDate", target = "updateDate"),
             @Mapping(source = "creationDate", target = "creationDate"),
-            @Mapping(source = "books", target = "books")
+            @Mapping(source = "books", target = "books"),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true),
+            @Mapping(target = "username", ignore = true)
     })
     @Mapping(source = "user", target = "user", ignore = true)
     Shelf toPojo(ShelfEntity entity);

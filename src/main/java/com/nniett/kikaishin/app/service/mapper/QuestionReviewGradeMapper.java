@@ -19,7 +19,8 @@ public interface QuestionReviewGradeMapper extends EntityPojoMapper<QuestionRevi
             @Mapping(source = "gradeValue", target = "gradeValue"),
 
             @Mapping(target = "parentQuestion", ignore = true),
-            @Mapping(target = "parentReview", ignore = true)
+            @Mapping(target = "parentReview", ignore = true),
+            @Mapping(target = "PK", ignore = true)
     })
     QuestionReviewGrade toPojo(QuestionReviewGradeEntity entity);
     @Override

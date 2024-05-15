@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.nniett.kikaishin.app.controller.construction.ImmutableController.caughtOperate;
-
 @Getter
 public abstract class Controller
         <

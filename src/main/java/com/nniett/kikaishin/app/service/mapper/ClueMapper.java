@@ -1,8 +1,6 @@
 package com.nniett.kikaishin.app.service.mapper;
 
-import com.nniett.kikaishin.app.persistence.entity.AnswerEntity;
 import com.nniett.kikaishin.app.persistence.entity.ClueEntity;
-import com.nniett.kikaishin.app.service.pojo.Answer;
 import com.nniett.kikaishin.app.service.pojo.Clue;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -23,6 +21,8 @@ public interface ClueMapper extends EntityPojoMapper<ClueEntity, Clue> {
 
             @Mapping(target = "createDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(target = "question", ignore = true)
     Clue toPojo(ClueEntity entity);

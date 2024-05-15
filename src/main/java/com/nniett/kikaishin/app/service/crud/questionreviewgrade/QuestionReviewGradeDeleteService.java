@@ -1,9 +1,7 @@
 package com.nniett.kikaishin.app.service.crud.questionreviewgrade;
 
 import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
-import com.nniett.kikaishin.app.persistence.entity.ReviewEntity;
 import com.nniett.kikaishin.app.persistence.repository.QuestionReviewGradeRepository;
-import com.nniett.kikaishin.app.persistence.repository.ReviewRepository;
 import com.nniett.kikaishin.app.service.construction.DeleteService;
 import org.springframework.stereotype.Repository;
 

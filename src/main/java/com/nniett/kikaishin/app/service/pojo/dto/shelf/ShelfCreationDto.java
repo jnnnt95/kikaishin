@@ -1,6 +1,5 @@
 package com.nniett.kikaishin.app.service.pojo.dto.shelf;
 
-import com.nniett.kikaishin.app.service.pojo.common.Activateable;
 import com.nniett.kikaishin.common.Constants;
 import com.nniett.kikaishin.app.service.pojo.dto.CreationDtoWithChildren;
 import com.nniett.kikaishin.app.service.pojo.dto.book.BookCreationDto;

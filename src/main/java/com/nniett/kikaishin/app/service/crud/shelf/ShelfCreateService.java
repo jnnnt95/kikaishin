@@ -39,7 +39,7 @@ public class ShelfCreateService
     @Override
     public void populateAsDefaultForCreation(ShelfEntity entity) {
         //TODO: after user login impl, hardcoded 1 should change
-        entity.setUser(userService.getReadService().getRepository().findById("1").get());
+        entity.setUser(userService.getReadService().getRepository().findById("1").orElseThrow());
         entity.setUserId(entity.getUser().getUsername());
         entity.setActive(true);
     }

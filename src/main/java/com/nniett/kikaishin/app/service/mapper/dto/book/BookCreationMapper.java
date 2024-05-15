@@ -28,10 +28,10 @@ public interface BookCreationMapper extends DtoPojoMapper<BookCreationDto, Book>
             @Mapping(target = "updateDate", ignore = true),
             @Mapping(target = "parentShelf", ignore = true)
     })
-    public Book toPojo(BookCreationDto dto);
+    Book toPojo(BookCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "topics", target = "topics", ignore = true)
-    public BookCreationDto toDto(Book pojo);
+    BookCreationDto toDto(Book pojo);
 }

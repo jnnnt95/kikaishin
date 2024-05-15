@@ -1,7 +1,6 @@
 package com.nniett.kikaishin.app.controller.construction;
 
 import com.nniett.kikaishin.app.persistence.entity.construction.ImmutableEntity;
-import com.nniett.kikaishin.app.persistence.entity.construction.MutableEntity;
 import com.nniett.kikaishin.app.service.construction.ImmutableService;
 import com.nniett.kikaishin.app.service.pojo.Pojo;
 import com.nniett.kikaishin.app.service.pojo.dto.CreationDto;

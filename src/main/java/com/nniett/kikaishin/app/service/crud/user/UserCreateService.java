@@ -1,20 +1,14 @@
 package com.nniett.kikaishin.app.service.crud.user;
 
-import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
 import com.nniett.kikaishin.app.persistence.entity.UserEntity;
 import com.nniett.kikaishin.app.persistence.repository.UserRepository;
 import com.nniett.kikaishin.app.service.construction.CreateService;
-import com.nniett.kikaishin.app.service.mapper.ShelfMapper;
 import com.nniett.kikaishin.app.service.mapper.UserMapper;
-import com.nniett.kikaishin.app.service.mapper.dto.shelf.ShelfCreationMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.user.UserCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
 import com.nniett.kikaishin.app.service.pojo.User;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.user.UserCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

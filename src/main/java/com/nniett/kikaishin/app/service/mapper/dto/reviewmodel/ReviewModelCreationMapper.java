@@ -24,10 +24,11 @@ public interface ReviewModelCreationMapper extends DtoPojoMapper<ReviewModelCrea
 
             @Mapping(target = "reviewModelId", ignore = true),
             @Mapping(target = "question", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public ReviewModel toPojo(ReviewModelCreationDto dto);
+    ReviewModel toPojo(ReviewModelCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public ReviewModelCreationDto toDto(ReviewModel pojo);
+    ReviewModelCreationDto toDto(ReviewModel pojo);
 }

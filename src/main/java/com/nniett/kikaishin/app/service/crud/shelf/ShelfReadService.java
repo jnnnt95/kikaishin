@@ -4,7 +4,6 @@ import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
 import com.nniett.kikaishin.app.service.construction.ReadService;
 import com.nniett.kikaishin.app.service.mapper.ShelfMapper;
 import com.nniett.kikaishin.app.service.pojo.Shelf;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfUpdateDto;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

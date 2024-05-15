@@ -1,6 +1,5 @@
 package com.nniett.kikaishin.app.service.crud.user;
 
-import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
 import com.nniett.kikaishin.app.persistence.entity.UserEntity;
 import com.nniett.kikaishin.app.service.construction.DeleteService;
 import org.springframework.data.repository.ListCrudRepository;

@@ -19,7 +19,10 @@ public interface BookMapper extends EntityPojoMapper<BookEntity, Book>{
             @Mapping(source = "active", target = "active"),
             @Mapping(source = "updateDate", target = "updateDate"),
             @Mapping(source = "creationDate", target = "creationDate"),
-            @Mapping(source = "topics", target = "topics")
+            @Mapping(source = "topics", target = "topics"),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "shelf", target = "parentShelf", ignore = true)
     Book toPojo(BookEntity entity);

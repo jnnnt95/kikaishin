@@ -6,7 +6,6 @@ import com.nniett.kikaishin.app.controller.construction.CanVerifyId;
 import com.nniett.kikaishin.app.controller.construction.VerifiesIntegerId;
 import com.nniett.kikaishin.app.persistence.entity.TopicEntity;
 import com.nniett.kikaishin.app.service.TopicService;
-import com.nniett.kikaishin.app.service.pojo.QuestionInfo;
 import com.nniett.kikaishin.app.service.pojo.Topic;
 import com.nniett.kikaishin.app.service.pojo.TopicInfo;
 import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;

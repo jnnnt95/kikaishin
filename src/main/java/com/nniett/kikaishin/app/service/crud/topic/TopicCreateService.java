@@ -10,7 +10,6 @@ import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
 import com.nniett.kikaishin.common.Constants;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Random;

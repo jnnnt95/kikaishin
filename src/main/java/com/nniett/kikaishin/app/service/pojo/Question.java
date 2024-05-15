@@ -56,7 +56,7 @@ public class Question implements HasParent<Integer>, HasChildren<HasParent<Integ
 
     @Override
     public List<HasParent<Integer>> getChildren() {
-        List<HasParent<Integer>> hasParents = new ArrayList<HasParent<Integer>>();
+        List<HasParent<Integer>> hasParents = new ArrayList<>();
 
         hasParents.addAll(this.answers != null ? this.answers : List.of());
         hasParents.addAll(this.clues != null ? this.clues : List.of());

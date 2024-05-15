@@ -24,9 +24,9 @@ public interface QuestionReviewGradeCreationMapper extends DtoPojoMapper<Questio
             @Mapping(target = "parentQuestion", ignore = true),
             @Mapping(target = "parentReview", ignore = true)
     })
-    public QuestionReviewGrade toPojo(QuestionReviewGradeCreationDto dto);
+    QuestionReviewGrade toPojo(QuestionReviewGradeCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public QuestionReviewGradeCreationDto toDto(QuestionReviewGrade pojo);
+    QuestionReviewGradeCreationDto toDto(QuestionReviewGrade pojo);
 }

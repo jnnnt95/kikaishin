@@ -1,8 +1,6 @@
 package com.nniett.kikaishin.app.service.mapper;
 
-import com.nniett.kikaishin.app.persistence.entity.BookEntity;
 import com.nniett.kikaishin.app.persistence.entity.TopicEntity;
-import com.nniett.kikaishin.app.service.pojo.Book;
 import com.nniett.kikaishin.app.service.pojo.Topic;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -22,7 +20,10 @@ public interface TopicMapper extends EntityPojoMapper<TopicEntity, Topic>{
             @Mapping(source = "active", target = "active"),
             @Mapping(source = "updateDate", target = "updateDate"),
             @Mapping(source = "creationDate", target = "createDate"),
-            @Mapping(source = "questions", target = "questions")
+            @Mapping(source = "questions", target = "questions"),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "book", target = "parentBook", ignore = true)
     Topic toPojo(TopicEntity entity);

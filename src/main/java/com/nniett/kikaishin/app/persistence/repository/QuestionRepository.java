@@ -22,6 +22,4 @@ public interface QuestionRepository extends ListCrudRepository<QuestionEntity, I
             @Param("username") String username
     );
 
-    List<QuestionEntity> findAllByIdIn(List<Integer> ids);
-
 }

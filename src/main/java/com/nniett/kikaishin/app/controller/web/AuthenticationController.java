@@ -14,7 +14,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<Void> login() {
-        //TODO
+        //TODO: impl after implementing JWT
         return ResponseEntity.ok().build();
     }
 

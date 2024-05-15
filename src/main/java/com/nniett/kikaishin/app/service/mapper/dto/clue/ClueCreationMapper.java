@@ -3,9 +3,7 @@ package com.nniett.kikaishin.app.service.mapper.dto.clue;
 
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.question.QuestionCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Answer;
 import com.nniett.kikaishin.app.service.pojo.Clue;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueCreationDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -25,10 +23,11 @@ public interface ClueCreationMapper extends DtoPojoMapper<ClueCreationDto, Clue>
             @Mapping(target = "createDate", ignore = true),
             @Mapping(target = "updateDate", ignore = true),
             @Mapping(target = "clueId", ignore = true),
+            @Mapping(target = "question", ignore = true)
     })
-    public Clue toPojo(ClueCreationDto dto);
+    Clue toPojo(ClueCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public ClueCreationDto toDto(Clue pojo);
+    ClueCreationDto toDto(Clue pojo);
 }

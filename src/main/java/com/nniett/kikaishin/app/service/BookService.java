@@ -1,9 +1,7 @@
 package com.nniett.kikaishin.app.service;
 
 import com.nniett.kikaishin.app.persistence.entity.BookEntity;
-import com.nniett.kikaishin.app.persistence.entity.virtual.BookInfoVirtualEntity;
 import com.nniett.kikaishin.app.persistence.repository.BookRepository;
-import com.nniett.kikaishin.app.persistence.repository.TopicRepository;
 import com.nniett.kikaishin.app.persistence.repository.virtual.BookInfoVirtualRepository;
 import com.nniett.kikaishin.app.service.construction.*;
 import com.nniett.kikaishin.app.service.crud.book.BookCreateService;
@@ -13,7 +11,6 @@ import com.nniett.kikaishin.app.service.crud.book.BookUpdateService;
 import com.nniett.kikaishin.app.service.mapper.BookInfoMapper;
 import com.nniett.kikaishin.app.service.pojo.Book;
 import com.nniett.kikaishin.app.service.pojo.BookInfo;
-import com.nniett.kikaishin.app.service.pojo.TopicInfo;
 import com.nniett.kikaishin.app.service.pojo.dto.book.BookCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.book.BookUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +63,7 @@ public class BookService
     @Override
     public BookEntity findEntityByDto(BookUpdateDto updateDto) {
         int bookId = updateDto.getBookId();
-        return getRepository().findById(bookId).get();
+        return getRepository().findById(bookId).orElseThrow();
     }
 
     @Override

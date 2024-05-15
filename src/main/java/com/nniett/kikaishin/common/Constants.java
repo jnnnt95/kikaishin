@@ -42,8 +42,6 @@ public final class Constants {
     public static final String CREATION_DATE_COLUMN_NAME = "create_date";
     public static final String UPDATE_DATE_COLUMN_NAME = "update_date";
 
-    public static final String USERNAME = "username";
-
     public static final String PREPARATION_LIST_PLACEHOLDER = "{list}#";
 
 

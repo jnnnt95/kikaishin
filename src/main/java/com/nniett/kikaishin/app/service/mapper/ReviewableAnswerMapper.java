@@ -1,9 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.AnswerEntity;
-import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
 import com.nniett.kikaishin.app.service.pojo.ReviewableAnswer;
-import com.nniett.kikaishin.app.service.pojo.ReviewableQuestion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

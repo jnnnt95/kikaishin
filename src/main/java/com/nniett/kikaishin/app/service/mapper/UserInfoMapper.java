@@ -1,14 +1,10 @@
 package com.nniett.kikaishin.app.service.mapper;
 
-import com.nniett.kikaishin.app.persistence.entity.virtual.ShelfInfoVirtualEntity;
 import com.nniett.kikaishin.app.persistence.entity.virtual.UserInfoVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.ShelfInfo;
 import com.nniett.kikaishin.app.service.pojo.UserInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserInfoMapper {

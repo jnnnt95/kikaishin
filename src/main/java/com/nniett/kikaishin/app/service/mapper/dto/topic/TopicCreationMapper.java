@@ -28,10 +28,10 @@ public interface TopicCreationMapper extends DtoPojoMapper<TopicCreationDto, Top
             @Mapping(target = "lookupKey", ignore = true),
             @Mapping(target = "parentBook", ignore = true)
     })
-    public Topic toPojo(TopicCreationDto dto);
+    Topic toPojo(TopicCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "questions", target = "questions", ignore = true)
-    public TopicCreationDto toDto(Topic pojo);
+    TopicCreationDto toDto(Topic pojo);
 }

@@ -1,8 +1,6 @@
 package com.nniett.kikaishin.app.service.pojo;
 
-import com.nniett.kikaishin.app.service.pojo.common.Activateable;
 import com.nniett.kikaishin.app.service.pojo.common.HasChildren;
-import com.nniett.kikaishin.app.service.pojo.common.HasParent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

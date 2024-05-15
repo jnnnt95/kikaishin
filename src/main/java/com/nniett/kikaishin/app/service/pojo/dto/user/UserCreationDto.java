@@ -1,11 +1,7 @@
 package com.nniett.kikaishin.app.service.pojo.dto.user;
 
 import com.nniett.kikaishin.app.service.pojo.dto.CreationDtoWithChildren;
-import com.nniett.kikaishin.app.service.pojo.dto.book.BookCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfCreationDto;
-import com.nniett.kikaishin.common.Constants;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
@@ -27,4 +23,5 @@ public class UserCreationDto implements CreationDtoWithChildren<String, ShelfCre
     public String getPK() {
         return "";
     }
+
 }

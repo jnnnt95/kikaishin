@@ -22,7 +22,7 @@ public interface ActivateActionableService
 
     @Transactional(propagation = Propagation.REQUIRED)
     default void changeStatus(UPDATE_DTO dto) {
-        ENTITY entity = getActivateableRepository().findById(dto.getPK()).get();
+        ENTITY entity = getActivateableRepository().findById(dto.getPK()).orElseThrow();
         if(entity.getActive() != dto.getActive()) {
             entity.setActive(dto.getActive());
             getActivateableRepository().save(entity);
@@ -31,7 +31,7 @@ public interface ActivateActionableService
 
     @Transactional(propagation = Propagation.REQUIRED)
     default void toggleActive(UPDATE_DTO dto) {
-        ENTITY entity = getActivateableRepository().findById(dto.getPK()).get();
+        ENTITY entity = getActivateableRepository().findById(dto.getPK()).orElseThrow();
         entity.setActive(!entity.getActive());
         getActivateableRepository().save(entity);
     }

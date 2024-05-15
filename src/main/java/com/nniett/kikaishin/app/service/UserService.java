@@ -1,7 +1,6 @@
 package com.nniett.kikaishin.app.service;
 
 import com.nniett.kikaishin.app.persistence.entity.UserEntity;
-import com.nniett.kikaishin.app.persistence.repository.ShelfRepository;
 import com.nniett.kikaishin.app.persistence.repository.UserRepository;
 import com.nniett.kikaishin.app.persistence.repository.virtual.UserInfoVirtualRepository;
 import com.nniett.kikaishin.app.service.construction.Service;
@@ -10,16 +9,12 @@ import com.nniett.kikaishin.app.service.crud.user.UserDeleteService;
 import com.nniett.kikaishin.app.service.crud.user.UserReadService;
 import com.nniett.kikaishin.app.service.crud.user.UserUpdateService;
 import com.nniett.kikaishin.app.service.mapper.UserInfoMapper;
-import com.nniett.kikaishin.app.service.pojo.ShelfInfo;
 import com.nniett.kikaishin.app.service.pojo.User;
 import com.nniett.kikaishin.app.service.pojo.UserInfo;
 import com.nniett.kikaishin.app.service.pojo.dto.user.UserCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.user.UserUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.Collections;
-import java.util.List;
 
 @Repository
 public class UserService
@@ -63,7 +58,7 @@ public class UserService
 
     @Override
     public UserEntity findEntityByDto(UserUpdateDto dto) {
-        return getRepository().findById(dto.getPK()).get();
+        return getRepository().findById(dto.getPK()).orElseThrow();
     }
 
     public User getShelfById(String username) {

@@ -12,5 +12,5 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(componentModel = "spring")
 public interface UserUpdateMapper extends DtoPojoMapper<UserUpdateDto, User> {
-    public Shelf toPojo(ShelfUpdateDto dto);
+    Shelf toPojo(ShelfUpdateDto dto);
 }

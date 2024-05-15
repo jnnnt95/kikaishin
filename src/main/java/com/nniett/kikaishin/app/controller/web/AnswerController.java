@@ -2,14 +2,10 @@ package com.nniett.kikaishin.app.controller.web;
 
 import com.nniett.kikaishin.app.controller.construction.*;
 import com.nniett.kikaishin.app.persistence.entity.AnswerEntity;
-import com.nniett.kikaishin.app.persistence.entity.ReviewEntity;
 import com.nniett.kikaishin.app.service.AnswerService;
-import com.nniett.kikaishin.app.service.ReviewService;
 import com.nniett.kikaishin.app.service.pojo.Answer;
-import com.nniett.kikaishin.app.service.pojo.Review;
 import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerUpdateDto;
-import com.nniett.kikaishin.app.service.pojo.dto.review.ReviewCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-//@RequestMapping(REVIEW_PATH)
 public class AnswerController extends Controller
         <
                 AnswerEntity,

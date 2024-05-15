@@ -2,9 +2,7 @@ package com.nniett.kikaishin.app.service.mapper.dto.topic;
 
 
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
-import com.nniett.kikaishin.app.service.mapper.dto.question.QuestionCreationMapper;
 import com.nniett.kikaishin.app.service.pojo.Topic;
-import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicUpdateDto;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
@@ -26,11 +24,13 @@ public interface TopicUpdateMapper extends DtoPojoMapper<TopicUpdateDto, Topic> 
             @Mapping(target = "updateDate", ignore = true),
             @Mapping(target = "questions", ignore = true),
             @Mapping(target = "lookupKey", ignore = true),
-            @Mapping(target = "parentBook", ignore = true)
+            @Mapping(target = "parentBook", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public Topic toPojo(TopicUpdateDto dto);
+    Topic toPojo(TopicUpdateDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public TopicUpdateDto toDto(Topic pojo);
+    TopicUpdateDto toDto(Topic pojo);
 }

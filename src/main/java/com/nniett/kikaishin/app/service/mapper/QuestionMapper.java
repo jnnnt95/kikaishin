@@ -29,7 +29,10 @@ public interface QuestionMapper extends EntityPojoMapper<QuestionEntity, Questio
             @Mapping(source = "clues", target = "clues"),
             @Mapping(source = "questionReviewGrades", target = "reviewGrades"),
 
-            @Mapping(target = "topicId", ignore = true)
+            @Mapping(target = "topicId", ignore = true),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "children", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "topic", target = "topic", ignore = true)
     Question toPojo(QuestionEntity entity);

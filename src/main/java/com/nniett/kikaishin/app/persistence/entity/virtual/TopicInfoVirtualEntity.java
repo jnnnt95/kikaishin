@@ -8,9 +8,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nniett.kikaishin.app.persistence.entity.virtual.QuestionUtils.checkReviewability;
-import static com.nniett.kikaishin.app.persistence.entity.virtual.QuestionUtils.getNextReviewDateCalculation;
-
 @Getter
 @Setter
 public class TopicInfoVirtualEntity {

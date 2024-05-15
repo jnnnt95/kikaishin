@@ -1,9 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.BookInfoVirtualEntity;
-import com.nniett.kikaishin.app.persistence.entity.virtual.TopicInfoVirtualEntity;
 import com.nniett.kikaishin.app.service.pojo.BookInfo;
-import com.nniett.kikaishin.app.service.pojo.TopicInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

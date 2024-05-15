@@ -1,7 +1,6 @@
 package com.nniett.kikaishin.app.persistence.entity.virtual;
 
 import com.nniett.kikaishin.app.persistence.entity.ReviewModelEntity;
-import com.nniett.kikaishin.app.service.pojo.ReviewModel;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

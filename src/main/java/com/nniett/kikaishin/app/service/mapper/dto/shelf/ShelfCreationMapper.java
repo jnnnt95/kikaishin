@@ -26,11 +26,12 @@ public interface ShelfCreationMapper extends DtoPojoMapper<ShelfCreationDto, She
             @Mapping(target = "user", ignore = true),
             @Mapping(target = "shelfId", ignore = true),
             @Mapping(target = "username", ignore = true),
-            @Mapping(target = "active", ignore = true)
+            @Mapping(target = "active", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
-    public Shelf toPojo(ShelfCreationDto dto);
+    Shelf toPojo(ShelfCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    public ShelfCreationDto toDto(Shelf entity);
+    ShelfCreationDto toDto(Shelf entity);
 }

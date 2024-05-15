@@ -8,7 +8,6 @@ import com.nniett.kikaishin.app.persistence.entity.BookEntity;
 import com.nniett.kikaishin.app.service.BookService;
 import com.nniett.kikaishin.app.service.pojo.Book;
 import com.nniett.kikaishin.app.service.pojo.BookInfo;
-import com.nniett.kikaishin.app.service.pojo.TopicInfo;
 import com.nniett.kikaishin.app.service.pojo.dto.book.BookCreationDto;
 import com.nniett.kikaishin.app.service.pojo.dto.book.BookUpdateDto;
 import jakarta.validation.Valid;

@@ -84,7 +84,7 @@ public class QuestionService
     @Override
     public QuestionEntity findEntityByDto(QuestionUpdateDto updateDto) {
         int id = updateDto.getQuestionId();
-        return getRepository().findById(id).get();
+        return getRepository().findById(id).orElseThrow();
     }
 
     @Override
@@ -140,19 +140,6 @@ public class QuestionService
             }
         }
         return reviewableQuestions;
-    }
-
-    private List<ReviewableQuestionVirtualEntity> shrinkListBy(List<ReviewableQuestionVirtualEntity> prospectQuestions, int totalQuestions) {
-        if(prospectQuestions != null) {
-            if(prospectQuestions.size() > totalQuestions) {
-                return prospectQuestions.subList(0, totalQuestions);
-            }
-            else {
-                return prospectQuestions;
-            }
-        } else {
-            return null;
-        }
     }
 
     public QuestionInfo getQuestionInfo(Integer questionId) {

@@ -1,9 +1,6 @@
 package com.nniett.kikaishin.app.service.mapper;
 
-import com.nniett.kikaishin.app.persistence.entity.ClueEntity;
-import com.nniett.kikaishin.app.persistence.entity.ReviewEntity;
 import com.nniett.kikaishin.app.persistence.entity.ReviewModelEntity;
-import com.nniett.kikaishin.app.service.pojo.Clue;
 import com.nniett.kikaishin.app.service.pojo.ReviewModel;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -22,7 +19,8 @@ public interface ReviewModelMapper extends EntityPojoMapper<ReviewModelEntity, R
             @Mapping(source = "x0", target = "x0"),
             @Mapping(source = "x1", target = "x1"),
             @Mapping(source = "x2", target = "x2"),
-            @Mapping(source = "expectedReviews", target = "expectedReviews")
+            @Mapping(source = "expectedReviews", target = "expectedReviews"),
+            @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "question", target = "question", ignore = true)
     ReviewModel toPojo(ReviewModelEntity entity);

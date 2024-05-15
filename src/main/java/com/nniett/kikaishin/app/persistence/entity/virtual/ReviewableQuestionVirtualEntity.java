@@ -5,6 +5,7 @@ import com.nniett.kikaishin.app.persistence.entity.ClueEntity;
 import com.nniett.kikaishin.app.persistence.entity.ReviewModelEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -50,7 +51,7 @@ public class ReviewableQuestionVirtualEntity implements Comparable<ReviewableQue
     }
 
     @Override
-    public int compareTo(ReviewableQuestionVirtualEntity _other) {
+    public int compareTo(@NonNull ReviewableQuestionVirtualEntity _other) {
         ReviewableQuestionVirtualEntity _this = this;
         int thisIsSmaller = -1;
         int thisIsEqual = 0;

@@ -20,7 +20,9 @@ public interface ReviewMapper extends EntityPojoMapper<ReviewEntity, Review> {
             @Mapping(source = "questions", target = "questions"),
 
 
-            @Mapping(target = "user", ignore = true)
+            @Mapping(target = "user", ignore = true),
+            @Mapping(target = "PK", ignore = true),
+            @Mapping(target = "parentPK", ignore = true)
     })
     Review toPojo(ReviewEntity entity);
     @Override
