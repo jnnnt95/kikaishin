@@ -4,15 +4,18 @@ import com.nniett.kikaishin.app.persistence.entity.TopicEntity;
 import com.nniett.kikaishin.app.persistence.repository.TopicRepository;
 import com.nniett.kikaishin.app.persistence.repository.virtual.TopicInfoVirtualRepository;
 import com.nniett.kikaishin.app.service.construction.ActivateableService;
+import com.nniett.kikaishin.app.service.dto.TopicDto;
+import com.nniett.kikaishin.app.service.dto.TopicInfoDto;
 import com.nniett.kikaishin.app.service.mapper.TopicInfoMapper;
-import com.nniett.kikaishin.app.service.pojo.Topic;
-import com.nniett.kikaishin.app.service.pojo.TopicInfo;
-import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.topic.TopicCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.topic.TopicUpdateDto;
 import com.nniett.kikaishin.app.service.crud.topic.TopicCreateService;
 import com.nniett.kikaishin.app.service.crud.topic.TopicReadService;
 import com.nniett.kikaishin.app.service.crud.topic.TopicUpdateService;
 import com.nniett.kikaishin.app.service.crud.topic.TopicDeleteService;
+import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
+import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
+import com.nniett.kikaishin.app.web.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -26,14 +29,16 @@ public class TopicService
         <
                 TopicEntity,
                 Integer,
-                Topic,
+                TopicDto,
                 TopicCreationDto,
                 TopicUpdateDto
                 >
+        implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
 
     private final TopicInfoVirtualRepository topicInfoRepository;
     private final TopicInfoMapper topicInfoMapper;
+    private final JwtUtils jwtUtils;
 
     @Autowired
     public TopicService(
@@ -43,11 +48,13 @@ public class TopicService
             TopicUpdateService updateService,
             TopicDeleteService deleteService,
             TopicInfoVirtualRepository topicInfoRepository,
-            TopicInfoMapper topicInfoMapper
+            TopicInfoMapper topicInfoMapper,
+            JwtUtils jwtUtils
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.topicInfoRepository = topicInfoRepository;
         this.topicInfoMapper = topicInfoMapper;
+        this.jwtUtils = jwtUtils;
     }
 
 
@@ -57,7 +64,7 @@ public class TopicService
     }
 
     @Override
-    public void populateEntityForUpdate(TopicEntity entity, Topic pojo) {
+    public void populateEntityForUpdate(TopicEntity entity, TopicDto pojo) {
         getUpdateService().populateEntityForUpdate(entity, pojo);
     }
 
@@ -74,9 +81,8 @@ public class TopicService
 
 
 
-    public TopicInfo getTopicInfo(Integer topicId) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public TopicInfoDto getTopicInfo(Integer topicId) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return topicInfoMapper.
                 toTopicInfo(
                         topicInfoRepository.
@@ -84,15 +90,13 @@ public class TopicService
                 );
     }
 
-    public List<TopicInfo> getTopicsInfo(List<Integer> topicIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public List<TopicInfoDto> getTopicsInfo(List<Integer> topicIds) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return topicInfoMapper.toTopicsInfo(topicInfoRepository.getTopicsInfoById(username, topicIds));
     }
 
     public Integer countExistingIds(List<Integer> topicIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return ((TopicRepository) getRepository()).countByIdIn(username, topicIds);
     }
 }

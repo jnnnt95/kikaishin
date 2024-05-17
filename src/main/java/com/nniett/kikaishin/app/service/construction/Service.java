@@ -1,8 +1,8 @@
 package com.nniett.kikaishin.app.service.construction;
 
-import com.nniett.kikaishin.app.service.pojo.Pojo;
-import com.nniett.kikaishin.app.service.pojo.dto.CreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.UpdateDto;
+import com.nniett.kikaishin.app.service.dto.common.Pojo;
+import com.nniett.kikaishin.app.service.dto.write.CreationDto;
+import com.nniett.kikaishin.app.service.dto.write.UpdateDto;
 import lombok.Getter;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Propagation;

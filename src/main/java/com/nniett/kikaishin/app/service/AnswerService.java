@@ -7,9 +7,12 @@ import com.nniett.kikaishin.app.service.crud.answer.AnswerCreateService;
 import com.nniett.kikaishin.app.service.crud.answer.AnswerDeleteService;
 import com.nniett.kikaishin.app.service.crud.answer.AnswerReadService;
 import com.nniett.kikaishin.app.service.crud.answer.AnswerUpdateService;
-import com.nniett.kikaishin.app.service.pojo.Answer;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerUpdateDto;
+import com.nniett.kikaishin.app.service.dto.AnswerDto;
+import com.nniett.kikaishin.app.service.dto.write.answer.AnswerCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.answer.AnswerUpdateDto;
+import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
+import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
+import com.nniett.kikaishin.app.web.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,11 +24,13 @@ public class AnswerService
         <
                 AnswerCreationDto,
                 AnswerUpdateDto,
-                Answer,
+                AnswerDto,
                 AnswerEntity,
                 Integer
                 >
+        implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private final JwtUtils jwtUtils;
 
     @Autowired
     public AnswerService(
@@ -33,9 +38,11 @@ public class AnswerService
             AnswerCreateService createService,
             AnswerReadService readService,
             AnswerUpdateService updateService,
-            AnswerDeleteService deleteService
+            AnswerDeleteService deleteService,
+            JwtUtils jwtUtils
     ) {
         super(repository, createService, readService, updateService, deleteService);
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -49,11 +56,10 @@ public class AnswerService
     }
 
     @Override
-    public void populateEntityForUpdate(AnswerEntity answerEntity, Answer pojo) {}
+    public void populateEntityForUpdate(AnswerEntity answerEntity, AnswerDto pojo) {}
 
     public Integer countExistingIds(List<Integer> questionIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return ((AnswerRepository) getRepository()).countByIdIn(username, questionIds);
     }
 

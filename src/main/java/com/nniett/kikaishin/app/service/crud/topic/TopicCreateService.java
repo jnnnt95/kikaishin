@@ -3,10 +3,10 @@ package com.nniett.kikaishin.app.service.crud.topic;
 import com.nniett.kikaishin.app.persistence.entity.TopicEntity;
 import com.nniett.kikaishin.app.persistence.repository.TopicRepository;
 import com.nniett.kikaishin.app.service.construction.CreateService;
+import com.nniett.kikaishin.app.service.dto.TopicDto;
 import com.nniett.kikaishin.app.service.mapper.TopicMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.topic.TopicCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Topic;
-import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.topic.TopicCreationDto;
 import com.nniett.kikaishin.common.Constants;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +20,7 @@ public class TopicCreateService
         <
                         TopicEntity,
                         Integer,
-                        Topic,
+                TopicDto,
                         TopicCreationDto
                         >
 {

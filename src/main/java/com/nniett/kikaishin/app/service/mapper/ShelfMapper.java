@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
+import com.nniett.kikaishin.app.service.dto.ShelfDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {UserMapper.class, BookMapper.class})
-public interface ShelfMapper extends EntityPojoMapper<ShelfEntity, Shelf> {
+public interface ShelfMapper extends EntityPojoMapper<ShelfEntity, ShelfDto> {
 
     @Mappings({
             @Mapping(source = "id", target = "shelfId"),
@@ -26,13 +26,13 @@ public interface ShelfMapper extends EntityPojoMapper<ShelfEntity, Shelf> {
             @Mapping(target = "username", ignore = true)
     })
     @Mapping(source = "user", target = "user", ignore = true)
-    Shelf toPojo(ShelfEntity entity);
+    ShelfDto toPojo(ShelfEntity entity);
     @Override
-    List<Shelf> toPojos(List<ShelfEntity> entities);
+    List<ShelfDto> toPojos(List<ShelfEntity> entities);
 
     @InheritInverseConfiguration
     @Mapping(source = "user", target = "user", ignore = true)
-    ShelfEntity toEntity(Shelf pojo);
+    ShelfEntity toEntity(ShelfDto pojo);
     @Override
-    List<ShelfEntity> toEntities(List<Shelf> pojos);
+    List<ShelfEntity> toEntities(List<ShelfDto> pojos);
 }

@@ -5,9 +5,9 @@ import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.answer.AnswerCreationMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.clue.ClueCreationMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.reviewmodel.ReviewModelCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Question;
-import com.nniett.kikaishin.app.service.pojo.dto.question.QuestionCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicCreationDto;
+import com.nniett.kikaishin.app.service.dto.QuestionDto;
+import com.nniett.kikaishin.app.service.dto.write.question.QuestionCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.topic.TopicCreationDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
         ClueCreationMapper.class,
         ReviewModelCreationMapper.class}
 )
-public interface QuestionCreationMapper extends DtoPojoMapper<QuestionCreationDto, Question> {
+public interface QuestionCreationMapper extends DtoPojoMapper<QuestionCreationDto, QuestionDto> {
     @Override
     @Mappings({
             @Mapping(source = "topicId", target = "topicId"),
@@ -39,9 +39,9 @@ public interface QuestionCreationMapper extends DtoPojoMapper<QuestionCreationDt
             @Mapping(target = "topic", ignore = true),
             @Mapping(target = "children", ignore = true)
     })
-    Question toPojo(QuestionCreationDto dto);
+    QuestionDto toPojo(QuestionCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    QuestionCreationDto toDto(Question pojo);
+    QuestionCreationDto toDto(QuestionDto pojo);
 }

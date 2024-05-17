@@ -9,10 +9,13 @@ import com.nniett.kikaishin.app.service.crud.book.BookDeleteService;
 import com.nniett.kikaishin.app.service.crud.book.BookReadService;
 import com.nniett.kikaishin.app.service.crud.book.BookUpdateService;
 import com.nniett.kikaishin.app.service.mapper.BookInfoMapper;
-import com.nniett.kikaishin.app.service.pojo.Book;
-import com.nniett.kikaishin.app.service.pojo.BookInfo;
-import com.nniett.kikaishin.app.service.pojo.dto.book.BookCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.book.BookUpdateDto;
+import com.nniett.kikaishin.app.service.dto.BookDto;
+import com.nniett.kikaishin.app.service.dto.BookInfoDto;
+import com.nniett.kikaishin.app.service.dto.write.book.BookCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.book.BookUpdateDto;
+import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
+import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
+import com.nniett.kikaishin.app.web.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -26,14 +29,16 @@ public class BookService
         <
                 BookEntity,
                 Integer,
-                Book,
+                BookDto,
                 BookCreationDto,
                 BookUpdateDto
                 >
+        implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
 
     private final BookInfoVirtualRepository bookInfoRepository;
     private final BookInfoMapper bookInfoMapper;
+    private final JwtUtils jwtUtils;
 
     @Autowired
     public BookService(
@@ -43,11 +48,13 @@ public class BookService
             BookUpdateService updateService,
             BookDeleteService deleteService,
             BookInfoVirtualRepository bookInfoRepository,
-            BookInfoMapper bookInfoMapper
+            BookInfoMapper bookInfoMapper,
+            JwtUtils jwtUtils
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.bookInfoRepository = bookInfoRepository;
         this.bookInfoMapper = bookInfoMapper;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -56,7 +63,7 @@ public class BookService
     }
 
     @Override
-    public void populateEntityForUpdate(BookEntity entity, Book pojo) {
+    public void populateEntityForUpdate(BookEntity entity, BookDto pojo) {
         getUpdateService().populateEntityForUpdate(entity, pojo);
     }
 
@@ -73,9 +80,8 @@ public class BookService
 
 
 
-    public BookInfo getBookInfo(Integer bookId) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public BookInfoDto getBookInfo(Integer bookId) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return bookInfoMapper.
                 toBookInfo(
                         bookInfoRepository.
@@ -83,15 +89,13 @@ public class BookService
                 );
     }
 
-    public List<BookInfo> getBooksInfo(List<Integer> bookIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public List<BookInfoDto> getBooksInfo(List<Integer> bookIds) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return bookInfoMapper.toBooksInfo(bookInfoRepository.getBooksInfoById(username, bookIds));
     }
 
     public Integer countExistingIds(List<Integer> bookIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return ((BookRepository) getRepository()).countByIdIn(username, bookIds);
     }
 

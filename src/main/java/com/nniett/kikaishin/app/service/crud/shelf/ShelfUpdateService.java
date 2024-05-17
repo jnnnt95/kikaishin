@@ -2,10 +2,10 @@ package com.nniett.kikaishin.app.service.crud.shelf;
 
 import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
 import com.nniett.kikaishin.app.service.construction.UpdateService;
+import com.nniett.kikaishin.app.service.dto.ShelfDto;
 import com.nniett.kikaishin.app.service.mapper.ShelfMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.shelf.ShelfUpdateMapper;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.shelf.ShelfUpdateDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public class ShelfUpdateService
                 ShelfEntity,
                 Integer,
                 ShelfUpdateDto,
-                Shelf
+                ShelfDto
                 >
 {
 
@@ -31,7 +31,7 @@ public class ShelfUpdateService
     }
 
     @Override
-    public void populateEntityForUpdate(ShelfEntity entity, Shelf pojo) {
+    public void populateEntityForUpdate(ShelfEntity entity, ShelfDto pojo) {
         if(pojo.getName() != null &&
                 !pojo.getName().isEmpty() &&
                 !pojo.getName().equals(entity.getName())) {

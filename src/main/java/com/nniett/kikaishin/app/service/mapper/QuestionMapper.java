@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
-import com.nniett.kikaishin.app.service.pojo.Question;
+import com.nniett.kikaishin.app.service.dto.QuestionDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +16,7 @@ import java.util.List;
         ReviewModelMapper.class,
         QuestionReviewGradeMapper.class
 })
-public interface QuestionMapper extends EntityPojoMapper<QuestionEntity, Question>{
+public interface QuestionMapper extends EntityPojoMapper<QuestionEntity, QuestionDto>{
     @Override
     @Mappings({
             @Mapping(source = "active", target = "active"),
@@ -35,14 +35,14 @@ public interface QuestionMapper extends EntityPojoMapper<QuestionEntity, Questio
             @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "topic", target = "topic", ignore = true)
-    Question toPojo(QuestionEntity entity);
+    QuestionDto toPojo(QuestionEntity entity);
     @Override
-    List<Question> toPojos(List<QuestionEntity> entities);
+    List<QuestionDto> toPojos(List<QuestionEntity> entities);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "topic", target = "topic", ignore = true)
-    QuestionEntity toEntity(Question pojo);
+    QuestionEntity toEntity(QuestionDto pojo);
     @Override
-    List<QuestionEntity> toEntities(List<Question> pojos);
+    List<QuestionEntity> toEntities(List<QuestionDto> pojos);
 }

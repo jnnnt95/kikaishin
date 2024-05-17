@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.BookInfoVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.BookInfo;
+import com.nniett.kikaishin.app.service.dto.BookInfoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -21,6 +21,6 @@ public interface BookInfoMapper {
             @Mapping(source = "createDate", target = "createDate"),
             @Mapping(source = "topicIds", target = "topicIds")
     })
-    BookInfo toBookInfo(BookInfoVirtualEntity entity);
-    List<BookInfo> toBooksInfo(List<BookInfoVirtualEntity> entities);
+    BookInfoDto toBookInfo(BookInfoVirtualEntity entity);
+    List<BookInfoDto> toBooksInfo(List<BookInfoVirtualEntity> entities);
 }

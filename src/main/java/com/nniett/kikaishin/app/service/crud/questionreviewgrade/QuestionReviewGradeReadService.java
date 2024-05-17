@@ -4,7 +4,7 @@ import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
 import com.nniett.kikaishin.app.persistence.repository.QuestionReviewGradeRepository;
 import com.nniett.kikaishin.app.service.construction.ReadService;
 import com.nniett.kikaishin.app.service.mapper.QuestionReviewGradeMapper;
-import com.nniett.kikaishin.app.service.pojo.QuestionReviewGrade;
+import com.nniett.kikaishin.app.service.dto.QuestionReviewGradeDto;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,7 +13,7 @@ public class QuestionReviewGradeReadService
         <
                 QuestionReviewGradeEntity,
                 Integer,
-                QuestionReviewGrade
+                QuestionReviewGradeDto
                 >
 {
 

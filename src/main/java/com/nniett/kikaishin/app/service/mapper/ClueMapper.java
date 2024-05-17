@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.ClueEntity;
-import com.nniett.kikaishin.app.service.pojo.Clue;
+import com.nniett.kikaishin.app.service.dto.ClueDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", uses = {QuestionMapper.class})
-public interface ClueMapper extends EntityPojoMapper<ClueEntity, Clue> {
+public interface ClueMapper extends EntityPojoMapper<ClueEntity, ClueDto> {
     @Override
     @Mappings({
             @Mapping(source = "id", target = "clueId"),
@@ -25,14 +25,14 @@ public interface ClueMapper extends EntityPojoMapper<ClueEntity, Clue> {
             @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(target = "question", ignore = true)
-    Clue toPojo(ClueEntity entity);
+    ClueDto toPojo(ClueEntity entity);
     @Override
-    List<Clue> toPojos(List<ClueEntity> entities);
+    List<ClueDto> toPojos(List<ClueEntity> entities);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "question", target = "question", ignore = true)
-    ClueEntity toEntity(Clue pojo);
+    ClueEntity toEntity(ClueDto pojo);
     @Override
-    List<ClueEntity> toEntities(List<Clue> pojos);
+    List<ClueEntity> toEntities(List<ClueDto> pojos);
 }

@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.construction;
 
 import com.nniett.kikaishin.app.persistence.entity.construction.ActivateableMutableEntity;
-import com.nniett.kikaishin.app.service.pojo.dto.ActivateableUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.ActivateableUpdateDto;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

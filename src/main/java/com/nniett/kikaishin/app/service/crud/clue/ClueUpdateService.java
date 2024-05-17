@@ -5,8 +5,8 @@ import com.nniett.kikaishin.app.persistence.repository.ClueRepository;
 import com.nniett.kikaishin.app.service.construction.UpdateService;
 import com.nniett.kikaishin.app.service.mapper.ClueMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.clue.ClueUpdateMapper;
-import com.nniett.kikaishin.app.service.pojo.Clue;
-import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueUpdateDto;
+import com.nniett.kikaishin.app.service.dto.ClueDto;
+import com.nniett.kikaishin.app.service.dto.write.clue.ClueUpdateDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class ClueUpdateService
                 ClueEntity,
                 Integer,
                 ClueUpdateDto,
-                Clue
+                ClueDto
                 >
 {
 
@@ -31,7 +31,7 @@ public class ClueUpdateService
     }
 
     @Override
-    public void populateEntityForUpdate(ClueEntity entity, Clue pojo) {
+    public void populateEntityForUpdate(ClueEntity entity, ClueDto pojo) {
         if(pojo.getBody() != null &&
                 !pojo.getBody().isEmpty() &&
                 !pojo.getBody().equals(entity.getBody())) {

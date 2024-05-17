@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.BookEntity;
-import com.nniett.kikaishin.app.service.pojo.Book;
+import com.nniett.kikaishin.app.service.dto.BookDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {ShelfMapper.class, TopicMapper.class})
-public interface BookMapper extends EntityPojoMapper<BookEntity, Book>{
+public interface BookMapper extends EntityPojoMapper<BookEntity, BookDto>{
 
     @Mappings({
             @Mapping(source = "id", target = "bookId"),
@@ -25,13 +25,13 @@ public interface BookMapper extends EntityPojoMapper<BookEntity, Book>{
             @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "shelf", target = "parentShelf", ignore = true)
-    Book toPojo(BookEntity entity);
+    BookDto toPojo(BookEntity entity);
     @Override
-    List<Book> toPojos(List<BookEntity> entities);
+    List<BookDto> toPojos(List<BookEntity> entities);
 
     @InheritInverseConfiguration
     @Mapping(source = "parentShelf", target = "shelf", ignore = true)
-    BookEntity toEntity(Book pojo);
+    BookEntity toEntity(BookDto pojo);
     @Override
-    List<BookEntity> toEntities(List<Book> pojos);
+    List<BookEntity> toEntities(List<BookDto> pojos);
 }

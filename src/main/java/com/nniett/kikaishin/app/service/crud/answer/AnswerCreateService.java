@@ -5,8 +5,8 @@ import com.nniett.kikaishin.app.persistence.repository.AnswerRepository;
 import com.nniett.kikaishin.app.service.construction.CreateService;
 import com.nniett.kikaishin.app.service.mapper.AnswerMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.answer.AnswerCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Answer;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerCreationDto;
+import com.nniett.kikaishin.app.service.dto.AnswerDto;
+import com.nniett.kikaishin.app.service.dto.write.answer.AnswerCreationDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ public class AnswerCreateService
         <
                 AnswerEntity,
                 Integer,
-                Answer,
+                AnswerDto,
                 AnswerCreationDto
                 >
 {

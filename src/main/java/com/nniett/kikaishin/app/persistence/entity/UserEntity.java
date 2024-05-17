@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,11 +30,23 @@ public class UserEntity extends MutableEntity {
     @Column(unique = true, nullable = false, columnDefinition = "VARCHAR(25)")
     private String email;
 
+    @Column(nullable = false, columnDefinition = "TINYINT")
+    private Boolean locked;
+
+    @Column(nullable = false, columnDefinition = "TINYINT")
+    private Boolean disabled;
+
+    @Column(nullable = false, name = "failed_authentications")
+    private Integer failedAuthentications;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_fk", referencedColumnName = "username")
     private List<ShelfEntity> shelves;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<ReviewEntity> reviews;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    List<UserRoleEntity> roles;
 
 }

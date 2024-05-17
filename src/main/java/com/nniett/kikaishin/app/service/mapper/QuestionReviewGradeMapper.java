@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
-import com.nniett.kikaishin.app.service.pojo.QuestionReviewGrade;
+import com.nniett.kikaishin.app.service.dto.QuestionReviewGradeDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {QuestionMapper.class, ReviewMapper.class})
-public interface QuestionReviewGradeMapper extends EntityPojoMapper<QuestionReviewGradeEntity, QuestionReviewGrade>{
+public interface QuestionReviewGradeMapper extends EntityPojoMapper<QuestionReviewGradeEntity, QuestionReviewGradeDto>{
     @Override
     @Mappings({
             @Mapping(source = "id", target = "questionReviewGradeId"),
@@ -22,13 +22,13 @@ public interface QuestionReviewGradeMapper extends EntityPojoMapper<QuestionRevi
             @Mapping(target = "parentReview", ignore = true),
             @Mapping(target = "PK", ignore = true)
     })
-    QuestionReviewGrade toPojo(QuestionReviewGradeEntity entity);
+    QuestionReviewGradeDto toPojo(QuestionReviewGradeEntity entity);
     @Override
-    List<QuestionReviewGrade> toPojos(List<QuestionReviewGradeEntity> entities);
+    List<QuestionReviewGradeDto> toPojos(List<QuestionReviewGradeEntity> entities);
 
     @Override
     @InheritInverseConfiguration
-    QuestionReviewGradeEntity toEntity(QuestionReviewGrade pojo);
+    QuestionReviewGradeEntity toEntity(QuestionReviewGradeDto pojo);
     @Override
-    List<QuestionReviewGradeEntity> toEntities(List<QuestionReviewGrade> pojos);
+    List<QuestionReviewGradeEntity> toEntities(List<QuestionReviewGradeDto> pojos);
 }

@@ -1,12 +1,12 @@
 package com.nniett.kikaishin.app.service.forget.risk;
 
 import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
-import com.nniett.kikaishin.app.service.pojo.LabeledRecommendedQuestionList;
+import com.nniett.kikaishin.app.service.dto.LabeledRecommendedQuestionListDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nniett.kikaishin.app.service.pojo.RecommendedQuestion;
+import com.nniett.kikaishin.app.service.dto.RecommendedQuestionDto;
 
 public final class RiskFactorsManager {
 
@@ -14,20 +14,20 @@ public final class RiskFactorsManager {
 
     private RiskFactorsManager() {}
 
-    public static List<LabeledRecommendedQuestionList> getRecommendedReview(List<QuestionEntity> questions) {
-        List<LabeledRecommendedQuestionList> levels = new ArrayList<>();
+    public static List<LabeledRecommendedQuestionListDto> getRecommendedReview(List<QuestionEntity> questions) {
+        List<LabeledRecommendedQuestionListDto> levels = new ArrayList<>();
 
-        LabeledRecommendedQuestionList highLevel = new LabeledRecommendedQuestionList();
+        LabeledRecommendedQuestionListDto highLevel = new LabeledRecommendedQuestionListDto();
         highLevel.setLabel("High");
         highLevel.setRecommendedQuestions(new ArrayList<>());
         levels.add(highLevel);
 
-        LabeledRecommendedQuestionList mediumLevel = new LabeledRecommendedQuestionList();
+        LabeledRecommendedQuestionListDto mediumLevel = new LabeledRecommendedQuestionListDto();
         mediumLevel.setLabel("Medium");
         mediumLevel.setRecommendedQuestions(new ArrayList<>());
         levels.add(mediumLevel);
 
-        LabeledRecommendedQuestionList lowLevel = new LabeledRecommendedQuestionList();
+        LabeledRecommendedQuestionListDto lowLevel = new LabeledRecommendedQuestionListDto();
         lowLevel.setLabel("Low");
         lowLevel.setRecommendedQuestions(new ArrayList<>());
         levels.add(lowLevel);
@@ -43,12 +43,12 @@ public final class RiskFactorsManager {
 
     private static void processQuestions(
             List<QuestionEntity> questions,
-            LabeledRecommendedQuestionList _high,
-            LabeledRecommendedQuestionList _medium,
-            LabeledRecommendedQuestionList _low) {
+            LabeledRecommendedQuestionListDto _high,
+            LabeledRecommendedQuestionListDto _medium,
+            LabeledRecommendedQuestionListDto _low) {
 
         questions.forEach(q -> {
-            RecommendedQuestion result = processQuestion(q);
+            RecommendedQuestionDto result = processQuestion(q);
             switch(result.getClassifier()) {
                 case low -> {
                     _low.getRecommendedQuestions().add(result);
@@ -68,17 +68,17 @@ public final class RiskFactorsManager {
 
     }
 
-    private static RecommendedQuestion processQuestion(QuestionEntity question) {
-        List<RecommendedQuestion> risks = new ArrayList<>();
+    private static RecommendedQuestionDto processQuestion(QuestionEntity question) {
+        List<RecommendedQuestionDto> risks = new ArrayList<>();
 
         risks.add(RiskFactorsClassifiers.byLowAverage.apply(question));
         risks.add(RiskFactorsClassifiers.byPerformanceDecrease.apply(question));
         risks.add(RiskFactorsClassifiers.byLastReviewGrade.apply(question));
         risks.add(RiskFactorsClassifiers.byAgingReview.apply(question));
 
-        RecommendedQuestion higherRisk = risks.get(0);
+        RecommendedQuestionDto higherRisk = risks.get(0);
 
-        for(RecommendedQuestion recommendedQuestion: risks) {
+        for(RecommendedQuestionDto recommendedQuestion: risks) {
             if(recommendedQuestion.getClassifier().isHigher(higherRisk.getClassifier())) {
                 higherRisk = recommendedQuestion;
             }

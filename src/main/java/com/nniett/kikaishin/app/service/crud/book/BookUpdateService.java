@@ -4,8 +4,8 @@ import com.nniett.kikaishin.app.persistence.entity.BookEntity;
 import com.nniett.kikaishin.app.service.construction.UpdateService;
 import com.nniett.kikaishin.app.service.mapper.EntityPojoMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.book.BookUpdateMapper;
-import com.nniett.kikaishin.app.service.pojo.Book;
-import com.nniett.kikaishin.app.service.pojo.dto.book.BookUpdateDto;
+import com.nniett.kikaishin.app.service.dto.BookDto;
+import com.nniett.kikaishin.app.service.dto.write.book.BookUpdateDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -17,13 +17,13 @@ public class BookUpdateService
                 BookEntity,
                 Integer,
                 BookUpdateDto,
-                Book
+                BookDto
                 >
 {
 
     public BookUpdateService(
             ListCrudRepository<BookEntity, Integer> repository,
-            EntityPojoMapper<BookEntity, Book> entityPojoMapper,
+            EntityPojoMapper<BookEntity, BookDto> entityPojoMapper,
             @Qualifier("bookUpdateMapperImpl")
             BookUpdateMapper updateMapper
     ) {
@@ -31,7 +31,7 @@ public class BookUpdateService
     }
 
     @Override
-    public void populateEntityForUpdate(BookEntity entity, Book pojo) {
+    public void populateEntityForUpdate(BookEntity entity, BookDto pojo) {
         if(pojo.getName() != null &&
                 !pojo.getName().isEmpty() &&
                 !pojo.getName().equals(entity.getName())) {

@@ -3,7 +3,7 @@ package com.nniett.kikaishin.app.service.forget.risk;
 import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
 import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
 import com.nniett.kikaishin.app.persistence.entity.ReviewModelEntity;
-import com.nniett.kikaishin.app.service.pojo.RecommendedQuestion;
+import com.nniett.kikaishin.app.service.dto.RecommendedQuestionDto;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -43,10 +43,10 @@ public final class RiskFactorsClassifiers {
     }
 
 
-    public static final Function<QuestionEntity, RecommendedQuestion> byLowAverage = q ->
+    public static final Function<QuestionEntity, RecommendedQuestionDto> byLowAverage = q ->
     {
         double average = getQuestionLastFiveReviewsAverage(q);
-        RecommendedQuestion recommendedQuestion = new RecommendedQuestion();
+        RecommendedQuestionDto recommendedQuestion = new RecommendedQuestionDto();
         recommendedQuestion.setReason("Last five grades average too low.");
 
         if(average < 3) {
@@ -76,9 +76,9 @@ public final class RiskFactorsClassifiers {
         }
     }
 
-    public static final Function<QuestionEntity, RecommendedQuestion> byPerformanceDecrease = q ->
+    public static final Function<QuestionEntity, RecommendedQuestionDto> byPerformanceDecrease = q ->
     {
-        RecommendedQuestion recommendedQuestion = new RecommendedQuestion();
+        RecommendedQuestionDto recommendedQuestion = new RecommendedQuestionDto();
         recommendedQuestion.setReason("Last two grades evidence performance decrease.");
 
         Integer grade1 = getQuestionLastGrade(q);
@@ -128,9 +128,9 @@ public final class RiskFactorsClassifiers {
         }
     }
 
-    public static final Function<QuestionEntity, RecommendedQuestion> byLastReviewGrade = q ->
+    public static final Function<QuestionEntity, RecommendedQuestionDto> byLastReviewGrade = q ->
     {
-        RecommendedQuestion recommendedQuestion = new RecommendedQuestion();
+        RecommendedQuestionDto recommendedQuestion = new RecommendedQuestionDto();
         recommendedQuestion.setReason("Last review grade is too low.");
 
         Integer grade = getQuestionLastGrade(q);
@@ -155,9 +155,9 @@ public final class RiskFactorsClassifiers {
         }
     };
 
-    public static final Function<QuestionEntity, RecommendedQuestion> byAgingReview = q ->
+    public static final Function<QuestionEntity, RecommendedQuestionDto> byAgingReview = q ->
     {
-        RecommendedQuestion recommendedQuestion = new RecommendedQuestion();
+        RecommendedQuestionDto recommendedQuestion = new RecommendedQuestionDto();
         recommendedQuestion.setReason("Last review is too old.");
 
         long totalDays = getTotalDaysFromLastReview(q);

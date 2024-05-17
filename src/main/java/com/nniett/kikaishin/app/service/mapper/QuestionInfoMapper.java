@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.QuestionInfoVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.QuestionInfo;
+import com.nniett.kikaishin.app.service.dto.QuestionInfoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -26,6 +26,6 @@ public interface QuestionInfoMapper {
             @Mapping(source = "lastReviewGrade", target = "lastReviewGrade"),
             @Mapping(source = "age", target = "age")
     })
-    QuestionInfo toQuestionInfo(QuestionInfoVirtualEntity entity);
-    List<QuestionInfo> toQuestionsInfo(List<QuestionInfoVirtualEntity> entities);
+    QuestionInfoDto toQuestionInfo(QuestionInfoVirtualEntity entity);
+    List<QuestionInfoDto> toQuestionsInfo(List<QuestionInfoVirtualEntity> entities);
 }

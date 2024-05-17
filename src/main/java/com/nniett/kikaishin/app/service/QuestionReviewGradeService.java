@@ -6,8 +6,8 @@ import com.nniett.kikaishin.app.service.construction.ImmutableService;
 import com.nniett.kikaishin.app.service.crud.questionreviewgrade.QuestionReviewGradeCreateService;
 import com.nniett.kikaishin.app.service.crud.questionreviewgrade.QuestionReviewGradeDeleteService;
 import com.nniett.kikaishin.app.service.crud.questionreviewgrade.QuestionReviewGradeReadService;
-import com.nniett.kikaishin.app.service.pojo.QuestionReviewGrade;
-import com.nniett.kikaishin.app.service.pojo.dto.questionreviewgrade.QuestionReviewGradeCreationDto;
+import com.nniett.kikaishin.app.service.dto.QuestionReviewGradeDto;
+import com.nniett.kikaishin.app.service.dto.write.questionreviewgrade.QuestionReviewGradeCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ public class QuestionReviewGradeService
         extends ImmutableService
         <
                 QuestionReviewGradeCreationDto,
-                QuestionReviewGrade,
+                QuestionReviewGradeDto,
                 QuestionReviewGradeEntity,
                 Integer
                 >

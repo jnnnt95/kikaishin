@@ -15,12 +15,15 @@ import com.nniett.kikaishin.app.service.crud.question.QuestionUpdateService;
 import com.nniett.kikaishin.app.service.forget.risk.RiskFactorsManager;
 import com.nniett.kikaishin.app.service.mapper.QuestionInfoMapper;
 import com.nniett.kikaishin.app.service.mapper.ReviewableQuestionMapper;
-import com.nniett.kikaishin.app.service.pojo.LabeledRecommendedQuestionList;
-import com.nniett.kikaishin.app.service.pojo.Question;
-import com.nniett.kikaishin.app.service.pojo.QuestionInfo;
-import com.nniett.kikaishin.app.service.pojo.ReviewableQuestion;
-import com.nniett.kikaishin.app.service.pojo.dto.question.QuestionCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.question.QuestionUpdateDto;
+import com.nniett.kikaishin.app.service.dto.LabeledRecommendedQuestionListDto;
+import com.nniett.kikaishin.app.service.dto.QuestionDto;
+import com.nniett.kikaishin.app.service.dto.QuestionInfoDto;
+import com.nniett.kikaishin.app.service.dto.ReviewableQuestion;
+import com.nniett.kikaishin.app.service.dto.write.question.QuestionCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.question.QuestionUpdateDto;
+import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
+import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
+import com.nniett.kikaishin.app.web.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -35,10 +38,11 @@ public class QuestionService
         <
                 QuestionEntity,
                 Integer,
-                Question,
+                QuestionDto,
                 QuestionCreationDto,
                 QuestionUpdateDto
                 >
+        implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
     private final ReviewableQuestionMapper reviewableQuestionMapper;
     private final QuestionInfoVirtualRepository questionInfoRepository;
@@ -46,6 +50,7 @@ public class QuestionService
     private final ReviewableQuestionVirtualRepository reviewableQuestionVirtualRepository;
     private final AnswerRepository answerRepository;
     private final ClueRepository clueRepository;
+    private final JwtUtils jwtUtils;
 
     @Autowired
     public QuestionService(
@@ -59,7 +64,8 @@ public class QuestionService
             QuestionInfoMapper questionInfoMapper,
             ReviewableQuestionVirtualRepository reviewableQuestionVirtualRepository,
             AnswerRepository answerRepository,
-            ClueRepository clueRepository
+            ClueRepository clueRepository,
+            JwtUtils jwtUtils
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.reviewableQuestionMapper = reviewableQuestionMapper;
@@ -68,6 +74,7 @@ public class QuestionService
         this.reviewableQuestionVirtualRepository = reviewableQuestionVirtualRepository;
         this.answerRepository = answerRepository;
         this.clueRepository = clueRepository;
+        this.jwtUtils = jwtUtils;
     }
 
 
@@ -77,7 +84,7 @@ public class QuestionService
     }
 
     @Override
-    public void populateEntityForUpdate(QuestionEntity entity, Question pojo) {
+    public void populateEntityForUpdate(QuestionEntity entity, QuestionDto pojo) {
         getUpdateService().populateEntityForUpdate(entity, pojo);
     }
 
@@ -100,8 +107,7 @@ public class QuestionService
     ) {
         List<ReviewableQuestionVirtualEntity> prospectQuestions;
         List<ReviewableQuestionVirtualEntity> finalSetOfQuestions = new ArrayList<>();
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         switch(reviewLevel) {
             case "all": {
                 prospectQuestions = reviewableQuestionVirtualRepository.getAllReviewableQuestions(username);
@@ -142,9 +148,8 @@ public class QuestionService
         return reviewableQuestions;
     }
 
-    public QuestionInfo getQuestionInfo(Integer questionId) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public QuestionInfoDto getQuestionInfo(Integer questionId) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return questionInfoMapper.
                 toQuestionInfo(
                         questionInfoRepository.
@@ -152,21 +157,18 @@ public class QuestionService
                 );
     }
 
-    public List<QuestionInfo> getQuestionsInfo(List<Integer> questionIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public List<QuestionInfoDto> getQuestionsInfo(List<Integer> questionIds) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return questionInfoMapper.toQuestionsInfo(questionInfoRepository.getQuestionsInfoById(username, questionIds));
     }
 
     public Integer countExistingIds(List<Integer> questionIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return ((QuestionRepository) getRepository()).countByIdIn(username, questionIds);
     }
 
-    public List<LabeledRecommendedQuestionList> getRecommendedQuestions() {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public List<LabeledRecommendedQuestionListDto> getRecommendedQuestions() {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return RiskFactorsManager.getRecommendedReview(((QuestionRepository) getRepository()).findByUsername(username));
     }
 

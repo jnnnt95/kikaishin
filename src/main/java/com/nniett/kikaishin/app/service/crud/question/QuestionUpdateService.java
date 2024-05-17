@@ -5,8 +5,8 @@ import com.nniett.kikaishin.app.persistence.repository.QuestionRepository;
 import com.nniett.kikaishin.app.service.construction.UpdateService;
 import com.nniett.kikaishin.app.service.mapper.QuestionMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.question.QuestionUpdateMapper;
-import com.nniett.kikaishin.app.service.pojo.Question;
-import com.nniett.kikaishin.app.service.pojo.dto.question.QuestionUpdateDto;
+import com.nniett.kikaishin.app.service.dto.QuestionDto;
+import com.nniett.kikaishin.app.service.dto.write.question.QuestionUpdateDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class QuestionUpdateService
                 QuestionEntity,
                 Integer,
                 QuestionUpdateDto,
-                Question
+                QuestionDto
                 >
 {
 
@@ -31,7 +31,7 @@ public class QuestionUpdateService
     }
 
     @Override
-    public void populateEntityForUpdate(QuestionEntity entity, Question pojo) {
+    public void populateEntityForUpdate(QuestionEntity entity, QuestionDto pojo) {
         if(pojo.getBody() != null &&
                 !pojo.getBody().isEmpty() &&
                 !pojo.getBody().equals(entity.getBody())) {

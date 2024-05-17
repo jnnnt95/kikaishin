@@ -2,8 +2,8 @@ package com.nniett.kikaishin.app.service.mapper.dto.answer;
 
 
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
-import com.nniett.kikaishin.app.service.pojo.Answer;
-import com.nniett.kikaishin.app.service.pojo.dto.answer.AnswerUpdateDto;
+import com.nniett.kikaishin.app.service.dto.AnswerDto;
+import com.nniett.kikaishin.app.service.dto.write.answer.AnswerUpdateDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring")
-public interface AnswerUpdateMapper extends DtoPojoMapper<AnswerUpdateDto, Answer> {
+public interface AnswerUpdateMapper extends DtoPojoMapper<AnswerUpdateDto, AnswerDto> {
     @Override
     @Mappings({
             @Mapping(source = "answerId", target = "answerId"),
@@ -25,9 +25,9 @@ public interface AnswerUpdateMapper extends DtoPojoMapper<AnswerUpdateDto, Answe
             @Mapping(target = "question", ignore = true),
             @Mapping(target = "parentPK", ignore = true)
     })
-    Answer toPojo(AnswerUpdateDto dto);
+    AnswerDto toPojo(AnswerUpdateDto dto);
 
     @Override
     @InheritInverseConfiguration
-    AnswerUpdateDto toDto(Answer pojo);
+    AnswerUpdateDto toDto(AnswerDto pojo);
 }

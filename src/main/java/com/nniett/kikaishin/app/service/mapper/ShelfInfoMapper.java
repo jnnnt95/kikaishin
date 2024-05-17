@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.ShelfInfoVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.ShelfInfo;
+import com.nniett.kikaishin.app.service.dto.ShelfInfoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -22,6 +22,6 @@ public interface ShelfInfoMapper {
             @Mapping(source = "createDate", target = "createDate"),
             @Mapping(source = "bookIds", target = "bookIds")
     })
-    ShelfInfo toShelfInfo(ShelfInfoVirtualEntity entity);
-    List<ShelfInfo> toShelvesInfo(List<ShelfInfoVirtualEntity> entities);
+    ShelfInfoDto toShelfInfo(ShelfInfoVirtualEntity entity);
+    List<ShelfInfoDto> toShelvesInfo(List<ShelfInfoVirtualEntity> entities);
 }

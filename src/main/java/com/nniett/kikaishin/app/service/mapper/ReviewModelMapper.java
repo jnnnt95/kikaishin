@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.ReviewModelEntity;
-import com.nniett.kikaishin.app.service.pojo.ReviewModel;
+import com.nniett.kikaishin.app.service.dto.ReviewModelDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", uses = {QuestionMapper.class})
-public interface ReviewModelMapper extends EntityPojoMapper<ReviewModelEntity, ReviewModel>{
+public interface ReviewModelMapper extends EntityPojoMapper<ReviewModelEntity, ReviewModelDto>{
     @Override
     @Mappings(value = {
             @Mapping(source = "id", target = "reviewModelId"),
@@ -23,14 +23,14 @@ public interface ReviewModelMapper extends EntityPojoMapper<ReviewModelEntity, R
             @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "question", target = "question", ignore = true)
-    ReviewModel toPojo(ReviewModelEntity entity);
+    ReviewModelDto toPojo(ReviewModelEntity entity);
     @Override
-    List<ReviewModel> toPojos(List<ReviewModelEntity> ReviewModel);
+    List<ReviewModelDto> toPojos(List<ReviewModelEntity> ReviewModel);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "question", target = "question", ignore = true)
-    ReviewModelEntity toEntity(ReviewModel pojo);
+    ReviewModelEntity toEntity(ReviewModelDto pojo);
     @Override
-    List<ReviewModelEntity> toEntities(List<ReviewModel> pojos);
+    List<ReviewModelEntity> toEntities(List<ReviewModelDto> pojos);
 }

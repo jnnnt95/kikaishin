@@ -8,11 +8,14 @@ import com.nniett.kikaishin.app.service.crud.shelf.ShelfCreateService;
 import com.nniett.kikaishin.app.service.crud.shelf.ShelfDeleteService;
 import com.nniett.kikaishin.app.service.crud.shelf.ShelfReadService;
 import com.nniett.kikaishin.app.service.crud.shelf.ShelfUpdateService;
+import com.nniett.kikaishin.app.service.dto.ShelfDto;
+import com.nniett.kikaishin.app.service.dto.ShelfInfoDto;
 import com.nniett.kikaishin.app.service.mapper.ShelfInfoMapper;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
-import com.nniett.kikaishin.app.service.pojo.ShelfInfo;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.shelf.ShelfCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.shelf.ShelfUpdateDto;
+import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
+import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
+import com.nniett.kikaishin.app.web.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -26,14 +29,16 @@ public class ShelfService
         <
                 ShelfEntity,
                 Integer,
-                Shelf,
+                ShelfDto,
                 ShelfCreationDto,
                 ShelfUpdateDto
                 >
+        implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
 
     private final ShelfInfoVirtualRepository shelfInfoRepository;
     private final ShelfInfoMapper shelfInfoMapper;
+    private final JwtUtils jwtUtils;
 
     @Autowired
     public ShelfService(
@@ -43,11 +48,13 @@ public class ShelfService
             ShelfUpdateService updateService,
             ShelfDeleteService deleteService,
             ShelfInfoVirtualRepository shelfInfoRepository,
-            ShelfInfoMapper shelfInfoMapper
+            ShelfInfoMapper shelfInfoMapper,
+            JwtUtils jwtUtils
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.shelfInfoRepository = shelfInfoRepository;
         this.shelfInfoMapper = shelfInfoMapper;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -56,7 +63,7 @@ public class ShelfService
     }
 
     @Override
-    public void populateEntityForUpdate(ShelfEntity entity, Shelf shelf) {
+    public void populateEntityForUpdate(ShelfEntity entity, ShelfDto shelf) {
         getUpdateService().populateEntityForUpdate(entity, shelf);
     }
 
@@ -65,7 +72,7 @@ public class ShelfService
         return getRepository().findById(shelfUpdateDto.getShelfId()).orElseThrow();
     }
 
-    public Shelf getShelfById(int id) {
+    public ShelfDto getShelfById(int id) {
         return readPojo(id);
     }
 
@@ -75,9 +82,8 @@ public class ShelfService
     }
 
 
-    public ShelfInfo getShelfInfo(Integer shelfId) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public ShelfInfoDto getShelfInfo(Integer shelfId) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return shelfInfoMapper.
                 toShelfInfo(
                         shelfInfoRepository.
@@ -85,15 +91,13 @@ public class ShelfService
                 );
     }
 
-    public List<ShelfInfo> getShelvesInfo(List<Integer> shelfIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+    public List<ShelfInfoDto> getShelvesInfo(List<Integer> shelfIds) {
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return shelfInfoMapper.toShelvesInfo(shelfInfoRepository.getShelvesInfoById(username, shelfIds));
     }
 
     public Integer countExistingIds(List<Integer> bookIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return ((ShelfRepository) getRepository()).countByIdIn(username, bookIds);
     }
 

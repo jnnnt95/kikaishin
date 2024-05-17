@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.ClueEntity;
-import com.nniett.kikaishin.app.service.pojo.ReviewableClue;
+import com.nniett.kikaishin.app.service.dto.ReviewableClue;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

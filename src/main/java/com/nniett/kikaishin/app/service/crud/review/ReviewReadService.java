@@ -3,8 +3,8 @@ package com.nniett.kikaishin.app.service.crud.review;
 import com.nniett.kikaishin.app.persistence.entity.ReviewEntity;
 import com.nniett.kikaishin.app.persistence.repository.ReviewRepository;
 import com.nniett.kikaishin.app.service.construction.ReadService;
+import com.nniett.kikaishin.app.service.dto.ReviewDto;
 import com.nniett.kikaishin.app.service.mapper.ReviewMapper;
-import com.nniett.kikaishin.app.service.pojo.Review;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,7 +13,7 @@ public class ReviewReadService
         <
                 ReviewEntity,
                 Integer,
-                Review
+                ReviewDto
                 >
 {
 

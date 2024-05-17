@@ -4,7 +4,7 @@ import com.nniett.kikaishin.app.persistence.entity.UserEntity;
 import com.nniett.kikaishin.app.persistence.repository.UserRepository;
 import com.nniett.kikaishin.app.service.construction.ReadService;
 import com.nniett.kikaishin.app.service.mapper.UserMapper;
-import com.nniett.kikaishin.app.service.pojo.User;
+import com.nniett.kikaishin.app.service.dto.UserDto;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,7 +13,7 @@ public class UserReadService
         <
                 UserEntity,
                 String,
-                User
+                UserDto
                 >
 {
 

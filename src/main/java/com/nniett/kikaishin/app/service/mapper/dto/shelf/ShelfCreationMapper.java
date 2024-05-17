@@ -1,10 +1,10 @@
 package com.nniett.kikaishin.app.service.mapper.dto.shelf;
 
 
+import com.nniett.kikaishin.app.service.dto.ShelfDto;
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.book.BookCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.shelf.ShelfCreationDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring", uses = {BookCreationMapper.class})
-public interface ShelfCreationMapper extends DtoPojoMapper<ShelfCreationDto, Shelf> {
+public interface ShelfCreationMapper extends DtoPojoMapper<ShelfCreationDto, ShelfDto> {
     @Override
     @Mappings({
             @Mapping(source = "name", target = "name"),
@@ -29,9 +29,9 @@ public interface ShelfCreationMapper extends DtoPojoMapper<ShelfCreationDto, She
             @Mapping(target = "active", ignore = true),
             @Mapping(target = "parentPK", ignore = true)
     })
-    Shelf toPojo(ShelfCreationDto dto);
+    ShelfDto toPojo(ShelfCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    ShelfCreationDto toDto(Shelf entity);
+    ShelfCreationDto toDto(ShelfDto entity);
 }

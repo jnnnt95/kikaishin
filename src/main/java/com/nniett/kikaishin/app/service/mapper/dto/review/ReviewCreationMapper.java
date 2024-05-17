@@ -1,10 +1,10 @@
 package com.nniett.kikaishin.app.service.mapper.dto.review;
 
 
+import com.nniett.kikaishin.app.service.dto.ReviewDto;
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.questionreviewgrade.QuestionReviewGradeCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Review;
-import com.nniett.kikaishin.app.service.pojo.dto.review.ReviewCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.review.ReviewCreationDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring", uses = {QuestionReviewGradeCreationMapper.class})
-public interface ReviewCreationMapper extends DtoPojoMapper<ReviewCreationDto, Review> {
+public interface ReviewCreationMapper extends DtoPojoMapper<ReviewCreationDto, ReviewDto> {
     @Override
     @Mappings({
             @Mapping(source = "questionGrades", target = "questionGrades"),
@@ -24,9 +24,9 @@ public interface ReviewCreationMapper extends DtoPojoMapper<ReviewCreationDto, R
             @Mapping(target = "createDate", ignore = true),
             @Mapping(target = "questions", ignore = true)
     })
-    Review toPojo(ReviewCreationDto dto);
+    ReviewDto toPojo(ReviewCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
-    ReviewCreationDto toDto(Review pojo);
+    ReviewCreationDto toDto(ReviewDto pojo);
 }

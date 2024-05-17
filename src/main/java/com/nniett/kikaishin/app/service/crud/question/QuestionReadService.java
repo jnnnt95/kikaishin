@@ -4,7 +4,7 @@ import com.nniett.kikaishin.app.persistence.entity.QuestionEntity;
 import com.nniett.kikaishin.app.persistence.repository.QuestionRepository;
 import com.nniett.kikaishin.app.service.construction.ReadService;
 import com.nniett.kikaishin.app.service.mapper.QuestionMapper;
-import com.nniett.kikaishin.app.service.pojo.Question;
+import com.nniett.kikaishin.app.service.dto.QuestionDto;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,7 +13,7 @@ public class QuestionReadService
         <
                 QuestionEntity,
                 Integer,
-                Question
+                QuestionDto
                 >
 {
 

@@ -3,10 +3,10 @@ package com.nniett.kikaishin.app.service.crud.user;
 import com.nniett.kikaishin.app.persistence.entity.UserEntity;
 import com.nniett.kikaishin.app.persistence.repository.UserRepository;
 import com.nniett.kikaishin.app.service.construction.UpdateService;
+import com.nniett.kikaishin.app.service.dto.UserDto;
 import com.nniett.kikaishin.app.service.mapper.UserMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.user.UserUpdateMapper;
-import com.nniett.kikaishin.app.service.pojo.User;
-import com.nniett.kikaishin.app.service.pojo.dto.user.UserUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.user.UserUpdateDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class UserUpdateService
                 UserEntity,
                 String,
                 UserUpdateDto,
-                User
+                UserDto
                 >
 {
 
@@ -31,7 +31,7 @@ public class UserUpdateService
     }
 
     @Override
-    public void populateEntityForUpdate(UserEntity entity, User pojo) {
+    public void populateEntityForUpdate(UserEntity entity, UserDto pojo) {
 
     }
 }

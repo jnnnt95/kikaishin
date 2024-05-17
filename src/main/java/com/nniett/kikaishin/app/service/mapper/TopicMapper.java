@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.TopicEntity;
-import com.nniett.kikaishin.app.service.pojo.Topic;
+import com.nniett.kikaishin.app.service.dto.TopicDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {BookMapper.class, QuestionMapper.class})
-public interface TopicMapper extends EntityPojoMapper<TopicEntity, Topic>{
+public interface TopicMapper extends EntityPojoMapper<TopicEntity, TopicDto>{
 
     @Mappings({
             @Mapping(source = "id", target = "topicId"),
@@ -26,13 +26,13 @@ public interface TopicMapper extends EntityPojoMapper<TopicEntity, Topic>{
             @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(source = "book", target = "parentBook", ignore = true)
-    Topic toPojo(TopicEntity entity);
+    TopicDto toPojo(TopicEntity entity);
     @Override
-    List<Topic> toPojos(List<TopicEntity> entities);
+    List<TopicDto> toPojos(List<TopicEntity> entities);
 
     @InheritInverseConfiguration
     @Mapping(source = "parentBook", target = "book", ignore = true)
-    TopicEntity toEntity(Topic pojo);
+    TopicEntity toEntity(TopicDto pojo);
     @Override
-    List<TopicEntity> toEntities(List<Topic> pojos);
+    List<TopicEntity> toEntities(List<TopicDto> pojos);
 }

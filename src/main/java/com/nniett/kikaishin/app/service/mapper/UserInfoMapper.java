@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.UserInfoVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.UserInfo;
+import com.nniett.kikaishin.app.service.dto.UserInfoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -21,5 +21,5 @@ public interface UserInfoMapper {
             @Mapping(source = "createDate", target = "createDate"),
             @Mapping(source = "shelfIds", target = "shelfIds")
     })
-    UserInfo toUserInfo(UserInfoVirtualEntity entity);
+    UserInfoDto toUserInfo(UserInfoVirtualEntity entity);
 }

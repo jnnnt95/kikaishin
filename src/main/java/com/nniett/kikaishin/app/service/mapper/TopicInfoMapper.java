@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.TopicInfoVirtualEntity;
-import com.nniett.kikaishin.app.service.pojo.TopicInfo;
+import com.nniett.kikaishin.app.service.dto.TopicInfoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -20,6 +20,6 @@ public interface TopicInfoMapper {
             @Mapping(source = "createDate", target = "createDate"),
             @Mapping(source = "questionIds", target = "questionIds")
     })
-    TopicInfo toTopicInfo(TopicInfoVirtualEntity entity);
-    List<TopicInfo> toTopicsInfo(List<TopicInfoVirtualEntity> entities);
+    TopicInfoDto toTopicInfo(TopicInfoVirtualEntity entity);
+    List<TopicInfoDto> toTopicsInfo(List<TopicInfoVirtualEntity> entities);
 }

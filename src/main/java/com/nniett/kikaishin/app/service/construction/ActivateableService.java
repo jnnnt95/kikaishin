@@ -1,9 +1,9 @@
 package com.nniett.kikaishin.app.service.construction;
 
 import com.nniett.kikaishin.app.persistence.entity.construction.ActivateableMutableEntity;
-import com.nniett.kikaishin.app.service.pojo.Pojo;
-import com.nniett.kikaishin.app.service.pojo.dto.ActivateableUpdateDto;
-import com.nniett.kikaishin.app.service.pojo.dto.CreationDto;
+import com.nniett.kikaishin.app.service.dto.common.Pojo;
+import com.nniett.kikaishin.app.service.dto.write.ActivateableUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import org.springframework.data.repository.ListCrudRepository;
 
 public abstract class ActivateableService

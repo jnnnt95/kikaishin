@@ -5,8 +5,8 @@ import com.nniett.kikaishin.app.persistence.repository.ClueRepository;
 import com.nniett.kikaishin.app.service.construction.CreateService;
 import com.nniett.kikaishin.app.service.mapper.ClueMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.clue.ClueCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Clue;
-import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueCreationDto;
+import com.nniett.kikaishin.app.service.dto.ClueDto;
+import com.nniett.kikaishin.app.service.dto.write.clue.ClueCreationDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ public class ClueCreateService
         <
                 ClueEntity,
                 Integer,
-                Clue,
+                ClueDto,
                 ClueCreationDto
                 >
 {

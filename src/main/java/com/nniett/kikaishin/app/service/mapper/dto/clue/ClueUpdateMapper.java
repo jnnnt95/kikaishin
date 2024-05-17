@@ -2,8 +2,8 @@ package com.nniett.kikaishin.app.service.mapper.dto.clue;
 
 
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
-import com.nniett.kikaishin.app.service.pojo.Clue;
-import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueUpdateDto;
+import com.nniett.kikaishin.app.service.dto.ClueDto;
+import com.nniett.kikaishin.app.service.dto.write.clue.ClueUpdateDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring")
-public interface ClueUpdateMapper extends DtoPojoMapper<ClueUpdateDto, Clue> {
+public interface ClueUpdateMapper extends DtoPojoMapper<ClueUpdateDto, ClueDto> {
     @Override
     @Mappings({
             @Mapping(source = "clueId", target = "clueId"),
@@ -25,9 +25,9 @@ public interface ClueUpdateMapper extends DtoPojoMapper<ClueUpdateDto, Clue> {
             @Mapping(target = "question", ignore = true),
             @Mapping(target = "parentPK", ignore = true)
     })
-    Clue toPojo(ClueUpdateDto dto);
+    ClueDto toPojo(ClueUpdateDto dto);
 
     @Override
     @InheritInverseConfiguration
-    ClueUpdateDto toDto(Clue pojo);
+    ClueUpdateDto toDto(ClueDto pojo);
 }

@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.AnswerEntity;
-import com.nniett.kikaishin.app.service.pojo.Answer;
+import com.nniett.kikaishin.app.service.dto.AnswerDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {QuestionMapper.class})
-public interface AnswerMapper extends EntityPojoMapper<AnswerEntity, Answer>{
+public interface AnswerMapper extends EntityPojoMapper<AnswerEntity, AnswerDto>{
     @Override
     @Mappings({
             @Mapping(source = "id", target = "answerId"),
@@ -24,14 +24,14 @@ public interface AnswerMapper extends EntityPojoMapper<AnswerEntity, Answer>{
             @Mapping(target = "parentPK", ignore = true)
     })
     @Mapping(target = "question", ignore = true)
-    Answer toPojo(AnswerEntity entity);
+    AnswerDto toPojo(AnswerEntity entity);
     @Override
-    List<Answer> toPojos(List<AnswerEntity> entities);
+    List<AnswerDto> toPojos(List<AnswerEntity> entities);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "question", target = "question", ignore = true)
-    AnswerEntity toEntity(Answer pojo);
+    AnswerEntity toEntity(AnswerDto pojo);
     @Override
-    List<AnswerEntity> toEntities(List<Answer> pojos);
+    List<AnswerEntity> toEntities(List<AnswerDto> pojos);
 }

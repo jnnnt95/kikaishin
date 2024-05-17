@@ -3,10 +3,10 @@ package com.nniett.kikaishin.app.service.crud.topic;
 import com.nniett.kikaishin.app.persistence.entity.TopicEntity;
 import com.nniett.kikaishin.app.persistence.repository.TopicRepository;
 import com.nniett.kikaishin.app.service.construction.UpdateService;
+import com.nniett.kikaishin.app.service.dto.TopicDto;
 import com.nniett.kikaishin.app.service.mapper.TopicMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.topic.TopicUpdateMapper;
-import com.nniett.kikaishin.app.service.pojo.Topic;
-import com.nniett.kikaishin.app.service.pojo.dto.topic.TopicUpdateDto;
+import com.nniett.kikaishin.app.service.dto.write.topic.TopicUpdateDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class TopicUpdateService
                 TopicEntity,
                 Integer,
                 TopicUpdateDto,
-                Topic
+                TopicDto
                 >
 {
 
@@ -31,7 +31,7 @@ public class TopicUpdateService
     }
 
     @Override
-    public void populateEntityForUpdate(TopicEntity entity, Topic pojo) {
+    public void populateEntityForUpdate(TopicEntity entity, TopicDto pojo) {
         if(pojo.getName() != null &&
                 !pojo.getName().isEmpty() &&
                 !pojo.getName().equals(entity.getName())) {

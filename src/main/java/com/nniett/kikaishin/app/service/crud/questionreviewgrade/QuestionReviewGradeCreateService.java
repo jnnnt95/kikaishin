@@ -5,8 +5,8 @@ import com.nniett.kikaishin.app.persistence.repository.QuestionReviewGradeReposi
 import com.nniett.kikaishin.app.service.construction.CreateService;
 import com.nniett.kikaishin.app.service.mapper.QuestionReviewGradeMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.questionreviewgrade.QuestionReviewGradeCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.QuestionReviewGrade;
-import com.nniett.kikaishin.app.service.pojo.dto.questionreviewgrade.QuestionReviewGradeCreationDto;
+import com.nniett.kikaishin.app.service.dto.QuestionReviewGradeDto;
+import com.nniett.kikaishin.app.service.dto.write.questionreviewgrade.QuestionReviewGradeCreationDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ public class QuestionReviewGradeCreateService
         <
                 QuestionReviewGradeEntity,
                 Integer,
-                QuestionReviewGrade,
+                QuestionReviewGradeDto,
                 QuestionReviewGradeCreationDto
                 >
 {

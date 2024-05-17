@@ -7,9 +7,12 @@ import com.nniett.kikaishin.app.service.crud.clue.ClueCreateService;
 import com.nniett.kikaishin.app.service.crud.clue.ClueDeleteService;
 import com.nniett.kikaishin.app.service.crud.clue.ClueReadService;
 import com.nniett.kikaishin.app.service.crud.clue.ClueUpdateService;
-import com.nniett.kikaishin.app.service.pojo.Clue;
-import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.clue.ClueUpdateDto;
+import com.nniett.kikaishin.app.service.dto.ClueDto;
+import com.nniett.kikaishin.app.service.dto.write.clue.ClueCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.clue.ClueUpdateDto;
+import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
+import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
+import com.nniett.kikaishin.app.web.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,11 +24,13 @@ public class ClueService
         <
                 ClueCreationDto,
                 ClueUpdateDto,
-                Clue,
+                ClueDto,
                 ClueEntity,
                 Integer
                 >
+        implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private final JwtUtils jwtUtils;
 
     @Autowired
     public ClueService(
@@ -33,9 +38,11 @@ public class ClueService
             ClueCreateService createService,
             ClueReadService readService,
             ClueUpdateService updateService,
-            ClueDeleteService deleteService
+            ClueDeleteService deleteService,
+            JwtUtils jwtUtils
     ) {
         super(repository, createService, readService, updateService, deleteService);
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -49,11 +56,10 @@ public class ClueService
     }
 
     @Override
-    public void populateEntityForUpdate(ClueEntity answerEntity, Clue pojo) {}
+    public void populateEntityForUpdate(ClueEntity answerEntity, ClueDto pojo) {}
 
     public Integer countExistingIds(List<Integer> questionIds) {
-        //TODO: username should be retrieved appropriately from JWT.
-        String username = "1";
+        String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
         return ((ClueRepository) getRepository()).countByIdIn(username, questionIds);
     }
 

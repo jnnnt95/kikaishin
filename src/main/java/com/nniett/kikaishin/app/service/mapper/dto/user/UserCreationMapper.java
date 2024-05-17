@@ -1,18 +1,32 @@
 package com.nniett.kikaishin.app.service.mapper.dto.user;
 
+import com.nniett.kikaishin.app.service.dto.UserDto;
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
-import com.nniett.kikaishin.app.service.mapper.dto.book.BookCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Shelf;
-import com.nniett.kikaishin.app.service.pojo.User;
-import com.nniett.kikaishin.app.service.pojo.dto.shelf.ShelfCreationDto;
-import com.nniett.kikaishin.app.service.pojo.dto.user.UserCreationDto;
+import com.nniett.kikaishin.app.service.dto.write.user.UserCreationDto;
+import com.nniett.kikaishin.app.service.mapper.dto.shelf.ShelfCreationMapper;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper(componentModel = "spring", uses = {BookCreationMapper.class})
-public interface UserCreationMapper extends DtoPojoMapper<UserCreationDto, User> {
-    Shelf toPojo(ShelfCreationDto dto);
+@Mapper(componentModel = "spring", uses = {ShelfCreationMapper.class})
+public interface UserCreationMapper extends DtoPojoMapper<UserCreationDto, UserDto> {
+    @Override
+    @Mappings({
+            @Mapping(source = "username", target = "username"),
+            @Mapping(source = "password", target = "password"),
+            @Mapping(source = "displayName", target = "displayName"),
+            @Mapping(source = "email", target = "email"),
+            @Mapping(source = "shelves", target = "shelves"),
 
-    ShelfCreationDto toDto(Shelf entity);
+            @Mapping(target = "createDate", ignore = true),
+            @Mapping(target = "updateDate", ignore = true)
+    })
+    UserDto toPojo(UserCreationDto dto);
+
+    @Override
+    @InheritInverseConfiguration
+    UserCreationDto toDto(UserDto entity);
 }

@@ -4,8 +4,8 @@ package com.nniett.kikaishin.app.service.mapper.dto.book;
 import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.shelf.ShelfCreationMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.topic.TopicCreationMapper;
-import com.nniett.kikaishin.app.service.pojo.Book;
-import com.nniett.kikaishin.app.service.pojo.dto.book.BookCreationDto;
+import com.nniett.kikaishin.app.service.dto.BookDto;
+import com.nniett.kikaishin.app.service.dto.write.book.BookCreationDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring", uses = {ShelfCreationMapper.class, TopicCreationMapper.class})
-public interface BookCreationMapper extends DtoPojoMapper<BookCreationDto, Book> {
+public interface BookCreationMapper extends DtoPojoMapper<BookCreationDto, BookDto> {
     @Override
     @Mappings({
             @Mapping(source = "shelfId", target = "shelfId"),
@@ -28,10 +28,10 @@ public interface BookCreationMapper extends DtoPojoMapper<BookCreationDto, Book>
             @Mapping(target = "updateDate", ignore = true),
             @Mapping(target = "parentShelf", ignore = true)
     })
-    Book toPojo(BookCreationDto dto);
+    BookDto toPojo(BookCreationDto dto);
 
     @Override
     @InheritInverseConfiguration
     @Mapping(source = "topics", target = "topics", ignore = true)
-    BookCreationDto toDto(Book pojo);
+    BookCreationDto toDto(BookDto pojo);
 }
