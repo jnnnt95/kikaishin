@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.clue;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import com.nniett.kikaishin.app.service.dto.write.CreationDtoWithParent;
 import com.nniett.kikaishin.common.Constants;
@@ -29,16 +30,19 @@ public class ClueCreationDto implements
     @Min(value = 1, message = "Order index must be positive.")
     private Integer orderIndex;
 
+    @JsonIgnore
     @Override
     public Integer getParentPK() {
         return questionId;
     }
 
+    @JsonIgnore
     @Override
     public void setParentPK(Integer parentPK) {
         this.questionId = parentPK;
     }
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return this.clueId;

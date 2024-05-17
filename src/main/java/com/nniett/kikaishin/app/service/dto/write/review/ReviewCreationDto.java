@@ -28,6 +28,7 @@ public class ReviewCreationDto implements
         return this.username;
     }
 
+    @JsonIgnore
     @Override
     public void setParentPK(String parentPK) {
         this.username = parentPK;

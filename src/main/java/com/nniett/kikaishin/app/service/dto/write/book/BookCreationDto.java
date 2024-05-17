@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.common.Constants;
 import com.nniett.kikaishin.app.service.dto.write.CreationDtoWithChildren;
 import com.nniett.kikaishin.app.service.dto.write.CreationDtoWithParent;
@@ -30,26 +31,31 @@ public class BookCreationDto implements CreationDtoWithChildren<Integer, TopicCr
     @Valid
     private List<TopicCreationDto> topics;
 
+    @JsonIgnore
     @Override
     public List<TopicCreationDto> getChildren() {
         return topics;
     }
 
+    @JsonIgnore
     @Override
     public void setChildren(List<TopicCreationDto> children) {
         this.topics = children;
     }
 
+    @JsonIgnore
     @Override
     public Integer getParentPK() {
         return this.shelfId;
     }
 
+    @JsonIgnore
     @Override
     public void setParentPK(Integer parentPK) {
         this.shelfId = parentPK;
     }
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return this.bookId;

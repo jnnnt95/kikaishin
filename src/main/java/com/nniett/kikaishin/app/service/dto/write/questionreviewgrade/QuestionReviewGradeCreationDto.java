@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.questionreviewgrade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class QuestionReviewGradeCreationDto implements CreationDto<Integer> {
     @Max(value = 5, message = "Provided grade value cannot be greater than 5.")
     private Integer gradeValue;
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return reviewId;

@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.answer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.app.service.dto.write.UpdateDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ public class AnswerUpdateDto implements UpdateDto<Integer> {
 
     private String body;
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return answerId;

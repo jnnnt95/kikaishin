@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.shelf;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.common.Constants;
 import com.nniett.kikaishin.app.service.dto.write.CreationDtoWithChildren;
 import com.nniett.kikaishin.app.service.dto.write.book.BookCreationDto;
@@ -27,16 +28,19 @@ public class ShelfCreationDto implements CreationDtoWithChildren<Integer, BookCr
     @Valid
     private List<BookCreationDto> books;
 
+    @JsonIgnore
     @Override
     public List<BookCreationDto> getChildren() {
         return books;
     }
 
+    @JsonIgnore
     @Override
     public void setChildren(List<BookCreationDto> children) {
         this.books = children;
     }
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return this.shelfId;

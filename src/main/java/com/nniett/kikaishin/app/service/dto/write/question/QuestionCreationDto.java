@@ -47,6 +47,7 @@ public class QuestionCreationDto implements
         return topicId;
     }
 
+    @JsonIgnore
     @Override
     public void setParentPK(Integer parentPK) {
         this.topicId = parentPK;

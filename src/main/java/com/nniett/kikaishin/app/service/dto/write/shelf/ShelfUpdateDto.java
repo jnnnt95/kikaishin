@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.shelf;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.app.service.dto.write.ActivateableUpdateDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ public class ShelfUpdateDto implements ActivateableUpdateDto<Integer> {
 
     private Boolean active;
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return shelfId;

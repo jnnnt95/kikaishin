@@ -38,25 +38,30 @@ public class TopicCreationDto implements
     @Valid
     private List<QuestionCreationDto> questions;
 
+    @JsonIgnore
     @Override
     public Integer getParentPK() {
         return bookId;
     }
 
+    @JsonIgnore
     @Override
     public void setParentPK(Integer parentPK) {
         this.bookId = parentPK;
     }
+
     @JsonIgnore
     @Override
     public List<QuestionCreationDto> getChildren() {
         return this.questions;
     }
 
+    @JsonIgnore
     @Override
     public void setChildren(List<QuestionCreationDto> children) {
         this.questions = children;
     }
+
     @JsonIgnore
     @Override
     public Integer getPK() {

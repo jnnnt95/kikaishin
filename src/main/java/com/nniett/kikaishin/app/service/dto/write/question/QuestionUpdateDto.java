@@ -1,5 +1,6 @@
 package com.nniett.kikaishin.app.service.dto.write.question;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nniett.kikaishin.app.service.dto.write.ActivateableUpdateDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ public class QuestionUpdateDto implements ActivateableUpdateDto<Integer> {
 
     private Boolean active;
 
+    @JsonIgnore
     @Override
     public Integer getPK() {
         return questionId;

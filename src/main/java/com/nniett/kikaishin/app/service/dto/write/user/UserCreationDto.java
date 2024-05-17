@@ -48,6 +48,7 @@ public class UserCreationDto implements CreationDtoWithChildren<String, ShelfCre
     }
 
     @Override
+    @JsonIgnore
     public void setChildren(List<ShelfCreationDto> children) {
         this.shelves = children;
     }
