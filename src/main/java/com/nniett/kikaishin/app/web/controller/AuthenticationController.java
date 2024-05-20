@@ -2,6 +2,12 @@ package com.nniett.kikaishin.app.web.controller;
 
 import com.nniett.kikaishin.app.service.dto.write.LoginDto;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +41,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
+    @Operation(description = "Allows login to Kikaishin app. Provides as successful response a JWT as Authentication header.")
+    @ApiResponses({
+            @ApiResponse(description = "Successfully logged in; JWT generated.", responseCode = "200"),
+            @ApiResponse(description = "User is either locked or disabled.", responseCode = "418"),
+            @ApiResponse(description = "Provided user does not exist.", responseCode = "404"),
+            @ApiResponse(description = "Authentication process failed.", responseCode = "403")
+    })
+    @Parameters({
+            @Parameter(name = "LoginDto", schema = @Schema(implementation = LoginDto.class))
+    })
     public ResponseEntity<Void> login(@Valid @RequestBody LoginDto dto) {
         dto.setUsername(dto.getUsername().trim());
         if(userController.exists(dto.getUsername())) {

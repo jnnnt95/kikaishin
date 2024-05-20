@@ -9,6 +9,7 @@ import com.nniett.kikaishin.app.web.controller.construction.CanCheckOwnership;
 import com.nniett.kikaishin.app.web.controller.construction.CanVerifyId;
 import com.nniett.kikaishin.app.web.controller.construction.Controller;
 import com.nniett.kikaishin.app.web.controller.construction.VerifiesIntegerId;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;

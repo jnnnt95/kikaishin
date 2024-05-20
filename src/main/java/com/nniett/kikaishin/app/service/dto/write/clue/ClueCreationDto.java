@@ -17,6 +17,7 @@ public class ClueCreationDto implements
         CreationDtoWithParent<Integer>,
         CreationDto<Integer> {
 
+    @JsonIgnore
     private Integer clueId;
 
     private Integer questionId;

@@ -20,11 +20,9 @@ public class QuestionCreationDto implements
         CreationDtoWithParent<Integer>,
         CreationDto<Integer> {
 
+    @JsonIgnore
     private Integer questionId;
 
-    //moving validation to controller due to validation incompatibility for creation as child object.
-//    @Min(value = 1, message = "Provided Topic id not valid.")
-//    @NotNull(message = "Topic id must be provided.")
     private int topicId;
 
     @NotBlank(message = "Body cannot be empty.")

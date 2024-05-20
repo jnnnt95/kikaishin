@@ -14,11 +14,12 @@ import java.util.List;
 @Data
 public class ShelfCreationDto implements CreationDtoWithChildren<Integer, BookCreationDto> {
 
+    @JsonIgnore
     private Integer shelfId;
 
     @NotBlank(message = "Name cannot be empty.")
-    @Size(max = Constants.NAME_SIZE,
-            message = "Name cannot have more than " + Constants.NAME_SIZE + " characters.")
+    @Size(max = Constants.OBJECT_NAME_SIZE,
+            message = "Name cannot have more than " + Constants.OBJECT_NAME_SIZE + " characters.")
     private String name;
 
     @Size(max = Constants.DESCRIPTION_BODY_SIZE,

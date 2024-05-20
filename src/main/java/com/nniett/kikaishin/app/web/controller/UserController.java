@@ -10,7 +10,13 @@ import com.nniett.kikaishin.app.service.dto.UserInfoDto;
 import com.nniett.kikaishin.app.service.dto.write.user.UserCreationDto;
 import com.nniett.kikaishin.app.service.dto.write.user.UserUpdateDto;
 import com.nniett.kikaishin.app.web.controller.exception.UsernameNotMatchedException;
-import jakarta.servlet.http.HttpServletRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.*;
 import org.springframework.transaction.annotation.Propagation;
@@ -43,6 +49,23 @@ public class UserController extends Controller
 
     @PutMapping(PASSWORD_ENDPOINT)
     @Transactional(propagation = Propagation.REQUIRED)
+    @Operation(description = "Updates user's password.")
+    @ApiResponses({
+            @ApiResponse(description = "Password updated successfully.", responseCode = "200"),
+            @ApiResponse(description = "Dto validation failed.", responseCode = "400", content = @Content(schema = @Schema))
+    })
+    @Parameters({
+            @Parameter(name = "PasswordUpdateDto",
+                    description = """
+                            Old password must be provided. New password must be provided and comply with password policy \
+                                     1. Password must contain one digit from 1 to 9.
+                                     2. Password must contain one lowercase letter.
+                                     3. Password must contain one uppercase letter.
+                                     4. Password must contain one special character.
+                                     5. Password must not contain space characters.
+                                     6. Password must be 12-50 characters long.""",
+                    schema = @Schema(implementation = PasswordUpdateDto.class))
+    })
     public ResponseEntity<Void> changePassword(
            @Valid @RequestBody PasswordUpdateDto passwordUpdateDto
     ) {
@@ -56,6 +79,16 @@ public class UserController extends Controller
     @Override
     @PutMapping(DISPLAY_NAME_ENDPOINT)
     @Transactional(propagation = Propagation.REQUIRED)
+    @Operation(description = "Updates user's display name.")
+    @ApiResponses({
+            @ApiResponse(description = "User's display name updated successfully.", responseCode = "200"),
+            @ApiResponse(description = "Dto validation failed.", responseCode = "400", content = @Content(schema = @Schema))
+    })
+    @Parameters({
+            @Parameter(name = "UserUpdateDto",
+                    description = "Username and email cannot be updated.",
+                    schema = @Schema(implementation = UserUpdateDto.class))
+    })
     public ResponseEntity<UserDto> updateEntity(
             @Valid @RequestBody UserUpdateDto userUpdateDto
     ) {
@@ -72,22 +105,46 @@ public class UserController extends Controller
     @Override
     @PostMapping()
     @Transactional(propagation = Propagation.REQUIRED)
+    @Operation(description = "Creates a new user.")
+    @ApiResponses({
+            @ApiResponse(description = "User created successfully.", responseCode = "200"),
+            @ApiResponse(description = "Dto validation failed.", responseCode = "400", content = @Content(schema = @Schema)),
+            @ApiResponse(description = "Provided username or E-Mail already in use.", responseCode = "409", content = @Content(schema = @Schema))
+    })
+    @Parameters({
+            @Parameter(name = "UserCreationDto", description = "Username, password, display name and email must be provided. " +
+
+                    "Provided username must comply with Username policy, Username is a " + USERNAME_MIN_SIZE + "-to-" + USERNAME_MAX_SIZE + "-long string comprised of: " +
+                    "1. Lower and upper case characters. " +
+                    "2. Numbers. " +
+                    "3. Character \"_\", but no other special character. "+
+
+                    "Password must comply with password policy: " +
+                    "1. Password must contain one digit from 1 to 9. " +
+                    "2. Password must contain one lowercase letter. " +
+                    "3. Password must contain one uppercase letter. " +
+                    "4. Password must contain one special character. " +
+                    "5. Password must not contain space characters. " +
+                    "6. Password must be 12-50 characters long. " +
+
+                    "Display name should be a string with max length of " + DISPLAY_NAME_SIZE + " characters. " +
+
+                    "E-Mail should be a a valid email string with max length of " + EMAIL_SIZE + " characters. ",
+
+                    schema = @Schema(implementation = UserCreationDto.class))
+    })
     public ResponseEntity<UserDto> persistNewEntity(
             @Valid @RequestBody UserCreationDto creationDto
     ) {
         creationDto.setUsername(creationDto.getUsername().trim());
         creationDto.setDisplayName(creationDto.getDisplayName().trim());
         creationDto.setEmail(creationDto.getEmail().trim());
-        if(!exists(creationDto.getUsername())) {
-            if(!mailExists(creationDto.getEmail())) {
-                ResponseEntity<UserDto> userResponse = create(creationDto);
-                getService().createRole(userResponse.getBody());
-                return userResponse;
-            } else {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Provided E-Mail already in use.");
-            }
+        if(!exists(creationDto.getUsername()) && !mailExists(creationDto.getEmail())) {
+            ResponseEntity<UserDto> userResponse = create(creationDto);
+            getService().createRole(userResponse.getBody());
+            return userResponse;
         } else {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Provided Username already in use.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
     }
     private boolean mailExists(String email) {
@@ -95,9 +152,10 @@ public class UserController extends Controller
     }
 
     @Override
-    @GetMapping(ID_PARAM_PATH)
+    @GetMapping(USERNAME_PARAM_PATH)
+    //expected use: administrative.
     public ResponseEntity<UserDto> getEntityById(
-            @PathVariable(ID)
+            @PathVariable(USERNAME)
             String providedUsername
     ) {
         if(exists(providedUsername)) {
@@ -108,28 +166,55 @@ public class UserController extends Controller
     }
 
     @GetMapping()
+    @Operation(description = "Retrieves logged user and children objects.")
+    @ApiResponses({
+            @ApiResponse(description = "User retrieved successfully.", responseCode = "200")
+    })
     public ResponseEntity<UserDto> getEntity() {
         return new ResponseEntity<>(getService().getLoggedUser(), HttpStatus.OK);
     }
 
+    //Expected use: administrative.
     @Override
-    @DeleteMapping(ID_PARAM_PATH)
+    @DeleteMapping(USERNAME_PARAM_PATH)
     @Transactional(propagation = Propagation.REQUIRED)
+    @Operation(description = "Deletes user object and all related children such as shelves, books, topics, questions, answers, clues, review model, reviews and grades.")
+    @ApiResponses({
+            @ApiResponse(description = "Deletion performed successfully.", responseCode = "200"),
+            @ApiResponse(description = "Provided username not valid.", responseCode = "400", content = @Content(schema = @Schema)),
+            @ApiResponse(description = "Provided username does not exist.", responseCode = "404", content = @Content(schema = @Schema))
+    })
+    @Parameters({
+            @Parameter(name = USERNAME, description = "Username")
+    })
     public ResponseEntity<Void> deleteEntityById(
-            @PathVariable(ID)
+            @PathVariable(USERNAME)
             String providedUsername
     ) {
-        if(exists(providedUsername)) {
-            return delete(providedUsername);
+        if(valid(providedUsername)) {
+            if(exists(providedUsername)) {
+                return delete(providedUsername);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
+    //Expected use: administrative
     @Transactional(propagation = Propagation.REQUIRED)
-    @PutMapping(DISABLE_PATH + ID_PARAM_PATH)
+    @PutMapping(DISABLE_PATH + USERNAME_PARAM_PATH)
+    @Operation(description = "Set user's disabled status to true.")
+    @ApiResponses({
+            @ApiResponse(description = "User was disabled successfully.", responseCode = "200"),
+            @ApiResponse(description = "Provided username does not exist.", responseCode = "404", content = @Content(schema = @Schema))
+    })
+    @Parameters({
+            @Parameter(name = USERNAME, description = "Username")
+    })
     public ResponseEntity<Void> disableUser(
-            @PathVariable(ID) String providedUsername
+            @PathVariable(USERNAME) String providedUsername
     ) {
         if(exists(providedUsername)) {
             getService().updateUserIsDisabled(providedUsername, true);
@@ -139,10 +224,19 @@ public class UserController extends Controller
         }
     }
 
+    //Expected use: administrative
     @Transactional(propagation = Propagation.REQUIRED)
-    @PutMapping(ENABLE_PATH + ID_PARAM_PATH)
+    @PutMapping(ENABLE_PATH + USERNAME_PARAM_PATH)
+    @Operation(description = "Set user's disabled status to false.")
+    @ApiResponses({
+            @ApiResponse(description = "User was enabled successfully.", responseCode = "200"),
+            @ApiResponse(description = "Provided username does not exist.", responseCode = "404", content = @Content(schema = @Schema))
+    })
+    @Parameters({
+            @Parameter(name = USERNAME, description = "Username")
+    })
     public ResponseEntity<Void> enableUser(
-            @PathVariable(ID) String providedUsername
+            @PathVariable(USERNAME) String providedUsername
     ) {
         if(exists(providedUsername)) {
             getService().updateUserIsDisabled(providedUsername, false);
@@ -177,7 +271,11 @@ public class UserController extends Controller
 
     @GetMapping(INFO_ENDPOINT)
     @Transactional(propagation = Propagation.REQUIRED)
-    public ResponseEntity<UserInfoDto> requestShelfInfo() {
+    @Operation(description = "Retrieves summary information regarding logged user and children objects.")
+    @ApiResponses({
+            @ApiResponse(description = "Information retrieved successfully.", responseCode = "200")
+    })
+    public ResponseEntity<UserInfoDto> requestUserInfo() {
         return new ResponseEntity<>(getService().getUserInfo(), HttpStatus.OK);
     }
 

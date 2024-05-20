@@ -15,6 +15,7 @@ import java.util.List;
 public class ReviewCreationDto implements
         CreationDtoWithParent<String>, CreationDto<Integer> {
 
+    @JsonIgnore
     private Integer reviewId;
 
     private String username;
