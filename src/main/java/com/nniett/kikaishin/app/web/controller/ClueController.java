@@ -9,6 +9,8 @@ import com.nniett.kikaishin.app.service.ClueService;
 import com.nniett.kikaishin.app.service.dto.ClueDto;
 import com.nniett.kikaishin.app.service.dto.write.clue.ClueCreationDto;
 import com.nniett.kikaishin.app.service.dto.write.clue.ClueUpdateDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,9 +34,12 @@ public class ClueController extends Controller
         implements CanCheckOwnership<Integer>, CanVerifyId<Integer>, VerifiesIntegerId
 {
 
+    private static final Logger logger = LoggerFactory.getLogger(ClueController.class);
+
     @Autowired
     public ClueController(ClueService service) {
         super(service);
+        logger.info("ClueController initialized.");
     }
 
     @Override
@@ -62,11 +67,29 @@ public class ClueController extends Controller
 
     @Override
     public boolean own(List<Integer> ids) {
-        return getService().countExistingIds(ids) == ids.size();
+        logger.debug("Clue ids validation for ownership.");
+        logger.trace("Checking if ids are own. Ids: {}.", ids.toString());
+        boolean ownCheck = getService().countExistingIds(ids) == ids.size();
+        if(ownCheck) {
+            logger.trace("Ids are own. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not own. Ids: {}.", ids);
+        }
+        logger.debug("Clue ids validation for ownership completed.");
+        return ownCheck;
     }
 
     @Override
     public boolean valid(Collection<Integer> ids) {
-        return validIntegers(ids);
+        logger.debug("Clue ids validation.");
+        logger.trace("Checking if ids are valid. Ids: {}", ids);
+        boolean validCheck = validIntegers(ids);
+        if(validCheck) {
+            logger.trace("Ids are valid. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not valid. Ids: {}.", ids);
+        }
+        logger.debug("Clue ids validation completed.");
+        return validCheck;
     }
 }

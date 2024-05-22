@@ -5,10 +5,12 @@ import com.nniett.kikaishin.app.service.dto.common.HasParent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ReviewModelDto implements HasParent<Integer> {
     @JsonIgnore
     private Integer reviewModelId;

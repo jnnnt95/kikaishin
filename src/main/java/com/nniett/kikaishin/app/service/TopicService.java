@@ -16,6 +16,8 @@ import com.nniett.kikaishin.app.service.crud.topic.TopicDeleteService;
 import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
 import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -35,6 +37,7 @@ public class TopicService
                 >
         implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private static final Logger logger = LoggerFactory.getLogger(TopicService.class);
 
     private final TopicInfoVirtualRepository topicInfoRepository;
     private final TopicInfoMapper topicInfoMapper;
@@ -55,6 +58,7 @@ public class TopicService
         this.topicInfoRepository = topicInfoRepository;
         this.topicInfoMapper = topicInfoMapper;
         this.jwtUtils = jwtUtils;
+        logger.info("TopicService initialized.");
     }
 
 
@@ -79,10 +83,10 @@ public class TopicService
         return getRepository();
     }
 
-
-
     public TopicInfoDto getTopicInfo(Integer topicId) {
+        logger.debug("Retrieving topic info.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Topic info being gathered for username {}.", username);
         return topicInfoMapper.
                 toTopicInfo(
                         topicInfoRepository.
@@ -91,12 +95,16 @@ public class TopicService
     }
 
     public List<TopicInfoDto> getTopicsInfo(List<Integer> topicIds) {
+        logger.debug("Retrieving topics info.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Topics info being gathered for username {}.", username);
         return topicInfoMapper.toTopicsInfo(topicInfoRepository.getTopicsInfoById(username, topicIds));
     }
 
     public Integer countExistingIds(List<Integer> topicIds) {
+        logger.debug("Retrieving count of topics by ids.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Counting topics by ids for username {}.", username);
         return ((TopicRepository) getRepository()).countByIdIn(username, topicIds);
     }
 }

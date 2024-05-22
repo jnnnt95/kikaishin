@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
     private final AuthenticationManager authenticationManager;
     private final UserController userController;
     private final JwtUtils jwtUtils;
@@ -38,6 +42,8 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
         this.userController = userController;
         this.jwtUtils = jwtUtils;
+
+        logger.info("AuthenticationController initialized.");
     }
 
     @PostMapping("/login")
@@ -53,6 +59,8 @@ public class AuthenticationController {
     })
     public ResponseEntity<Void> login(@Valid @RequestBody LoginDto dto) {
         dto.setUsername(dto.getUsername().trim());
+        logger.debug("Authentication requested using method: {}.", "login(LoginDto)");
+        logger.trace("Authentication request body: {}.", dto);
         if(userController.exists(dto.getUsername())) {
             if(!userController.isBlocked(dto.getUsername())) {
                 UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(
@@ -64,15 +72,19 @@ public class AuthenticationController {
                     this.authenticationManager.authenticate(login);
                     String jwt = jwtUtils.create(dto.getUsername());
                     userController.reportSuccessfulAuthentication(dto.getUsername());
+                    logger.debug("Login succeeded. Returning positive response.");
                     return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
                 } catch(AuthenticationException e) {
                     userController.reportFailedAuthentication(dto.getUsername());
+                    logger.debug("Login failed. Report was performed. Returning forbidden response.");
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
                 }
             } else {
+                logger.debug("User is blocked. Meaning either locked or disabled. Returning negative login response.");
                 return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
             }
         } else {
+            logger.debug("User not found. Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }

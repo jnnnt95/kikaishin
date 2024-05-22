@@ -34,4 +34,9 @@ public class UserRoleEntity extends MutableEntity {
             referencedColumnName = "username",
             insertable = false, updatable = false)
     private UserEntity user;
+
+    @Override
+    public String toString() {
+        return this.role;
+    }
 }

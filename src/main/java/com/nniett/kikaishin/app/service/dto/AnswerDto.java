@@ -6,12 +6,14 @@ import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class AnswerDto implements HasParent<Integer>, Pojo<Integer> {
     private Integer answerId;
     @JsonIgnore

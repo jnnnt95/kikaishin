@@ -13,6 +13,8 @@ import com.nniett.kikaishin.app.service.dto.write.clue.ClueUpdateDto;
 import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
 import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +32,8 @@ public class ClueService
                 >
         implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private static final Logger logger = LoggerFactory.getLogger(ClueService.class);
+
     private final JwtUtils jwtUtils;
 
     @Autowired
@@ -43,6 +47,7 @@ public class ClueService
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.jwtUtils = jwtUtils;
+        logger.info("ClueService initialized.");
     }
 
     @Override
@@ -59,7 +64,9 @@ public class ClueService
     public void populateEntityForUpdate(ClueEntity answerEntity, ClueDto pojo) {}
 
     public Integer countExistingIds(List<Integer> questionIds) {
+        logger.debug("Retrieving count of clues by ids.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Counting clues by ids for username {}.", username);
         return ((ClueRepository) getRepository()).countByIdIn(username, questionIds);
     }
 

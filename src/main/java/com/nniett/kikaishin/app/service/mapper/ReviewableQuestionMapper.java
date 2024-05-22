@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.virtual.ReviewableQuestionVirtualEntity;
-import com.nniett.kikaishin.app.service.dto.ReviewableQuestion;
+import com.nniett.kikaishin.app.service.dto.ReviewableQuestionDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -22,6 +22,6 @@ public interface ReviewableQuestionMapper {
 
             @Mapping(target = "orderIndex", ignore = true)
     })
-    ReviewableQuestion toReviewableQuestion(ReviewableQuestionVirtualEntity qEntity);
-    List<ReviewableQuestion> toReviewableQuestions(List<ReviewableQuestionVirtualEntity> qEntities);
+    ReviewableQuestionDto toReviewableQuestion(ReviewableQuestionVirtualEntity qEntity);
+    List<ReviewableQuestionDto> toReviewableQuestions(List<ReviewableQuestionVirtualEntity> qEntities);
 }

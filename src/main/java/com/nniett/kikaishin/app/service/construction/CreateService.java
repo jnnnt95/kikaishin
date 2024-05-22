@@ -5,6 +5,8 @@ import com.nniett.kikaishin.app.service.mapper.dto.DtoPojoMapper;
 import com.nniett.kikaishin.app.service.dto.common.Activateable;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ public abstract class CreateService
                 ENTITY
                 >
 {
+    private static final Logger logger = LoggerFactory.getLogger(CreateService.class);
 
     private final EntityPojoMapper<ENTITY, POJO> entityPojoMapper;
     private final ListCrudRepository<ENTITY, PK> repository;
@@ -42,11 +45,13 @@ public abstract class CreateService
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     public POJO create(POJO pojo) {
+        logger.debug("Creating new object.");
         if(pojo instanceof Activateable) {
             ((Activateable) pojo).initForCreate();
         }
         ENTITY entity = entityPojoMapper.toEntity(pojo);
         populateAsDefaultForCreation(entity);
+        logger.debug("Saving new object.");
         entity = repository.save(entity);
         pojo = entityPojoMapper.toPojo(entity);
         return pojo;
@@ -55,6 +60,7 @@ public abstract class CreateService
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     public POJO createFromDto(CREATE_DTO dto) {
+        logger.debug("Creating new object from dto.");
         return create(createMapper.toPojo(dto));
     }
 

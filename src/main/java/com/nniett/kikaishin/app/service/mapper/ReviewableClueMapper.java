@@ -1,7 +1,7 @@
 package com.nniett.kikaishin.app.service.mapper;
 
 import com.nniett.kikaishin.app.persistence.entity.ClueEntity;
-import com.nniett.kikaishin.app.service.dto.ReviewableClue;
+import com.nniett.kikaishin.app.service.dto.ReviewableClueDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -15,6 +15,6 @@ public interface ReviewableClueMapper {
             @Mapping(source = "orderIndex", target = "orderIndex"),
             @Mapping(source = "body", target = "body")
     })
-    ReviewableClue toReviewableClue(ClueEntity cEntity);
-    List<ReviewableClue> toReviewableClues(List<ClueEntity> cEntities);
+    ReviewableClueDto toReviewableClue(ClueEntity cEntity);
+    List<ReviewableClueDto> toReviewableClues(List<ClueEntity> cEntities);
 }

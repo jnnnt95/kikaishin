@@ -7,6 +7,8 @@ import com.nniett.kikaishin.app.service.dto.UserDto;
 import com.nniett.kikaishin.app.service.mapper.UserMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.user.UserUpdateMapper;
 import com.nniett.kikaishin.app.service.dto.write.user.UserUpdateDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +22,7 @@ public class UserUpdateService
                 UserDto
                 >
 {
+    private static final Logger logger = LoggerFactory.getLogger(UserUpdateService.class);
 
     public UserUpdateService(
             UserRepository repository,
@@ -28,10 +31,9 @@ public class UserUpdateService
             UserUpdateMapper updateMapper
     ) {
         super(repository, entityPojoMapper, updateMapper);
+        logger.info("UserUpdateService initialized.");
     }
 
     @Override
-    public void populateEntityForUpdate(UserEntity entity, UserDto pojo) {
-
-    }
+    public void populateEntityForUpdate(UserEntity entity, UserDto pojo) {}
 }

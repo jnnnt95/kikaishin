@@ -7,14 +7,16 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
 import static com.nniett.kikaishin.common.Constants.*;
 
-@Data
+@Getter
+@Setter
 public class UserCreationDto implements CreationDtoWithChildren<String, ShelfCreationDto> {
 
     @NotBlank(message = "Username must be provided.")
@@ -59,4 +61,14 @@ public class UserCreationDto implements CreationDtoWithChildren<String, ShelfCre
         return username;
     }
 
+    @Override
+    public String toString() {
+        return "UserCreationDto{" +
+                "username='" + username + '\'' +
+                ", password='" + "***" + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", email='" + email + '\'' +
+                ", shelves=" + shelves +
+                '}';
+    }
 }

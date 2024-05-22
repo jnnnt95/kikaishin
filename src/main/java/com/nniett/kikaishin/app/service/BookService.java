@@ -16,6 +16,8 @@ import com.nniett.kikaishin.app.service.dto.write.book.BookUpdateDto;
 import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
 import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -35,6 +37,7 @@ public class BookService
                 >
         implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
     private final BookInfoVirtualRepository bookInfoRepository;
     private final BookInfoMapper bookInfoMapper;
@@ -55,6 +58,7 @@ public class BookService
         this.bookInfoRepository = bookInfoRepository;
         this.bookInfoMapper = bookInfoMapper;
         this.jwtUtils = jwtUtils;
+        logger.info("BookService initialized.");
     }
 
     @Override
@@ -69,8 +73,7 @@ public class BookService
 
     @Override
     public BookEntity findEntityByDto(BookUpdateDto updateDto) {
-        int bookId = updateDto.getBookId();
-        return getRepository().findById(bookId).orElseThrow();
+        return getRepository().findById(updateDto.getBookId()).orElseThrow();
     }
 
     @Override
@@ -81,7 +84,9 @@ public class BookService
 
 
     public BookInfoDto getBookInfo(Integer bookId) {
+        logger.debug("Retrieving book info.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Book info being gathered for username {}.", username);
         return bookInfoMapper.
                 toBookInfo(
                         bookInfoRepository.
@@ -90,12 +95,16 @@ public class BookService
     }
 
     public List<BookInfoDto> getBooksInfo(List<Integer> bookIds) {
+        logger.debug("Retrieving books info.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Books info being gathered for username {}.", username);
         return bookInfoMapper.toBooksInfo(bookInfoRepository.getBooksInfoById(username, bookIds));
     }
 
     public Integer countExistingIds(List<Integer> bookIds) {
+        logger.debug("Retrieving count of books by ids.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Counting questions by ids for username {}.", username);
         return ((BookRepository) getRepository()).countByIdIn(username, bookIds);
     }
 

@@ -5,6 +5,8 @@ import com.nniett.kikaishin.app.service.construction.ImmutableService;
 import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,7 @@ public abstract class ImmutableController
                 SERVICE extends ImmutableService<CREATE_DTO, POJO, ENTITY, PK>
                 >
 {
+    private static final Logger logger = LoggerFactory.getLogger(ImmutableController.class);
 
     public ImmutableController(SERVICE service) {
         this.service = service;
@@ -40,6 +43,7 @@ public abstract class ImmutableController
 
     @Transactional(propagation = Propagation.MANDATORY)
     public ResponseEntity<POJO> create(CREATE_DTO dto) {
+        logger.debug("Creating object.");
         return caughtOperate(() -> {
             POJO pojo = this.service.createFromDto(dto);
             if(pojo != null) {
@@ -52,6 +56,7 @@ public abstract class ImmutableController
 
     public ResponseEntity<POJO> readById(PK id) {
         return caughtOperate(() -> {
+            logger.debug("Reading object.");
             if(exists(id)) {
                 POJO pojo = this.service.readPojo(id);
                 return new ResponseEntity<>(pojo, HttpStatus.OK);
@@ -63,6 +68,7 @@ public abstract class ImmutableController
 
     @Transactional(propagation = Propagation.MANDATORY)
     public ResponseEntity<Void> delete(PK id) {
+        logger.debug("Deleting object.");
         return caughtOperate(() -> {
             if(getService().exists(id)) {
                 return getService().delete(id)
@@ -76,9 +82,10 @@ public abstract class ImmutableController
 
     public static <T> ResponseEntity<T> caughtOperate(Supplier<ResponseEntity<T>> operation) {
         try {
+            logger.debug("Executing controller operation.");
             return operation.get();
         } catch(Exception e) {
-            //e.printStackTrace();
+            logger.error("Error executing controller operation. Error message: {}.", e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }

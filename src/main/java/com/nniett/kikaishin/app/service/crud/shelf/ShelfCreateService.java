@@ -1,6 +1,7 @@
 package com.nniett.kikaishin.app.service.crud.shelf;
 
 import com.nniett.kikaishin.app.persistence.entity.ShelfEntity;
+import com.nniett.kikaishin.app.persistence.entity.UserEntity;
 import com.nniett.kikaishin.app.service.UserService;
 import com.nniett.kikaishin.app.service.construction.CreateService;
 import com.nniett.kikaishin.app.service.dto.ShelfDto;
@@ -10,10 +11,14 @@ import com.nniett.kikaishin.app.service.dto.write.shelf.ShelfCreationDto;
 import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
 import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public class ShelfCreateService
@@ -26,6 +31,8 @@ public class ShelfCreateService
                 >
         implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private static final Logger logger = LoggerFactory.getLogger(ShelfCreateService.class);
+
     private final UserService userService;
     private final JwtUtils jwtUtils;
 
@@ -41,13 +48,24 @@ public class ShelfCreateService
         super(repository, entityPojoMapper, createMapper);
         this.userService = userService;
         this.jwtUtils = jwtUtils;
+        logger.info("ShelfCreateService initialized.");
     }
 
     @Override
     public void populateAsDefaultForCreation(ShelfEntity entity) {
+        logger.debug("Populating default fields for new shelf.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
-        entity.setUser(userService.getReadService().getRepository().findById(username).orElseThrow());
-        entity.setUserId(entity.getUser().getUsername());
+        logger.trace("Populating logged user's username as {}.", username);
+        logger.debug("Retrieving user using provided username.");
+        Optional<UserEntity> userCtnr = userService.getReadService().getRepository().findById(username);
+        if(userCtnr.isPresent()) {
+            entity.setUser(userCtnr.get());
+            entity.setUserId(entity.getUser().getUsername());
+        } else {
+            logger.error("User with username '{}' not found.", username);
+            throw new RuntimeException("Couldn't find user");
+        }
+        logger.trace("Populating default field active as true.");
         entity.setActive(true);
     }
 }

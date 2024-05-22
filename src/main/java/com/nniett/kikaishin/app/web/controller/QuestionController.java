@@ -1,7 +1,5 @@
 package com.nniett.kikaishin.app.web.controller;
 
-import com.nniett.kikaishin.app.service.dto.write.book.BookCreationDto;
-import com.nniett.kikaishin.app.service.dto.write.book.BookUpdateDto;
 import com.nniett.kikaishin.app.web.controller.construction.ActivateableController;
 import com.nniett.kikaishin.app.web.controller.construction.CanCheckOwnership;
 import com.nniett.kikaishin.app.web.controller.construction.CanVerifyId;
@@ -25,6 +23,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +53,8 @@ public class QuestionController
                 >
         implements CanCheckOwnership<Integer>, CanVerifyId<Integer>, VerifiesIntegerId
 {
+    private static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
+
     private final ShelfController shelfController;
     private final BookController bookController;
     private final TopicController parentController;
@@ -80,6 +82,7 @@ public class QuestionController
         this.clueController = clueController;
         this.reviewController = reviewController;
         this.questionReviewGradeController = questionReviewGradeController;
+        logger.info("QuestionController initialized.");
     }
 
     ///////////// Questions Control
@@ -103,13 +106,18 @@ public class QuestionController
                     schema = @Schema(implementation = QuestionCreationDto.class))
     })
     public ResponseEntity<QuestionDto> persistNewEntity(@Valid @RequestBody QuestionCreationDto dto) {
+        logger.debug("Question requested to be created using method: {}.", "persistNewEntity(QuestionCreationDto)");
+        logger.trace("Question creation request body: {}.", dto.toString());
         if(parentController.valid(dto.getParentPK())) {
             if(parentController.own(dto.getParentPK())) {
+                logger.debug("Returning expected positive response.");
                 return create(dto);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -126,13 +134,18 @@ public class QuestionController
             @Parameter(name = ID, description = "Review Id")
     })
     public ResponseEntity<ReviewDto> getReview(@PathVariable(ID) Integer reviewId) {
+        logger.debug("ReviewDto requested using method: {}.", "getReview(Integer)");
+        logger.trace("Expected ReviewDto id {}.", reviewId);
         if(reviewController.valid(reviewId)) {
             if(reviewController.own(reviewId)) {
+                logger.debug("Returning expected positive response.");
                 return reviewController.readById(reviewId);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -149,13 +162,18 @@ public class QuestionController
             @Parameter(name = ID, description = "Question Id")
     })
     public ResponseEntity<QuestionDto> getEntityById(@PathVariable(ID) Integer id) {
+        logger.debug("QuestionDto requested using method: {}.", "getEntityById(Integer)");
+        logger.trace("Expected QuestionDto id {}.", id);
         if(valid(id)) {
             if(own(id)) {
+                logger.debug("Returning expected positive response.");
                 return readById(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -173,9 +191,13 @@ public class QuestionController
             @Parameter(name = "QuestionUpdateDto", schema = @Schema(implementation = QuestionUpdateDto.class))
     })
     public ResponseEntity<QuestionDto> updateEntity(@Valid @RequestBody QuestionUpdateDto dto) {
+        logger.debug("Question update requested using method: {}.", "updateEntity(QuestionUpdateDto)");
+        logger.trace("Question update request body: {}.", dto.toString());
         if(own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return update(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -192,13 +214,18 @@ public class QuestionController
             @Parameter(name = ID, description = "Question Id")
     })
     public ResponseEntity<Void> deleteEntityById(@PathVariable(ID) Integer id) {
+        logger.debug("Question deletion requested using method: {}.", "deleteEntityById(Integer)");
+        logger.trace("Expected deletion happening on id {}.", id);
         if(valid(id)) {
             if(own(id)) {
+                logger.debug("Returning expected positive response.");
                 return delete(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -216,9 +243,13 @@ public class QuestionController
             @Parameter(name = "QuestionUpdateDto", schema = @Schema(implementation = QuestionUpdateDto.class))
     })
     public ResponseEntity<Void> toggleActive(@Valid @RequestBody QuestionUpdateDto dto) {
+        logger.debug("Question toggle action using method: {}.", "toggleActive(QuestionUpdateDto)");
+        logger.trace("Expected toggle with id {}.", dto.getQuestionId());
         if(own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return toggleStatus(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -241,13 +272,18 @@ public class QuestionController
                     schema = @Schema(implementation = AnswerCreationDto.class))
     })
     public ResponseEntity<AnswerDto> persistNewAnswer(@Valid @RequestBody AnswerCreationDto dto) {
+        logger.debug("Answer requested to be created using method: {}.", "persistNewAnswer(AnswerCreationDto)");
+        logger.trace("Answer creation request body: {}.", dto.toString());
         if(valid(dto.getParentPK())) {
             if(own(dto.getParentPK())) {
+                logger.debug("Returning expected positive response.");
                 return answerController.persistNewEntity(dto);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -264,9 +300,13 @@ public class QuestionController
             @Parameter(name = "AnswerUpdateDto", schema = @Schema(implementation = AnswerUpdateDto.class))
     })
     public ResponseEntity<AnswerDto> updateAnswer(@Valid @RequestBody AnswerUpdateDto dto) {
+        logger.debug("Answer update requested using method: {}.", "updateAnswer(AnswerUpdateDto)");
+        logger.trace("Answer update request body: {}.", dto.toString());
         if(answerController.own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return answerController.update(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -283,13 +323,18 @@ public class QuestionController
             @Parameter(name = ID, description = "Answer Id")
     })
     public ResponseEntity<Void> deleteAnswer(@PathVariable(ID) Integer id) {
+        logger.debug("Answer deletion requested using method: {}.", "deleteAnswer(Integer)");
+        logger.trace("Expected deletion happening on id {}.", id);
         if(answerController.valid(id)) {
             if(answerController.own(id)) {
+                logger.debug("Returning expected positive response.");
                 return answerController.delete(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -312,13 +357,18 @@ public class QuestionController
                     schema = @Schema(implementation = ClueCreationDto.class))
     })
     public ResponseEntity<ClueDto> persistNewClue(@Valid @RequestBody ClueCreationDto dto) {
+        logger.debug("Clue requested to be created using method: {}.", "persistNewClue(ClueCreationDto)");
+        logger.trace("Clue creation request body: {}.", dto.toString());
         if(valid(dto.getParentPK())) {
             if(own(dto.getParentPK())) {
+                logger.debug("Returning expected positive response.");
                 return clueController.persistNewEntity(dto);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -335,9 +385,13 @@ public class QuestionController
             @Parameter(name = "ClueUpdateDto", schema = @Schema(implementation = ClueUpdateDto.class))
     })
     public ResponseEntity<ClueDto> updateClue(@Valid @RequestBody ClueUpdateDto dto) {
+        logger.debug("Clue update requested using method: {}.", "updateClue(ClueUpdateDto)");
+        logger.trace("Clue update request body: {}.", dto.toString());
         if(clueController.own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return clueController.update(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -354,13 +408,18 @@ public class QuestionController
             @Parameter(name = ID, description = "Clue Id")
     })
     public ResponseEntity<Void> deleteClue(@PathVariable(ID) Integer id) {
+        logger.debug("Clue deletion requested using method: {}.", "deleteClue(Integer)");
+        logger.trace("Expected deletion happening on id {}.", id);
         if(clueController.valid(id)) {
             if(clueController.own(id)) {
+                logger.debug("Returning expected positive response.");
                 return clueController.delete(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -383,12 +442,21 @@ public class QuestionController
                     schema = @Schema(implementation = ReviewCreationDto.class))
     })
     public ResponseEntity<ReviewDto> persistNewReview(@Valid @RequestBody ReviewCreationDto dto) {
+        logger.debug("Review requested to be created using method: {}.", "persistNewReview(ReviewCreationDto)");
+        logger.trace("Review creation request body: {}.", dto.toString());
         List<Integer> questionIds = new ArrayList<>();
         dto.getQuestionGrades().forEach(g -> questionIds.add(g.getQuestionId()));
-        if(own(questionIds)) {
-            return reviewController.persistNewEntity(dto);
+        if(valid(questionIds)) {
+            if(own(questionIds)) {
+                logger.debug("Returning expected positive response.");
+                return reviewController.persistNewEntity(dto);
+            } else {
+                logger.debug("Returning not found response.");
+                return ResponseEntity.notFound().build();
+            }
         } else {
-            return ResponseEntity.notFound().build();
+            logger.debug("Returning bad request response.");
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -401,7 +469,7 @@ public class QuestionController
     @Operation(description = "Creates a new question grade object for currently logged in user appended to provided question id.")
     @ApiResponses({
             @ApiResponse(description = "Question Grade created successfully.", responseCode = "200"),
-            @ApiResponse(description = "Dto validation failed.", responseCode = "400", content = @Content(schema = @Schema)),
+            @ApiResponse(description = "Dto validation failed. Question or review id not valid.", responseCode = "400", content = @Content(schema = @Schema)),
             @ApiResponse(description = "Provided question id and/or review id not existent or not owned by logged user.", responseCode = "404", content = @Content(schema = @Schema))
     })
     @Parameters({
@@ -411,14 +479,21 @@ public class QuestionController
                     "Grade value can vary within integer range 0 to 5 (inclusive both).",
                     schema = @Schema(implementation = QuestionReviewGradeCreationDto.class))
     })
-    public ResponseEntity<QuestionReviewGradeDto> persistNewGrade(@Valid @RequestBody QuestionReviewGradeCreationDto dto) {
+    public ResponseEntity<QuestionReviewGradeDto> persistNewGrade(
+            @Valid @RequestBody QuestionReviewGradeCreationDto dto
+    ) {
+        logger.debug("Question Review Grade requested to be created using method: {}.", "persistNewGrade(QuestionReviewGradeCreationDto)");
+        logger.trace("Question Review Grade creation request body: {}.", dto.toString());
         if(this.valid(dto.getQuestionId()) && reviewController.valid(dto.getReviewId())) {
             if(this.own(dto.getQuestionId()) && reviewController.own(dto.getReviewId())) {
+                logger.debug("Returning expected positive response.");
                 return questionReviewGradeController.persistNewEntity(dto);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -443,7 +518,7 @@ public class QuestionController
                             "the question will be added to response reviewable question list even if not considered as " +
                             "such for the session.")
     })
-    public ResponseEntity<List<ReviewableQuestion>> requestReviewSet(
+    public ResponseEntity<List<ReviewableQuestionDto>> requestReviewSet(
             @RequestParam(name = "level")
             String reviewLevel,
             @RequestParam(name = "id", required = false)
@@ -453,36 +528,49 @@ public class QuestionController
             @RequestParam(name = "forced", defaultValue = "false")
             Boolean forced
     ) {
+        logger.debug("ReviewableQuestionDto requested using method: {}.", "requestReviewSet(String, Integer, Integer, Boolean)");
+        logger.trace("Expected ReviewableQuestionDto reviewLevel {}, containerId {}, totalQuestions {}, forced {}.", reviewLevel, containerId, totalQuestions, forced);
+
         boolean containerExists;
 
         if(reviewLevel != null) {
             if("ALL".equalsIgnoreCase(reviewLevel)) {
+                logger.trace("All level selected.");
                 containerExists = true;
             } else if(containerId != null && containerId > 0) {
                 switch(reviewLevel.toUpperCase()) {
                     case "SHELF": {
+                        logger.trace("Shelf level selected.");
                         containerExists = shelfController.own(containerId);
                     } break;
                     case "BOOK": {
+                        logger.trace("Book level selected.");
                         containerExists = bookController.own(containerId);
                     } break;
                     case "TOPIC": {
+                        logger.trace("Topic level selected.");
                         containerExists = parentController.own(containerId);
                     } break;
                     default: {
+                        logger.debug("Returning bad request response.");
                         return ResponseEntity.badRequest().build();
                     }
                 }
             } else {
+                logger.debug("Returning bad request response.");
                 return ResponseEntity.badRequest().build();
             }
         } else {
+            logger.trace("No review level provided. value: null.");
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
 
         if(containerExists) {
+            logger.debug("Returning expected positive response.");
             return new ResponseEntity<>(getService().getReviewSet(reviewLevel, containerId, totalQuestions, forced), HttpStatus.OK);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
 
@@ -500,19 +588,24 @@ public class QuestionController
     @Parameters({
             @Parameter(name = IDS, description = "List of Question Ids"),
     })
-    public ResponseEntity<List<ReviewableQuestion>> requestCustomReviewSet(
+    public ResponseEntity<List<ReviewableQuestionDto>> requestCustomReviewSet(
             @PathVariable(IDS) Set<Integer> questionIds
     ) {
+        logger.debug("ReviewableQuestionDto custom list requested using method: {}.", "requestCustomReviewSet(Set<Integer>)");
+        logger.trace("Expected ReviewableQuestionDto ids {}.", questionIds);
         if(valid(questionIds)) {
             List<Integer> ids = new ArrayList<>(questionIds);
             // all questions exist or request is rejected.
             if(own(ids)) {
+                logger.debug("Returning expected positive response.");
                 return new ResponseEntity<>(getService().getCustomReviewableList(ids), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -532,15 +625,20 @@ public class QuestionController
     @Parameters({
             @Parameter(name = ID, description = "Question Id")
     })
-    public ResponseEntity<QuestionInfoDto> requestQuestionInfo(@PathVariable(name = ID) Integer questionId) {
-        if(valid(questionId)) {
-            if(own(questionId)) {
-                return new ResponseEntity<>(getService().getQuestionInfo(questionId), HttpStatus.OK);
+    public ResponseEntity<QuestionInfoDto> requestQuestionInfo(@PathVariable(name = ID) Integer id) {
+        logger.debug("QuestionInfoDto requested using method: {}.", "requestQuestionInfo(Integer)");
+        logger.trace("Expected QuestionInfoDto id {}.", id);
+        if(valid(id)) {
+            if(own(id)) {
+                logger.debug("Returning expected positive response.");
+                return new ResponseEntity<>(getService().getQuestionInfo(id), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -559,16 +657,21 @@ public class QuestionController
     public ResponseEntity<List<QuestionInfoDto>> requestQuestionsInfo(
             @PathVariable(name = IDS) Set<Integer> questionIds
     ) {
+        logger.debug("QuestionInfoDto list requested using method: {}.", "requestQuestionsInfo(Set<Integer>)");
+        logger.trace("Expected QuestionInfoDto ids {}.", questionIds);
         if(valid(questionIds)) {
             List<Integer> ids = new ArrayList<>(questionIds);
             // all questions exist or request is rejected.
             if(own(ids)) {
+                logger.debug("Returning expected positive response.");
                 return new ResponseEntity<>(getService().getQuestionsInfo(ids), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -583,17 +686,36 @@ public class QuestionController
     @ApiResponses({
             @ApiResponse(description = "Recommended list retrieved successfully.", responseCode = "200")
     })
-    public ResponseEntity<List<LabeledRecommendedQuestionListDto>> requestQuestionsInfo() {
+    public ResponseEntity<List<LabeledRecommendedQuestionListDto>> requestRecommendedQuestions() {
+        logger.debug("LabeledRecommendedQuestionListDto list requested using method: {}.", "requestRecommendedQuestions()");
         return ResponseEntity.ok(getService().getRecommendedQuestions());
     }
 
     @Override
     public boolean own(List<Integer> ids) {
-        return getService().countExistingIds(ids) == ids.size();
+        logger.debug("Question ids validation for ownership.");
+        logger.trace("Checking if ids are own. Ids: {}.", ids.toString());
+        boolean ownCheck = getService().countExistingIds(ids) == ids.size();
+        if(ownCheck) {
+            logger.trace("Ids are own. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not own. Ids: {}.", ids);
+        }
+        logger.debug("Question ids validation for ownership completed.");
+        return ownCheck;
     }
 
     @Override
     public boolean valid(Collection<Integer> ids) {
-        return validIntegers(ids);
+        logger.debug("Question ids validation.");
+        logger.trace("Checking if ids are valid. Ids: {}", ids);
+        boolean validCheck = validIntegers(ids);
+        if(validCheck) {
+            logger.trace("Ids are valid. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not valid. Ids: {}.", ids);
+        }
+        logger.debug("Question ids validation completed.");
+        return validCheck;
     }
 }

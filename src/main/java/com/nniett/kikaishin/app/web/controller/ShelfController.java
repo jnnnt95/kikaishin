@@ -2,8 +2,6 @@ package com.nniett.kikaishin.app.web.controller;
 
 import com.nniett.kikaishin.app.service.dto.ShelfDto;
 import com.nniett.kikaishin.app.service.dto.ShelfInfoDto;
-import com.nniett.kikaishin.app.service.dto.write.question.QuestionCreationDto;
-import com.nniett.kikaishin.app.service.dto.write.question.QuestionUpdateDto;
 import com.nniett.kikaishin.app.web.controller.construction.ActivateableController;
 import com.nniett.kikaishin.app.web.controller.construction.CanCheckOwnership;
 import com.nniett.kikaishin.app.web.controller.construction.CanVerifyId;
@@ -20,6 +18,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,9 +49,12 @@ public class ShelfController
     implements CanCheckOwnership<Integer>, CanVerifyId<Integer>, VerifiesIntegerId
 {
 
+    private static final Logger logger = LoggerFactory.getLogger(ShelfController.class);
+
     @Autowired
     public ShelfController(ShelfService service) {
         super(service);
+        logger.info("ShelfController initialized.");
     }
 
     @Override
@@ -69,6 +72,8 @@ public class ShelfController
                     schema = @Schema(implementation = ShelfCreationDto.class))
     })
     public ResponseEntity<ShelfDto> persistNewEntity(@Valid @RequestBody ShelfCreationDto dto) {
+        logger.debug("Shelf requested to be created using method: {}.", "persistNewEntity(ShelfCreationDto)");
+        logger.trace("Shelf creation request body: {}.", dto.toString());
         return create(dto);
     }
 
@@ -84,13 +89,18 @@ public class ShelfController
             @Parameter(name = ID, description = "Shelf Id")
     })
     public ResponseEntity<ShelfDto> getEntityById(@PathVariable(ID) Integer id) {
+        logger.debug("ShelfDto requested using method: {}.", "getEntityById(Integer)");
+        logger.trace("Expected ShelfDto with id {}.", id);
         if(valid(id)) {
             if(own(id)) {
+                logger.debug("Returning expected positive response.");
                 return readById(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -108,9 +118,13 @@ public class ShelfController
             @Parameter(name = "ShelfUpdateDto", schema = @Schema(implementation = ShelfUpdateDto.class))
     })
     public ResponseEntity<ShelfDto> updateEntity(@Valid @RequestBody ShelfUpdateDto dto) {
+        logger.debug("Shelf update requested using method: {}.", "updateEntity(ShelfUpdateDto)");
+        logger.trace("Shelf update request body: {}.", dto.toString());
         if(own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return update(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -127,13 +141,18 @@ public class ShelfController
             @Parameter(name = ID, description = "Shelf Id")
     })
     public ResponseEntity<Void> deleteEntityById(@PathVariable(ID) Integer id) {
+        logger.debug("Shelf deletion requested using method: {}.", "deleteEntityById(Integer)");
+        logger.trace("Expected deletion happening on id {}.", id);
         if(valid(id)) {
             if(own(id)) {
+                logger.debug("Returning expected positive response.");
                 return delete(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -151,9 +170,13 @@ public class ShelfController
             @Parameter(name = "ShelfUpdateDto", schema = @Schema(implementation = ShelfUpdateDto.class))
     })
     public ResponseEntity<Void> toggleActive(@Valid @RequestBody ShelfUpdateDto dto) {
+        logger.debug("Shelf toggle action using method: {}.", "toggleActive(ShelfUpdateDto)");
+        logger.trace("Expected toggle with id {}.", dto.getShelfId());
         if(own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return toggleStatus(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -174,16 +197,21 @@ public class ShelfController
             @Parameter(name = ID, description = "Shelf Id")
     })
     public ResponseEntity<ShelfInfoDto> requestShelfInfo(
-            @PathVariable(name = ID) Integer shelfId
+            @PathVariable(name = ID) Integer id
     ) {
-        if(valid(shelfId)) {
-            if(own(shelfId)) {
-                return new ResponseEntity<>(getService().getShelfInfo(shelfId), HttpStatus.OK);
+        logger.debug("ShelfInfoDto requested using method: {}.", "requestShelfInfo(Integer)");
+        logger.trace("Expected ShelfInfoDto with id {}.", id);
+        if(valid(id)) {
+            if(own(id)) {
+                logger.debug("Returning expected positive response.");
+                return new ResponseEntity<>(getService().getShelfInfo(id), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -202,27 +230,51 @@ public class ShelfController
     public ResponseEntity<List<ShelfInfoDto>> requestShelvesInfo(
             @PathVariable(name = IDS) Set<Integer> shelfIds
     ) {
+        logger.debug("ShelfInfoDto list requested using method: {}.", "getEntityById(Integer)");
+        logger.trace("Expected ShelfInfoDto list with ids {}.", shelfIds);
         if(valid(shelfIds)) {
             List<Integer> ids = new ArrayList<>(shelfIds);
             // all ids exist and are owned or request is rejected.
             if(own(ids)) {
+                logger.debug("Returning expected positive response.");
                 return new ResponseEntity<>(getService().getShelvesInfo(ids), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
 
     @Override
     public boolean own(List<Integer> shelfIds) {
-        return getService().countExistingIds(shelfIds) == shelfIds.size();
+        logger.debug("Shelf ids validation for ownership.");
+        logger.trace("Checking if ids are own. Ids: {}.", shelfIds.toString());
+        boolean ownCheck = getService().countExistingIds(shelfIds) == shelfIds.size();
+        if(ownCheck) {
+            logger.trace("Ids are own. Ids: {}.", shelfIds);
+        } else {
+            logger.trace("One or more values in list are not own. Ids: {}.", shelfIds);
+        }
+        logger.debug("Shelf ids validation for ownership completed.");
+        return ownCheck;
     }
 
     @Override
     public boolean valid(Collection<Integer> shelfIds) {
-        return validIntegers(shelfIds);
+        logger.debug("Shelf ids validation.");
+        logger.trace("Checking if ids are valid. Ids: {}", shelfIds);
+        boolean validCheck = validIntegers(shelfIds);
+        if(validCheck) {
+            logger.trace("Ids are valid. Ids: {}.", shelfIds);
+        } else {
+            logger.trace("One or more values in list are not valid. Ids: {}.", shelfIds);
+        }
+        logger.debug("Shelf ids validation completed.");
+        return validCheck;
     }
+
 }

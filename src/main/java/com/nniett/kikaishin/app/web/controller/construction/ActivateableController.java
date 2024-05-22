@@ -27,15 +27,12 @@ public abstract class ActivateableController
         extends Controller<ENTITY, PK, POJO, CREATE_DTO, UPDATE_DTO, SERVICE>
         implements ActivateActionableController<ENTITY, PK, UPDATE_DTO, SERVICE>
 {
-
     public ActivateableController(SERVICE service) {
         super(service);
     }
 
     @Override
-    public ResponseEntity<Void> toggleActive(UPDATE_DTO dto) {
-        return null;
-    }
+    public abstract ResponseEntity<Void> toggleActive(UPDATE_DTO dto);
 
     @Override
     public ResponseEntity<Void> toggleStatus(UPDATE_DTO updateDto) {

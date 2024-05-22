@@ -6,6 +6,7 @@ import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ReviewDto implements HasParent<String>, Pojo<Integer> {
     private Integer reviewId;
     private List<QuestionReviewGradeDto> questionGrades;

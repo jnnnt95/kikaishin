@@ -13,6 +13,8 @@ import com.nniett.kikaishin.app.service.dto.write.answer.AnswerUpdateDto;
 import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
 import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +32,8 @@ public class AnswerService
                 >
         implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private static final Logger logger = LoggerFactory.getLogger(AnswerService.class);
+
     private final JwtUtils jwtUtils;
 
     @Autowired
@@ -43,12 +47,11 @@ public class AnswerService
     ) {
         super(repository, createService, readService, updateService, deleteService);
         this.jwtUtils = jwtUtils;
+        logger.info("AnswerService initialized.");
     }
 
     @Override
-    public void populateAsDefaultForCreation(AnswerEntity entity) {
-
-    }
+    public void populateAsDefaultForCreation(AnswerEntity entity) {}
 
     @Override
     public AnswerEntity readEntity(Integer id) {
@@ -59,7 +62,9 @@ public class AnswerService
     public void populateEntityForUpdate(AnswerEntity answerEntity, AnswerDto pojo) {}
 
     public Integer countExistingIds(List<Integer> questionIds) {
+        logger.debug("Retrieving count of answers by ids.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Counting answers by ids for username {}.", username);
         return ((AnswerRepository) getRepository()).countByIdIn(username, questionIds);
     }
 

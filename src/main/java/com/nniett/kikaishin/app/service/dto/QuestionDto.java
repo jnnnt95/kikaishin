@@ -9,6 +9,7 @@ import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class QuestionDto implements HasParent<Integer>, HasChildren<HasParent<Integer>>, Pojo<Integer>, Activateable {
     private Integer questionId;
     @JsonIgnore

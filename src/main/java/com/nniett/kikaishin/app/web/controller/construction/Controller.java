@@ -7,6 +7,8 @@ import com.nniett.kikaishin.app.service.dto.common.HasChildren;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import com.nniett.kikaishin.app.service.dto.write.UpdateDto;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,18 +34,17 @@ public abstract class Controller
                 >
 {
 
+    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+
     public Controller(SERVICE service) {
         super(service);
     }
 
     public abstract ResponseEntity<POJO> updateEntity(UPDATE_DTO creationDto);
 
-    public boolean exists(PK id) {
-        return getService().exists(id);
-    }
-
     @Transactional(propagation = Propagation.MANDATORY)
     public ResponseEntity<POJO> update(UPDATE_DTO dto) {
+        logger.debug("Updating object.");
         return caughtOperate(() -> {
             if(dto.getPK() != null) {
                 if(exists(dto.getPK())) {

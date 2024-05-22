@@ -16,6 +16,8 @@ import com.nniett.kikaishin.app.service.dto.write.shelf.ShelfUpdateDto;
 import com.nniett.kikaishin.app.web.controller.construction.UsesHttpServletRequest;
 import com.nniett.kikaishin.app.web.security.CanRetrieveUsernameFromJWT;
 import com.nniett.kikaishin.app.web.security.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -35,6 +37,7 @@ public class ShelfService
                 >
         implements UsesHttpServletRequest, CanRetrieveUsernameFromJWT
 {
+    private static final Logger logger = LoggerFactory.getLogger(ShelfService.class);
 
     private final ShelfInfoVirtualRepository shelfInfoRepository;
     private final ShelfInfoMapper shelfInfoMapper;
@@ -55,6 +58,7 @@ public class ShelfService
         this.shelfInfoRepository = shelfInfoRepository;
         this.shelfInfoMapper = shelfInfoMapper;
         this.jwtUtils = jwtUtils;
+        logger.info("ShelfService initialized.");
     }
 
     @Override
@@ -83,7 +87,9 @@ public class ShelfService
 
 
     public ShelfInfoDto getShelfInfo(Integer shelfId) {
+        logger.debug("Retrieving shelf info.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Shelf info being gathered for username {}.", username);
         return shelfInfoMapper.
                 toShelfInfo(
                         shelfInfoRepository.
@@ -92,12 +98,16 @@ public class ShelfService
     }
 
     public List<ShelfInfoDto> getShelvesInfo(List<Integer> shelfIds) {
+        logger.debug("Retrieving shelves info.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Shelves info being gathered for username {}.", username);
         return shelfInfoMapper.toShelvesInfo(shelfInfoRepository.getShelvesInfoById(username, shelfIds));
     }
 
     public Integer countExistingIds(List<Integer> bookIds) {
+        logger.debug("Retrieving count of shelves by ids.");
         String username = getUsernameFromJWT(getHttpServletRequest(), this.jwtUtils);
+        logger.trace("Counting shelves by ids for username {}.", username);
         return ((ShelfRepository) getRepository()).countByIdIn(username, bookIds);
     }
 

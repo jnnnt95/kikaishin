@@ -5,9 +5,11 @@ import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 public class QuestionReviewGradeCreationDto implements CreationDto<Integer> {
 
     @Min(value = 1, message = "Provided Question id not valid.")

@@ -2,11 +2,13 @@ package com.nniett.kikaishin.app.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 public class QuestionInfoDto {
     private Integer questionId;
     private Boolean active;

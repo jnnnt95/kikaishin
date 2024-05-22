@@ -5,6 +5,8 @@ import com.nniett.kikaishin.app.web.controller.construction.ImmutableController;
 import com.nniett.kikaishin.app.persistence.entity.QuestionReviewGradeEntity;
 import com.nniett.kikaishin.app.service.QuestionReviewGradeService;
 import com.nniett.kikaishin.app.service.dto.write.questionreviewgrade.QuestionReviewGradeCreationDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +24,11 @@ public class QuestionReviewGradeController extends ImmutableController
                 >
 
 {
+    private static final Logger logger = LoggerFactory.getLogger(QuestionReviewGradeController.class);
 
     public QuestionReviewGradeController(QuestionReviewGradeService service) {
         super(service);
+        logger.info("QuestionReviewGradeController initialized.");
     }
 
     @Override
