@@ -1,0 +1,194 @@
+2024-05-21 08:31:44.277 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 18240 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 08:31:44.281 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 08:31:44.282 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 08:31:45.323 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 08:31:45.538 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 207 ms. Found 10 JPA repository interfaces.
+2024-05-21 08:31:46.042 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 08:31:46.121 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1791 ms
+2024-05-21 08:31:46.569 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 08:31:48.138 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 08:31:48.455 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 08:31:48.522 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 08:31:48.897 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 08:31:48.962 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 08:31:48.965 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 08:31:48.971 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 08:31:48.977 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 08:31:48.995 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 08:31:49.005 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 08:31:49.092 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 08:31:49.745 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 08:31:49.754 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 5.946 seconds (process running for 6.554)
+2024-05-21 08:39:09.342 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 08:46:17.793 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 18184 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 08:46:17.795 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 08:46:17.795 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 08:46:18.879 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 08:46:19.151 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 265 ms. Found 10 JPA repository interfaces.
+2024-05-21 08:46:19.849 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 08:46:19.959 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2118 ms
+2024-05-21 08:46:20.363 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 08:46:22.025 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 08:46:22.347 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 08:46:22.411 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 08:46:22.783 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 08:46:22.835 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 08:46:22.841 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 08:46:22.849 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 08:46:22.857 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 08:46:22.866 [main] INFO  c.n.k.a.w.controller.TopicController - TopicController initialized.
+2024-05-21 08:46:22.876 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 08:46:22.895 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 08:46:22.980 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 08:46:23.675 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 08:46:23.685 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 6.47 seconds (process running for 7.099)
+2024-05-21 08:47:56.768 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:10:43.526 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 9396 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 09:10:43.528 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 09:10:43.529 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 09:10:44.506 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 09:10:44.719 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 206 ms. Found 10 JPA repository interfaces.
+2024-05-21 09:10:45.317 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 09:10:45.413 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1834 ms
+2024-05-21 09:10:45.879 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 09:10:47.544 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:10:47.861 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 09:10:47.930 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 09:10:48.311 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 09:10:48.366 [main] INFO  c.n.k.a.w.controller.UserController - UserController initialized
+2024-05-21 09:10:48.374 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 09:10:48.378 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 09:10:48.387 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 09:10:48.396 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 09:10:48.407 [main] INFO  c.n.k.a.w.controller.TopicController - TopicController initialized.
+2024-05-21 09:10:48.415 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 09:10:48.429 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 09:10:48.530 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 09:10:49.216 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 09:10:49.226 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 6.144 seconds (process running for 6.739)
+2024-05-21 09:12:17.779 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:12:22.034 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 4848 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 09:12:22.036 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 09:12:22.037 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 09:12:22.974 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 09:12:23.183 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 203 ms. Found 10 JPA repository interfaces.
+2024-05-21 09:12:23.673 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 09:12:23.740 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1659 ms
+2024-05-21 09:12:24.159 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 09:12:25.683 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:12:25.994 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 09:12:26.058 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 09:12:26.442 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 09:12:26.498 [main] INFO  c.n.k.a.w.controller.UserController - UserController initialized
+2024-05-21 09:12:26.507 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 09:12:26.514 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 09:12:26.523 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 09:12:26.530 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 09:12:26.541 [main] INFO  c.n.k.a.w.controller.TopicController - TopicController initialized.
+2024-05-21 09:12:26.549 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 09:12:26.555 [main] INFO  c.n.k.a.w.c.QuestionReviewGradeController - QuestionReviewGradeController initialized.
+2024-05-21 09:12:26.560 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 09:12:26.651 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 09:12:27.315 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 09:12:27.326 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 5.739 seconds (process running for 6.35)
+2024-05-21 09:13:00.310 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:23:57.258 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 17920 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 09:23:57.260 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 09:23:57.260 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 09:23:58.251 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 09:23:58.489 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 232 ms. Found 10 JPA repository interfaces.
+2024-05-21 09:23:59.052 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 09:23:59.160 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1861 ms
+2024-05-21 09:23:59.177 [main] INFO  c.n.k.app.web.security.JwtUtils - JwtUtils initialized.
+2024-05-21 09:23:59.559 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 09:24:01.317 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:24:01.572 [main] INFO  c.n.k.app.web.security.JwtFilter - JwtFilter initialized.
+2024-05-21 09:24:01.628 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 09:24:01.687 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 09:24:02.061 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 09:24:02.114 [main] INFO  c.n.k.a.w.controller.UserController - UserController initialized
+2024-05-21 09:24:02.129 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 09:24:02.135 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 09:24:02.143 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 09:24:02.151 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 09:24:02.162 [main] INFO  c.n.k.a.w.controller.TopicController - TopicController initialized.
+2024-05-21 09:24:02.171 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 09:24:02.177 [main] INFO  c.n.k.a.w.c.QuestionReviewGradeController - QuestionReviewGradeController initialized.
+2024-05-21 09:24:02.180 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 09:24:02.273 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 09:24:02.930 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 09:24:02.939 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 6.11 seconds (process running for 6.65)
+2024-05-21 09:24:59.103 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:43:14.402 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 11200 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 09:43:14.404 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 09:43:14.405 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 09:43:15.630 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 09:43:15.850 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 213 ms. Found 10 JPA repository interfaces.
+2024-05-21 09:43:16.399 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 09:43:16.481 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2026 ms
+2024-05-21 09:43:16.508 [main] INFO  c.n.k.app.web.security.JwtUtils - JwtUtils initialized.
+2024-05-21 09:43:16.948 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 09:43:18.734 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:43:19.112 [main] INFO  c.n.k.app.web.security.JwtFilter - JwtFilter initialized.
+2024-05-21 09:43:19.166 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 09:43:19.233 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 09:43:19.654 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 09:43:19.675 [main] INFO  c.n.k.a.w.s.SecurityConfiguration - Kikaishin's SecurityConfiguration initialized.
+2024-05-21 09:43:19.683 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Authentication manager requested.
+2024-05-21 09:43:19.699 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Password encoder requested.
+2024-05-21 09:43:19.719 [main] INFO  c.n.k.a.w.controller.UserController - UserController initialized
+2024-05-21 09:43:19.729 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 09:43:19.735 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 09:43:19.742 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 09:43:19.749 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 09:43:19.759 [main] INFO  c.n.k.a.w.controller.TopicController - TopicController initialized.
+2024-05-21 09:43:19.766 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 09:43:19.774 [main] INFO  c.n.k.a.w.c.QuestionReviewGradeController - QuestionReviewGradeController initialized.
+2024-05-21 09:43:19.780 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 09:43:19.879 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 09:43:19.979 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Kikaishin's security filter setup init.
+2024-05-21 09:43:20.255 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Kikaishin's security filter setup ready for build.
+2024-05-21 09:43:20.630 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 09:43:20.642 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 6.829 seconds (process running for 7.537)
+2024-05-21 09:48:49.004 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:48:56.069 [main] INFO  c.n.k.app.KikaiWebApplication - Starting KikaiWebApplication using Java 17.0.11 with PID 8856 (C:\Users\SharedOS\IdeaProjects\kikaishin\target\classes started by SharedOS in C:\Users\SharedOS\IdeaProjects\kikaishin)
+2024-05-21 09:48:56.070 [main] DEBUG c.n.k.app.KikaiWebApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
+2024-05-21 09:48:56.071 [main] INFO  c.n.k.app.KikaiWebApplication - The following 1 profile is active: "dev"
+2024-05-21 09:48:57.192 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-21 09:48:57.411 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 212 ms. Found 10 JPA repository interfaces.
+2024-05-21 09:48:57.949 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 2501 (http)
+2024-05-21 09:48:58.027 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1907 ms
+2024-05-21 09:48:58.044 [main] INFO  c.n.k.app.web.security.JwtUtils - JwtUtils initialized.
+2024-05-21 09:48:58.492 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-21 09:49:00.133 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-21 09:49:00.452 [main] INFO  c.n.k.app.web.security.JwtFilter - JwtFilter initialized.
+2024-05-21 09:49:00.492 [main] DEBUG c.n.k.app.web.security.JwtFilter - Filter 'jwtFilter' configured for use
+2024-05-21 09:49:00.567 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-21 09:49:00.980 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:00.980 [main] INFO  c.n.k.a.w.c.AnswerController - AnswerController initialized.
+2024-05-21 09:49:00.997 [main] INFO  c.n.k.a.w.s.SecurityConfiguration - Kikaishin's SecurityConfiguration initialized.
+2024-05-21 09:49:01.004 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Authentication manager requested.
+2024-05-21 09:49:01.023 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Password encoder requested.
+2024-05-21 09:49:01.042 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.042 [main] INFO  c.n.k.a.w.controller.UserController - UserController initialized
+2024-05-21 09:49:01.051 [main] INFO  c.n.k.a.w.c.AuthenticationController - AuthenticationController initialized.
+2024-05-21 09:49:01.059 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.059 [main] INFO  c.n.k.a.w.controller.ShelfController - ShelfController initialized.
+2024-05-21 09:49:01.068 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.068 [main] INFO  c.n.k.a.w.controller.BookController - BookController initialized.
+2024-05-21 09:49:01.079 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.079 [main] INFO  c.n.k.a.w.controller.ClueController - ClueController initialized.
+2024-05-21 09:49:01.091 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.091 [main] INFO  c.n.k.a.w.controller.TopicController - TopicController initialized.
+2024-05-21 09:49:01.100 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.101 [main] INFO  c.n.k.a.w.c.ReviewController - ReviewController initialized.
+2024-05-21 09:49:01.108 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.108 [main] INFO  c.n.k.a.w.c.QuestionReviewGradeController - QuestionReviewGradeController initialized.
+2024-05-21 09:49:01.113 [main] INFO  c.n.k.a.w.c.c.ImmutableController - Child of ImmutableController instantiated.
+2024-05-21 09:49:01.113 [main] INFO  c.n.k.a.w.c.QuestionController - QuestionController initialized.
+2024-05-21 09:49:01.211 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-21 09:49:01.298 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Kikaishin's security filter setup init.
+2024-05-21 09:49:01.559 [main] DEBUG c.n.k.a.w.s.SecurityConfiguration - Kikaishin's security filter setup ready for build.
+2024-05-21 09:49:01.939 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 2501 (http) with context path '/kikaishin'
+2024-05-21 09:49:01.949 [main] INFO  c.n.k.app.KikaiWebApplication - Started KikaiWebApplication in 6.437 seconds (process running for 7.301)
+2024-05-21 09:50:09.579 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
