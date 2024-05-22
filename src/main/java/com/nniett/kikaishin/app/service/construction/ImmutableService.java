@@ -3,6 +3,8 @@ package com.nniett.kikaishin.app.service.construction;
 import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public abstract class ImmutableService
         CanDelete<PK>
 
 {
+    private static final Logger logger = LoggerFactory.getLogger(ImmutableService.class);
 
     private final ListCrudRepository<ENTITY, PK> repository;
     private final CreateService<ENTITY, PK, POJO, CREATE_DTO> createService;

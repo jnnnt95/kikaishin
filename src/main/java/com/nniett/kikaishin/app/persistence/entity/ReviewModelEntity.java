@@ -5,21 +5,20 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "review_model")
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ReviewModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
-
-//    @Column(name = "question_fk")
-//    private Integer questionId;
 
     @Column(nullable = false)
     private Float x0;

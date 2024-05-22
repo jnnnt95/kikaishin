@@ -18,6 +18,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,12 +48,16 @@ public class BookController
                 >
         implements CanCheckOwnership<Integer>, CanVerifyId<Integer>, VerifiesIntegerId
 {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+
     private final ShelfController parentController;
 
     @Autowired
     public BookController(BookService service, ShelfController shelfController) {
         super(service);
         this.parentController = shelfController;
+        logger.info("BookController initialized.");
     }
 
     @Override
@@ -70,13 +76,18 @@ public class BookController
                     schema = @Schema(implementation = BookCreationDto.class))
     })
     public ResponseEntity<BookDto> persistNewEntity(@Valid @RequestBody BookCreationDto dto) {
+        logger.debug("Book requested to be created using method: {}.", "persistNewEntity(BookCreationDto)");
+        logger.trace("Book creation request body: {}.", dto.toString());
         if(parentController.valid(dto.getParentPK())) {
             if(parentController.own(dto.getParentPK())) {
+                logger.debug("Returning expected positive response.");
                 return create(dto);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -93,13 +104,18 @@ public class BookController
             @Parameter(name = ID, description = "Book Id")
     })
     public ResponseEntity<BookDto> getEntityById(@PathVariable(ID) Integer id) {
+        logger.debug("BookDto requested using method: {}.", "getEntityById(Integer)");
+        logger.trace("Expected BookDto id {}.", id);
         if(valid(id)) {
             if(own(id)) {
+                logger.debug("Returning expected positive response.");
                 return readById(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -120,9 +136,13 @@ public class BookController
                     schema = @Schema(implementation = BookUpdateDto.class))
     })
     public ResponseEntity<BookDto> updateEntity(@Valid @RequestBody BookUpdateDto dto) {
+        logger.debug("Book update requested using method: {}.", "updateEntity(BookUpdateDto)");
+        logger.trace("Book update request body: {}.", dto.toString());
         if(own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return update(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -140,13 +160,18 @@ public class BookController
             @Parameter(name = ID, description = "Book Id")
     })
     public ResponseEntity<Void> deleteEntityById(@PathVariable(ID) Integer id) {
+        logger.debug("Book deletion requested using method: {}.", "deleteEntityById(Integer)");
+        logger.trace("Expected deletion happening on id {}.", id);
         if(valid(id)) {
             if(own(id)) {
+                logger.debug("Returning expected positive response.");
                 return delete(id);
             } else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -164,9 +189,13 @@ public class BookController
             @Parameter(name = "BookUpdateDto", schema = @Schema(implementation = BookUpdateDto.class))
     })
     public ResponseEntity<Void> toggleActive(@Valid @RequestBody BookUpdateDto dto) {
+        logger.debug("Book toggle action using method: {}.", "toggleActive(BookUpdateDto)");
+        logger.trace("Expected toggle with id {}.", dto.getBookId());
         if(own(dto.getPK())) {
+            logger.debug("Returning expected positive response.");
             return toggleStatus(dto);
         } else {
+            logger.debug("Returning not found response.");
             return ResponseEntity.notFound().build();
         }
     }
@@ -187,16 +216,21 @@ public class BookController
             @Parameter(name = ID, description = "Book Id")
     })
     public ResponseEntity<BookInfoDto> requestBookInfo(
-            @PathVariable(name = ID) Integer bookId
+            @PathVariable(name = ID) Integer id
     ) {
-        if(valid(bookId)) {
-            if(own(bookId)) {
-                return new ResponseEntity<>(getService().getBookInfo(bookId), HttpStatus.OK);
+        logger.debug("ShelfInfoDto requested using method: {}.", "requestShelfInfo(Integer)");
+        logger.trace("Expected ShelfInfoDto with id {}.", id);
+        if(valid(id)) {
+            if(own(id)) {
+                logger.debug("Returning expected positive response.");
+                return new ResponseEntity<>(getService().getBookInfo(id), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -215,16 +249,21 @@ public class BookController
     public ResponseEntity<List<BookInfoDto>> requestBooksInfo(
             @PathVariable(name = IDS) Set<Integer> bookIds
     ) {
+        logger.debug("ShelfInfoDto list requested using method: {}.", "getEntityById(Integer)");
+        logger.trace("Expected ShelfInfoDto list with ids {}.", bookIds);
         if(valid(bookIds)) {
             List<Integer> ids = new ArrayList<>(bookIds);
             // all books are owned or request is rejected.
             if(own(ids)) {
+                logger.debug("Returning expected positive response.");
                 return new ResponseEntity<>(getService().getBooksInfo(ids), HttpStatus.OK);
             }
             else {
+                logger.debug("Returning not found response.");
                 return ResponseEntity.notFound().build();
             }
         } else {
+            logger.debug("Returning bad request response.");
             return ResponseEntity.badRequest().build();
         }
     }
@@ -232,12 +271,30 @@ public class BookController
 
     @Override
     public boolean own(List<Integer> ids) {
-        return getService().countExistingIds(ids) == ids.size();
+        logger.debug("Book ids validation for ownership.");
+        logger.trace("Checking if ids are own. Ids: {}.", ids.toString());
+        boolean ownCheck = getService().countExistingIds(ids) == ids.size();
+        if(ownCheck) {
+            logger.trace("Ids are own. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not own. Ids: {}.", ids);
+        }
+        logger.debug("Book ids validation for ownership completed.");
+        return ownCheck;
     }
 
     @Override
     public boolean valid(Collection<Integer> ids) {
-        return validIntegers(ids);
+        logger.debug("Book ids validation.");
+        logger.trace("Checking if ids are valid. Ids: {}", ids);
+        boolean validCheck = validIntegers(ids);
+        if(validCheck) {
+            logger.trace("Ids are valid. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not valid. Ids: {}.", ids);
+        }
+        logger.debug("Book ids validation completed.");
+        return validCheck;
     }
 
 }

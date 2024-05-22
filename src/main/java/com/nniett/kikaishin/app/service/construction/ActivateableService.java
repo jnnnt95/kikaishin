@@ -17,6 +17,7 @@ public abstract class ActivateableService
         extends Service<CREATE_DTO, UPDATE_DTO, POJO, ENTITY, PK>
         implements ActivateActionableService<ENTITY, PK, UPDATE_DTO>
 {
+
     public ActivateableService(
             ListCrudRepository<ENTITY, PK> repository,
             CreateService<ENTITY, PK, POJO, CREATE_DTO> createService,

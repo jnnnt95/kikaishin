@@ -9,11 +9,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Setter
 @Getter
+@ToString
 public class TopicCreationDto implements
         CreationDtoWithParent<Integer>,
         CreationDtoWithChildren<Integer, QuestionCreationDto>

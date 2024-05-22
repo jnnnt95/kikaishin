@@ -7,9 +7,11 @@ import com.nniett.kikaishin.common.Constants;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 public class AnswerCreationDto implements
         CreationDtoWithParent<Integer>,
         CreationDto<Integer> {

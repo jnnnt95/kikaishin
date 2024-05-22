@@ -6,6 +6,8 @@ import com.nniett.kikaishin.app.persistence.repository.provider.database.Connect
 import com.nniett.kikaishin.app.persistence.repository.provider.database.ReadProvider;
 import com.nniett.kikaishin.common.Action;
 import com.nniett.kikaishin.common.SqlConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,12 +22,17 @@ import static com.nniett.kikaishin.common.SqlConstants.GET___QUESTIONS_IN_LIST__
 @Repository
 public class ReviewableQuestionVirtualRepository extends VirtualRepository<ReviewableQuestionVirtualEntity> {
 
+    private static final Logger logger = LoggerFactory.getLogger(ReviewableQuestionVirtualRepository.class);
+
     @Autowired
     public ReviewableQuestionVirtualRepository(ConnectionProvider connectionProvider) {
         super(connectionProvider);
+        logger.info("ReviewableQuestionVirtualRepository initialized.");
     }
 
     public List<ReviewableQuestionVirtualEntity> getAllReviewableQuestions(String username) {
+        logger.debug("Retrieving all reviewable questions.");
+        logger.trace("Reviewable questions being retrieved for username: {}.", username);
         List<ReviewableQuestionVirtualEntity> entities = new ArrayList<>();
         Map<String, Action> params = new HashMap<>();
         params.put(ReadProvider.PREPARE, getPrepareActionForAll(username));
@@ -35,6 +42,7 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public List<ReviewableQuestionVirtualEntity> getReviewableQuestionsByIdsIn(List<Integer> questionIds) {
+        logger.debug("Retrieving reviewable questions from ids list.");
         String query = buildQueryWithPreparationList(GET___QUESTIONS_IN_LIST___QUERY, 1, questionIds.size());
         List<ReviewableQuestionVirtualEntity> entities = new ArrayList<>();
         Map<String, Action> params = new HashMap<>();
@@ -45,6 +53,8 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public Action getPrepareActionForAll(String username) {
+        logger.debug("Creating prepare action.");
+        logger.trace("Prepare action being created for username {}.", username);
         return s -> {
             PreparedStatement stmt = (PreparedStatement) s;
             try {
@@ -56,6 +66,8 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public Action getPrepareActionForSelectById(List<Integer> questionIds) {
+        logger.debug("Creating prepare action.");
+        logger.trace("Prepare action being created for question ids {}.", questionIds);
         return s -> {
             PreparedStatement stmt = (PreparedStatement) s;
             try {
@@ -69,6 +81,8 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public List<ReviewableQuestionVirtualEntity> getShelfReviewableQuestions(String username, Integer shelfId) {
+        logger.debug("Retrieving reviewable questions for specific shelf.");
+        logger.trace("Reviewable questions being retrieved for shelf id {}.", shelfId);
         List<ReviewableQuestionVirtualEntity> entities = new ArrayList<>();
         Map<String, Action> params = new HashMap<>();
         params.put(ReadProvider.PREPARE, getPrepareActionForNotAll(username, shelfId));
@@ -78,6 +92,8 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public Action getPrepareActionForNotAll(String username, Integer containerId) {
+        logger.debug("Creating prepare action.");
+        logger.trace("Prepare action being created for username {} and container id {}.", username, containerId);
         return s -> {
             PreparedStatement stmt = (PreparedStatement) s;
             try {
@@ -90,6 +106,7 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public Action getFinishAction(List<ReviewableQuestionVirtualEntity> entities) {
+        logger.debug("Creating finish action.");
         return r -> {
             ResultSet result = (ResultSet) r;
             try {
@@ -109,13 +126,17 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
                     this.x2 = result.getFloat("x2");
                     entities.add(getInstance());
                 }
+                logger.trace("Total question retrieved: {}.", entities.size());
             } catch (SQLException e) {
+                logger.error("Finish action could not be executed. Reason {}.", e.getMessage());
                 throw new RuntimeException(e);
             }
         };
     }
 
     public List<ReviewableQuestionVirtualEntity> getBookReviewableQuestions(String username, Integer bookId) {
+        logger.debug("Retrieving reviewable questions for specific book.");
+        logger.trace("Reviewable questions being retrieved for book id {}.", bookId);
         List<ReviewableQuestionVirtualEntity> entities = new ArrayList<>();
         Map<String, Action> params = new HashMap<>();
         params.put(ReadProvider.PREPARE, getPrepareActionForNotAll(username, bookId));
@@ -125,6 +146,8 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
     }
 
     public List<ReviewableQuestionVirtualEntity> getTopicReviewableQuestions(String username, Integer topicId) {
+        logger.debug("Retrieving reviewable questions for specific topic.");
+        logger.trace("Reviewable questions being retrieved for topic id {}.", topicId);
         List<ReviewableQuestionVirtualEntity> entities = new ArrayList<>();
         Map<String, Action> params = new HashMap<>();
         params.put(ReadProvider.PREPARE, getPrepareActionForNotAll(username, topicId));
@@ -147,6 +170,8 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
 
     @Override
     protected ReviewableQuestionVirtualEntity getInstance() {
+        logger.debug("Instantiating ReviewableQuestionVirtualEntity.");
+        logger.trace("ReviewableQuestionVirtualEntity being created for question id: {}.", this.questionId);
         ReviewableQuestionVirtualEntity entity = new ReviewableQuestionVirtualEntity();
         entity.setQuestionId(questionId);
         entity.setBody(body);
@@ -163,6 +188,7 @@ public class ReviewableQuestionVirtualRepository extends VirtualRepository<Revie
         reviewModelEntity.setX2(x2);
 
         entity.setReviewModel(reviewModelEntity);
+        logger.debug("Calculating ReviewableQuestionVirtualEntity next review date.");
         entity.calculateNextReviewDate();
         return entity;
     }

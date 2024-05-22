@@ -8,6 +8,8 @@ import com.nniett.kikaishin.app.web.controller.construction.CanCheckOwnership;
 import com.nniett.kikaishin.app.web.controller.construction.CanVerifyId;
 import com.nniett.kikaishin.app.web.controller.construction.ImmutableController;
 import com.nniett.kikaishin.app.web.controller.construction.VerifiesIntegerId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +32,11 @@ public class ReviewController extends ImmutableController
                 >
         implements CanCheckOwnership<Integer>, CanVerifyId<Integer>, VerifiesIntegerId
 {
-
+    private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
     public ReviewController(ReviewService service) {
         super(service);
+        logger.info("ReviewController initialized.");
     }
 
     @Override
@@ -55,11 +58,29 @@ public class ReviewController extends ImmutableController
 
     @Override
     public boolean own(List<Integer> ids) {
-        return getService().countExistingIds(ids) == ids.size();
+        logger.debug("Review ids validation for ownership.");
+        logger.trace("Checking if ids are own. Ids: {}.", ids.toString());
+        boolean ownCheck = getService().countExistingIds(ids) == ids.size();
+        if(ownCheck) {
+            logger.trace("Ids are own. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not own. Ids: {}.", ids);
+        }
+        logger.debug("Review ids validation for ownership completed.");
+        return ownCheck;
     }
 
     @Override
     public boolean valid(Collection<Integer> ids) {
-        return validIntegers(ids);
+        logger.debug("Review ids validation.");
+        logger.trace("Checking if ids are valid. Ids: {}", ids);
+        boolean validCheck = validIntegers(ids);
+        if(validCheck) {
+            logger.trace("Ids are valid. Ids: {}.", ids);
+        } else {
+            logger.trace("One or more values in list are not valid. Ids: {}.", ids);
+        }
+        logger.debug("Review ids validation completed.");
+        return validCheck;
     }
 }

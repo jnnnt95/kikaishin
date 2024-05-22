@@ -8,9 +8,12 @@ import com.nniett.kikaishin.app.service.mapper.TopicMapper;
 import com.nniett.kikaishin.app.service.mapper.dto.topic.TopicCreationMapper;
 import com.nniett.kikaishin.app.service.dto.write.topic.TopicCreationDto;
 import com.nniett.kikaishin.common.Constants;
-import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
@@ -24,6 +27,7 @@ public class TopicCreateService
                         TopicCreationDto
                         >
 {
+    private static final Logger logger = LoggerFactory.getLogger(TopicCreateService.class);
     private static final Random RANDOM = new Random();
     private static final char[] LOOKUP_KEY_CONSTRUCTION_CHARS = new char[]
             {
@@ -46,45 +50,22 @@ public class TopicCreateService
             TopicCreationMapper createMapper
     ) {
         super(repository, entityPojoMapper, createMapper);
+        logger.info("TopicCreateService initialized.");
     }
 
-//    public String generateNewLookupKey(int id) {
-//        StringBuilder lookupBuilderInverse = new StringBuilder();
-//        StringBuilder lookupBuilder = new StringBuilder();
-//        String s_id = String.valueOf(id);
-//
-//        for(int i = s_id.length() - 1; i >= 0; i--) {
-//            int val = Integer.parseInt(String.valueOf(s_id.charAt(i)));
-//            lookupBuilderInverse.append(
-//                    LOOKUP_KEY_CONSTRUCTION_CHARS[val]
-//            );
-//            lookupBuilderInverse.append(
-//                    LOOKUP_KEY_CONSTRUCTION_CHARS[val+1]
-//            );
-//            lookupBuilderInverse.append(
-//                    LOOKUP_KEY_CONSTRUCTION_CHARS[val+2]
-//            );
-//        }
-//
-//        for(int i = 0; i < Constants.LOOKUP_KEY_SIZE - lookupBuilderInverse.length(); i++) {
-//            lookupBuilderInverse.append(LOOKUP_KEY_CONSTRUCTION_CHARS[0]);
-//        }
-//
-//        for(int i = lookupBuilderInverse.length() - 1; i >= 0; i--) {
-//            lookupBuilder.append(lookupBuilderInverse.charAt(i));
-//        }
-//
-//        return lookupBuilder.toString();
-//    }
-
     @Override
-    @Transactional(Transactional.TxType.MANDATORY)
+    @Transactional(propagation = Propagation.MANDATORY)
     public void populateAsDefaultForCreation(TopicEntity pojo) {
+        logger.debug("Populating default fields for new topic.");
+        logger.trace("Populating default field active as true.");
         pojo.setActive(true);
-        pojo.setLookupKey(generateNewLookupKey());
+        String lookupKey = generateNewLookupKey();
+        logger.trace("Populating lookup field as {}.", lookupKey);
+        pojo.setLookupKey(lookupKey);
     }
 
     public String generateNewLookupKey() {
+        logger.debug("Generating lookup key.");
         StringBuilder lookupBuilder;
         do {
             lookupBuilder = new StringBuilder();

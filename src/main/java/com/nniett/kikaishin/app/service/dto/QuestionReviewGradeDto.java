@@ -5,10 +5,12 @@ import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class QuestionReviewGradeDto implements Pojo<Integer> {
     @JsonIgnore
     private Integer questionReviewGradeId;

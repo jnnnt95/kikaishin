@@ -4,6 +4,8 @@ import com.nniett.kikaishin.app.service.dto.common.Pojo;
 import com.nniett.kikaishin.app.service.dto.write.CreationDto;
 import com.nniett.kikaishin.app.service.dto.write.UpdateDto;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,7 @@ public abstract class Service
                 >
 
 {
+    private static final Logger logger = LoggerFactory.getLogger(Service.class);
 
     private final UpdateService<ENTITY, PK, UPDATE_DTO, POJO> updateService;
 
