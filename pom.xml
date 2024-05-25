@@ -8,10 +8,10 @@
 		<version>3.2.4</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.nniett.kikaishin.web</groupId>
-	<artifactId>kikaishin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>kikaishin</name>
+	<groupId>com.nniett.kikaishin</groupId>
+	<artifactId>kikaishin-api</artifactId>
+	<version>1.0</version>
+	<name>Kikaishin, The Not-To-Forget Tool</name>
 	<description>Kikaishin: The Not-To-Forget Tool.</description>
 	<properties>
 		<java.version>17</java.version>
@@ -82,9 +82,44 @@
 			<version>2.3.0</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>runbatchfile</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>kikaishin-assembly.bat</executable>
+					<workingDirectory/>
+					<arguments>
+						<argument>${project.artifactId}</argument>
+						<argument>${project.version}</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>lib/</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

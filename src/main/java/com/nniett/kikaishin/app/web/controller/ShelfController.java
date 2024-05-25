@@ -230,7 +230,7 @@ public class ShelfController
     public ResponseEntity<List<ShelfInfoDto>> requestShelvesInfo(
             @PathVariable(name = IDS) Set<Integer> shelfIds
     ) {
-        logger.debug("ShelfInfoDto list requested using method: {}.", "getEntityById(Integer)");
+        logger.debug("ShelfInfoDto list requested using method: {}.", "requestShelvesInfo(Set<Integer>)");
         logger.trace("Expected ShelfInfoDto list with ids {}.", shelfIds);
         if(valid(shelfIds)) {
             List<Integer> ids = new ArrayList<>(shelfIds);

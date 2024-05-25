@@ -14,5 +14,4 @@ public class KikaishinAPI {
 		logger.debug("KikaishinAPI kick-started.");
 		SpringApplication.run(KikaishinAPI.class, args);
 	}
-
 }

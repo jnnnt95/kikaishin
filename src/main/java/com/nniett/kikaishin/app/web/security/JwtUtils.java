@@ -37,7 +37,14 @@ public class JwtUtils {
     }
 
     public boolean isValidWithUsernameCheck(String token) {
-        String username = getUsername(token);
+        String username;
+        try {
+            username = getUsername(token);
+        } catch(RuntimeException e) {
+            logger.error("Username could not be retrieved. Reason: {}.", e.getMessage());
+            logger.trace("Failed on token: {}.", token);
+            throw e;
+        }
         logger.debug("JWT validation.");
         if(((UserService) BeanUtil.getBean("userService")).checkIsBlocked(username)) {
             logger.debug("JWT not valid because user is blocked");

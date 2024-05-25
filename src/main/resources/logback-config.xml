@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property resource="application.properties" />
+
+    <springProperty name="fileNamePattern" source="kikaishin.application.logging.file.name.pattern"/>
+    <springProperty name="encoderPattern" source="kikaishin.application.logging.encoder.pattern"/>
+    <springProperty name="kikaishinPackage" source="kikaishin.main.package"/>
+    <springProperty name="appLoggingLevel" source="kikaishin.application.logging.level"/>
+    <springProperty name="thirdPartyLoggingLevel" source="kikaishin.application.third.logging.level"/>
+
     <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
 
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${kikaishin.logging.file.name.pattern}</fileNamePattern>
+            <fileNamePattern>${fileNamePattern}</fileNamePattern>
             <!-- keep 90 days' worth of history -->
             <maxHistory>90</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>${encoderPattern}</pattern>
         </encoder>
     </appender>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>${encoderPattern}</pattern>
         </encoder>
     </appender>
 
     <!-- LOGGERS DEFINITION -->
 
-    <logger name="${kikaishin.main.package}" additivity="false">
-        <level value="INFO" />
+    <logger name="${kikaishinPackage}" additivity="false">
+        <level value="${appLoggingLevel}" />
         <appender-ref ref="FILE-ROLLING"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     <logger name="org.springframework" additivity="false">
-        <level value="INFO" />
+        <level value="${thirdPartyLoggingLevel}" />
         <appender-ref ref="FILE-ROLLING"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     <logger name="org.apache.tomcat">
-        <level value="INFO" />
+        <level value="${thirdPartyLoggingLevel}" />
         <appender-ref ref="FILE-ROLLING"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
